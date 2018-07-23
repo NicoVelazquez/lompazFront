@@ -6,13 +6,17 @@ import { LandingComponent } from './landing/landing.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductCardComponent } from './product-list/product-card/product-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
+    ProductListComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
