@@ -8,7 +8,6 @@ export class ProductService {
   products = [{'name': 'Lompaz', 'description': 'El mejor de todos', 'photoUrl': '../../assets/images/lompa.jpg'},
     {'name': 'Lompaz', 'description': 'El mejor de todos', 'photoUrl': '../../assets/images/lompa.jpg'},
     {'name': 'Lompaz', 'description': 'El mejor de todos', 'photoUrl': '../../assets/images/lompa.jpg'},
-    {'name': 'Lompaz', 'description': 'El mejor de todos', 'photoUrl': '../../assets/images/lompa.jpg'},
     {'name': 'Lompaz', 'description': 'El mejor de todos', 'photoUrl': '../../assets/images/lompa.jpg'}
   ];
 

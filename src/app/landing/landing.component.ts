@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import * as UIkit from 'uikit';
 import {ProductService} from "../shared/services/product.service";
+import {BannerService} from "../shared/services/banner.service";
 
 
 @Component({
@@ -11,14 +12,17 @@ import {ProductService} from "../shared/services/product.service";
 export class LandingComponent implements OnInit {
 
   products = [];
+  banners = [];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private bannerService: BannerService) {
   }
 
   ngOnInit() {
     // Hay que hacer el service que me traiga los productos con promise
     this.products = this.productService.getAllProducts();
-
+    // Hay que hacer el service que me traiga los banners con promise
+    this.banners = this.bannerService.getBanners();
+    console.log(this.banners);
     UIkit.notification({
       message: 'Hola',
       status: 'primary',

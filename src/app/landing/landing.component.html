@@ -1,28 +1,56 @@
-<div class="landing-products uk-width-1-1 uk-margin-large-top ">
+<div class="slideshow uk-width-1-1">
+  <div uk-slideshow="ratio: 7:2; autoplay: true; autoplay-interval: 4000">
+    <div class="uk-position-relative uk-visible-toggle uk-light">
+      <ul class="uk-slideshow-items">
+        <li *ngFor="let banner of banners">
+          <img src={{banner.photoUrl}} alt={{banner.name}} uk-cover>
+        </li>
+      </ul>
+
+      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+         uk-slideshow-item="previous"></a>
+      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+         uk-slideshow-item="next"></a>
+
+    </div>
+    <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
+  </div>
+</div>
+
+<div class="landing-products uk-width-1-1 uk-margin-medium-top ">
+
+  <h3>Nuevo en tienda!</h3>
+
   <app-product-list [products]="products"></app-product-list>
 </div>
 
+
 <div id="aboutUs" class="about-us uk-width-1-1 uk-margin-large-top">
 
-  <h3>Quienes Somos?</h3>
+  <h3>¿Porque nosotros?</h3>
 
-  <div class="uk-child-width-1-3@m uk-grid-small" uk-grid>
+  <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
     <div>
       <div class="uk-card uk-card-default uk-card-body uk-card-small">
-        <h3 class="uk-card-title">Default</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <img class="uk-align-left uk-margin-remove-adjacent uk-margin-small-top" src="../../assets/images/envios.png"
+             width="50" height="50">
+        <h3 class="uk-card-title">Envios Gratis</h3>
+        <p>Valido para compras superiores a $1999</p>
       </div>
     </div>
     <div>
       <div class="uk-card uk-card-primary uk-card-body uk-card-small">
-        <h3 class="uk-card-title">Primary</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <img class="uk-align-left uk-margin-remove-adjacent" src="../../assets/images/cambios.png" width="45"
+             height="45">
+        <h3 class="uk-card-title">Devoluciones Simples</h3>
+        <p>Cambiaste de opinion? No hay problema. Nuestro sistema de devoluciones es simple.</p>
       </div>
     </div>
     <div>
       <div class="uk-card uk-card-secondary uk-card-body uk-card-small">
-        <h3 class="uk-card-title">Secondary</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <img class="uk-align-left uk-margin-remove-adjacent" src="../../assets/images/pagos.png" width="50" height="50">
+        <h3 class="uk-card-title">Medios de Pago</h3>
+        <p>Podes comprar con todas las tarjetas de todos los bancos.</p>
       </div>
     </div>
   </div>
