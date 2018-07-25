@@ -1,0 +1,102 @@
+<div class="banner uk-width-1-1" *ngIf="url != null">
+  <div uk-slideshow="ratio: 9:2; autoplay: true; autoplay-interval: 4000">
+    <div class="uk-position-relative uk-visible-toggle uk-light">
+      <ul class="uk-slideshow-items">
+        <li class="banner-image">
+          <img [src]="url" uk-cover>
+          <div class="banner-text uk-position-center uk-position-small uk-text-center uk-light">
+            <h2 class="uk-margin-remove">Vista Previa</h2>
+            <p class="uk-margin-remove">Asi se vera el banner en la pagina principal</p>
+          </div>
+          <div class="close-banner uk-position-top-right uk-position-small uk-text-center uk-light"
+               (click)="closeBanner()">
+            <span uk-icon="icon: close; ratio: 1.5"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="spinner-container uk-width-1-1" *ngIf="showSpinner">
+  <div class="spinner">
+    <span uk-spinner="ratio: 4.5"></span>
+  </div>
+</div>
+
+<div class="add-banner">
+  <h3>{{addBannerText}}</h3>
+  <form [formGroup]="bannerForm">
+
+    <div class="uk-margin" *ngIf="url == null">
+      <div uk-form-custom>
+        <input type="file" (change)="readUrl($event)">
+        <button class="uk-button uk-button-default" type="button" tabindex="-1">Seleccionar</button>
+      </div>
+    </div>
+
+    <div class="select-dates" *ngIf="url != null">
+      <div class="uk-grid-small" uk-grid>
+        <div class="uk-width-1-4@s">
+          <label class="uk-form-label" for="start">Fecha de Inicio:</label>
+          <input class="uk-input" id="start" type="date" formControlName="startDate">
+        </div>
+        <div class="uk-width-1-4@s">
+          <label class="uk-form-label" for="finish">Fecha de Finalizacion:</label>
+          <input class="uk-input" id="finish" type="date" formControlName="finishDate">
+        </div>
+      </div>
+      <div class="save-banner uk-margin-small-top">
+        <button class="uk-button uk-button-primary" (click)="addBanner()" [disabled]="bannerForm.invalid">Guardar
+        </button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="remove-banners uk-margin-medium-bottom">
+  <h3>Eliminar Banners</h3>
+  <div class="banners-slider">
+    <div class="uk-position-relative uk-visible-toggle uk-dark" uk-slider="center: true">
+
+      <ul class="uk-slider-items uk-width-1-1" uk-grid>
+        <li *ngIf="banners.length == 0"><h4>No hay banners actualmente</h4></li>
+        <li class="uk-width-3-4" *ngFor="let banner of banners">
+          <div class="complete-banner uk-panel">
+            <img src="{{banner.photoUrl}}" style="height: 400px; width: 1500px">
+            <div class="close-banner uk-position-top-right uk-position-small uk-text-center uk-light">
+              <a (click)="editBanner(banner.id)"><span uk-icon="icon: pencil; ratio: 1.1"></span></a>
+              <a href="#confirmDeleteBanner" uk-toggle (click)="deleteBanner(banner.id)"><span uk-icon="icon: close; ratio: 1.5"></span></a>
+            </div>
+            <div class="dates-banner uk-position-center uk-position-small uk-text-center uk-light">
+              <p>{{banner.startDate}} | {{banner.finishDate}}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+         uk-slider-item="previous"></a>
+      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+         uk-slider-item="next"></a>
+    </div>
+  </div>
+</div>
+
+
+<app-edit-banner></app-edit-banner>
+
+
+<div id="confirmDeleteBanner" uk-modal>
+  <div class="uk-modal-dialog">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <h2 class="uk-modal-title">Estas seguro que deseas eliminar el banner?</h2>
+    </div>
+    <div class="uk-modal-body uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+      <button class="uk-button uk-button-danger uk-margin-small-left" type="button" (click)="confirmDeleteBanner()">Eliminar</button>
+    </div>
+  </div>
+</div>

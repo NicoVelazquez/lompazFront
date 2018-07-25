@@ -1,0 +1,46 @@
+.banner-image:hover .banner-text {
+  opacity: 0.7;
+}
+
+.banner-text {
+  background-color: #F6F6F6;
+  padding: 10px 20px;
+  opacity: 0;
+}
+
+.banner-text > h2, p {
+  color: black;
+}
+
+.spinner-container {
+  padding: 20px;
+}
+
+.spinner {
+  margin: 0 auto;
+  max-width: 0;
+}
+
+.add-banner, .remove-banners > h3 {
+  margin: 30px 20px;
+}
+
+.close-banner {
+  background-color: black;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.dates-banner {
+  background-color: #F6F6F6;
+  opacity: 0;
+  padding: 10px;
+}
+
+.dates-banner > p {
+  margin: 0;
+}
+
+.complete-banner:hover .dates-banner {
+  opacity: 0.7;
+}

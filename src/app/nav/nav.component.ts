@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import * as UIkit from 'uikit';
+import {SignInUpComponent} from './sign-in-up/sign-in-up.component';
+import {AuthService} from '../shared/services/auth.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(SignInUpComponent) child: SignInUpComponent;
 
-  ngOnInit() {
+  constructor(public auth: AuthService, private router: Router) {
   }
 
+  ngOnInit() {
+
+  }
+
+  signIn() {
+    UIkit.modal('#sign-modal').show();
+    this.child.signIn();
+  }
+
+  signUp() {
+    UIkit.modal('#sign-modal').show();
+    this.child.signUp();
+  }
 }

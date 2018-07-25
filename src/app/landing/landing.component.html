@@ -1,5 +1,5 @@
 <div class="slideshow uk-width-1-1">
-  <div uk-slideshow="ratio: 7:2; autoplay: true; autoplay-interval: 4000">
+  <div uk-slideshow="ratio: 9:2; autoplay: true; autoplay-interval: 4000">
     <div class="uk-position-relative uk-visible-toggle uk-light">
       <ul class="uk-slideshow-items">
         <li *ngFor="let banner of banners">
@@ -32,25 +32,39 @@
   <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
     <div>
       <div class="uk-card uk-card-default uk-card-body uk-card-small">
-        <img class="uk-align-left uk-margin-remove-adjacent uk-margin-small-top" src="../../assets/images/envios.png"
-             width="50" height="50">
-        <h3 class="uk-card-title">Envios Gratis</h3>
-        <p>Valido para compras superiores a $1999</p>
+        <div class="icon-image uk-align-left uk-height-1-1">
+          <img class="uk-margin-remove-adjacent uk-margin-small-top" src="../../assets/images/envios.png"
+               width="50" height="50">
+        </div>
+        <div class="card-body">
+          <h3 class="uk-card-title">Envios Gratis</h3>
+          <p>Valido para compras superiores a $1999</p>
+        </div>
       </div>
     </div>
     <div>
       <div class="uk-card uk-card-primary uk-card-body uk-card-small">
-        <img class="uk-align-left uk-margin-remove-adjacent" src="../../assets/images/cambios.png" width="45"
-             height="45">
-        <h3 class="uk-card-title">Devoluciones Simples</h3>
-        <p>Cambiaste de opinion? No hay problema. Nuestro sistema de devoluciones es simple.</p>
+        <div class="icon-image uk-align-left uk-height-1-1">
+          <img class="icon-image uk-align-left uk-margin-remove-adjacent" src="../../assets/images/cambios.png"
+               width="45"
+               height="45">
+        </div>
+        <div class="card-body">
+          <h3 class="uk-card-title">Devoluciones Simples</h3>
+          <p>Cambiaste de opinion? No hay problema. Nuestro sistema de devoluciones es simple.</p>
+        </div>
       </div>
     </div>
     <div>
       <div class="uk-card uk-card-secondary uk-card-body uk-card-small">
-        <img class="uk-align-left uk-margin-remove-adjacent" src="../../assets/images/pagos.png" width="50" height="50">
-        <h3 class="uk-card-title">Medios de Pago</h3>
-        <p>Podes comprar con todas las tarjetas de todos los bancos.</p>
+        <div class="icon-image uk-align-left uk-height-1-1">
+          <img class="icon-image uk-align-left uk-margin-remove-adjacent" src="../../assets/images/pagos.png" width="50"
+               height="50">
+        </div>
+        <div class="card-body">
+          <h3 class="uk-card-title">Medios de Pago</h3>
+          <p>Podes comprar con todas las tarjetas de todos los bancos.</p>
+        </div>
       </div>
     </div>
   </div>

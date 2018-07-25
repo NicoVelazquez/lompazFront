@@ -1,0 +1,30 @@
+<div class="edit-banners uk-margin-medium-bottom">
+  <h3>Modificar Banner</h3>
+  <h5 *ngIf="bannerIdToEdit == null">Selecciona un banner para modificar</h5>
+  <h5 *ngIf="bannerIdToEdit != null">Estas editando el banner id: {{bannerIdToEdit}}</h5>
+
+  <!--<form [formGroup]="editBannerForm">-->
+
+    <div class="select-dates" *ngIf="bannerIdToEdit != null">
+      <div class="uk-grid-small" uk-grid>
+        <div class="uk-width-1-4@s">
+          <label class="uk-form-label" for="startE">Fecha de Inicio:</label>
+          <!--<input class="uk-input" id="startE" type="date" formControlName="startDateE">-->
+          <input class="uk-input" id="startE" type="date">
+        </div>
+        <div class="uk-width-1-4@s">
+          <label class="uk-form-label" for="finishE">Fecha de Finalizacion:</label>
+          <!--<input class="uk-input" id="finishE" type="date" formControlName="finishDateE">-->
+          <input class="uk-input" id="finishE" type="date">
+
+        </div>
+      </div>
+      <div class="save-banner uk-margin-small-top">
+        <!--<button class="uk-button uk-button-primary" (click)="confirmEditBanner()" [disabled]="editBannerForm.invalid">Guardar-->
+        <button class="uk-button uk-button-primary" (click)="confirmEditBanner()">Guardar
+        </button>
+      </div>
+    </div>
+
+  <!--</form>-->
+</div>

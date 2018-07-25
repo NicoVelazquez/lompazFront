@@ -5,7 +5,7 @@
       <img src="../../assets/images/logo.png">
     </a>
     <ul class="uk-navbar-nav">
-      <li class="uk-active"><a href="#">Home</a></li>
+      <li class="uk-active"><a routerLink="">Home</a></li>
       <li><a>Hombres</a></li>
       <li><a>Mujeres</a></li>
       <li><a>Lo nuevo</a></li>
@@ -28,21 +28,43 @@
 
   <div class="uk-navbar-right">
     <ul class="uk-navbar-nav">
-      <li>
-        <a href="#">Nicolas</a>
+      <li *ngIf="!auth.isLoggedIn()">
+        <a><span uk-icon="icon: user; ratio: 1.5"></span></a>
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
-            <li class="uk-active"><a href="#">Active</a></li>
-            <li><a href="#">Item</a></li>
-            <li class="uk-nav-header">Header</li>
-            <li><a href="#">Item</a></li>
-            <li><a href="#">Item</a></li>
-            <li class="uk-nav-divider"></li>
-            <li><a href="#">Item</a></li>
+            <li><a (click)="signIn()"><span uk-icon="sign-in"></span>  Entrar</a></li>
+            <hr>
+            <li><a (click)="signUp()"><span uk-icon="plus-circle"></span>  Crear Cuenta</a></li>
           </ul>
         </div>
       </li>
+
+      <li *ngIf="auth.isLoggedIn() && auth.isAdmin(); else normal_user">
+        <a><span uk-icon="icon: github; ratio: 1.5"></span></a>
+        <div class="uk-navbar-dropdown">
+          <ul class="uk-nav uk-navbar-dropdown-nav">
+            <li><a routerLink="/manage/banners"><span uk-icon="folder"></span>  Productos</a></li>
+            <hr>
+            <li><a routerLink="/manage/banners"><span uk-icon="album"></span>  Banners</a></li>
+          </ul>
+        </div>
+      </li>
+      <ng-template #normal_user>
+        <li>
+          <a><span uk-icon="icon: user; ratio: 1.5"></span></a>
+          <div class="uk-navbar-dropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li><a (click)="signIn()"><span uk-icon="sign-in"></span>  Usuario</a></li>
+              <hr>
+              <li><a (click)="signUp()"><span uk-icon="plus-circle"></span>  Crear Cuenta</a></li>
+            </ul>
+          </div>
+        </li>
+      </ng-template>
+
     </ul>
   </div>
 
 </nav>
+
+<app-sign-in-up></app-sign-in-up>

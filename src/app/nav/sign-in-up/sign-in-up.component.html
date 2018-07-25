@@ -1,0 +1,21 @@
+<div id="sign-modal" uk-modal>
+  <div class=" uk-modal-dialog">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="modal-header uk-modal-header">
+      <h2 class="uk-modal-title">Cuenta Lompaz</h2>
+    </div>
+
+    <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+      <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav" id="sign-nav">
+          <li class="uk-active"><a (click)="signIn()">Entrar</a></li>
+          <li><a (click)="signUp()">Crear Cuenta</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <app-sign-in *ngIf="tab == 'signIn'"></app-sign-in>
+    <app-sign-up *ngIf="tab == 'signUp'"></app-sign-up>
+
+  </div>
+</div>
