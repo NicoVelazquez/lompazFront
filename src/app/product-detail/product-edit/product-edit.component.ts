@@ -1,23 +1,31 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProductService} from '../shared/services/product.service';
+import {ProductService} from '../../shared/services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as UIkit from 'uikit';
-import {AuthService} from '../shared/services/auth.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+
 
 @Component({
-  selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css']
+  selector: 'app-product-edit',
+  templateUrl: './product-edit.component.html',
+  styleUrls: ['./product-edit.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductEditComponent implements OnInit {
 
+  public editForm: FormGroup;
   product: any;
   categoryProducts: any;
   sizes = [{'id': 1, 'name': 'Extra Small'}, {'id': 2, 'name': 'Small'}, {'id': 3, 'name': 'Medium'},
     {'id': 3, 'name': 'Large'}, {'id': 4, 'name': 'Extra Large'}];
   selectedSize: string;
 
-  constructor(public auth: AuthService, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
+  constructor(private fb: FormBuilder, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
+    this.editForm = fb.group({
+      'category': new FormControl(null, [Validators.required]),
+      'name': new FormControl(null, [Validators.required]),
+      'price': new FormControl(null, [Validators.required]),
+      'description': new FormControl(null, [Validators.required]),
+    });
   }
 
   ngOnInit() {
@@ -50,17 +58,13 @@ export class ProductDetailComponent implements OnInit {
     document.getElementById(size).style.fontWeight = 'bold';
   }
 
-  goToProduct(id: number) {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+  saveProduct(id: number) {
+    console.log(this.editForm.value);
+    UIkit.notification({
+      message: 'Los cambios se han realizado exitosamente',
+      status: 'primary',
+      pos: 'top-right'
     });
     this.router.navigate(['/product/' + id]);
   }
-
-  editProduct(id: number) {
-    this.router.navigate(['/product/' + id + '/edit']);
-  }
-
 }

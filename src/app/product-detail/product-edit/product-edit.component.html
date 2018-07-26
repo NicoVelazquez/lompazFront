@@ -1,0 +1,67 @@
+<div class="edit-mode">
+  <h2>Modo Edición</h2>
+  <p>Aquellos campos que no se modifiquen permaneceran iguales.</p>
+</div>
+
+<div class="product-body">
+  <div class="uk-flex uk-flex-center" uk-grid>
+
+    <div class="left-thumbnav uk-width-1-5 uk-visible@m">
+      <div class="uk-align-right uk-position-small">
+        <ul class="uk-thumbnav uk-thumbnav-vertical" uk-margin>
+          <li *ngFor="let photos of product.photoUrl; let i = index" uk-slideshow-item="2">
+            <a (click)="changeImage(i)"><img src="{{photos}}" width="50" alt=""></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="center-photo uk-width-large uk-flex uk-flex-center">
+      <div class="slideshow uk-width-1-1">
+        <div uk-slideshow="ratio: 2:3; autoplay: true; autoplay-interval: 4000">
+          <div class="uk-position-relative uk-visible-toggle uk-dark">
+            <ul class="uk-slideshow-items">
+              <li *ngFor="let photos of product.photoUrl">
+                <img src="{{photos}}" alt="" uk-cover>
+              </li>
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+               uk-slideshow-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+               uk-slideshow-item="next"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-details uk-width-1-5@m">
+      <div class="container-details">
+        <form [formGroup]="editForm">
+          <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
+                  (click)="saveProduct(product.id)">Guardar
+          </button>
+          <!--El input de category deberia ser una busqueda de categorias-->
+          <input class="uk-input uk-margin-small-bottom" id="category" type="text"
+          formControlName="category" placeholder="{{product.category}}">
+          <input class="uk-input uk-margin-small-bottom" id="name" type="text" formControlName="name"
+                 placeholder="{{product.name}}">
+          <input class="uk-input" id="price" type="number" formControlName="price" placeholder="$ {{product.price}}">
+          <hr>
+          <textarea class="uk-textarea uk-margin-small-bottom uk-width-1-1" name="description" rows="2"
+                    formControlName="description" placeholder="{{product.description}}"></textarea>
+
+          <span>Talles Disponibles:</span>
+          <ul class="talles uk-list uk-list-large uk-list-striped uk-width-2-3">
+            <li *ngIf="sizes.length == 0">No hay talles disponibles</li>
+            <li *ngFor="let size of sizes" (click)="selectSize(size.name)" id="{{size.name}}">{{size.name}}</li>
+          </ul>
+          <hr>
+          <button class="uk-button uk-button-primary uk-width-1-1" disabled uk-tooltip="Estas en modo edición">Agregar
+            al carrito
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
