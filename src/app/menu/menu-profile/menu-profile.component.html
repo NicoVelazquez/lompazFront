@@ -1,0 +1,120 @@
+<div class="profile-container" uk-grid>
+  <div class="uk-width-1-1">
+    <h3>Perfil</h3>
+  </div>
+
+
+  <div class="left-image uk-width-1-3">
+    <div class="profile-image uk-text-center">
+      <!--Aca no habria que tener el *ngIf, sino que se deberia cambiar la url del user photo y refreshar auto TODO-->
+      <img *ngIf="imageUrl == null" src="../../assets/images/user-default4.png">
+      <img *ngIf="imageUrl != null" src="{{imageUrl}}">
+      <div class="edit-image uk-position-center" uk-tooltip="Cambiar imagen" uk-form-custom>
+        <input type="file" (change)="readUrl($event)">
+        <button class="uk-button uk-button-default" type="button" tabindex="-1">
+          <a uk-icon="icon: pencil; ratio: 1.5"></a>
+        </button>
+      </div>
+    </div>
+
+    <!--<button class="uk-button uk-button-danger uk-width-1-1 uk-margin-medium-top" (click)="deleteUser()">-->
+      <!--Eliminar Usuario-->
+    <!--</button>-->
+    <div class="uk-flex uk-flex-center uk-margin-medium-top" (click)="deleteUser()">
+      <a class="deleteUser">Eliminar Usuario</a>
+    </div>
+  </div>
+
+  <div class="right-profile uk-width-2-3">
+    <form class="uk-form-stacked" [formGroup]="profileForm">
+
+      <div class="uk-margin">
+        <label class="uk-form-label" for="name">Nombre</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="name" type="text" value="Nicolas">
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <label class="uk-form-label" for="lastname">Nombre</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="lastname" type="text" value="Velazquez">
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <label class="uk-form-label" for="email">Email</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="email" type="text" value="nicolas.velazquez@ing.austral.edu.ar">
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <label class="uk-form-label" for="new-password">Contraseña</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="new-password" type="password" value="12345678">
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <label class="uk-form-label" for="birthday">Fecha de Nacimiento</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="birthday" type="date" value="1996-01-06">
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <div class="uk-form-label">Sexo</div>
+        <div class="uk-form-controls">
+          <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+            <label *ngFor="let sex of sexes; let i = index">
+              <input class="uk-radio" id="{{sex.name}}" type="radio" [checked]="sex.checked" (change)="check(i)">
+              {{sex.name}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <label class="uk-form-label" for="password">Contraseña Actual</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="password" type="password" formControlName="password"
+                 pattern=".{8,}">
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <label class="uk-form-label" for="confirmPassword">Confirmar Contraseña Actual</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="confirmPassword" type="password" formControlName="confirmPassword"
+                 pattern=".{8,}">
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <button class="uk-button uk-button-primary" (click)="saveProfile()" [disabled]="profileForm.invalid">Guardar
+          Cambios
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+
+</div>
+
+<div id="confirmDeleteUser" uk-modal>
+  <div class="uk-modal-dialog">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <h2 class="uk-modal-title">Estas seguro que deseas eliminar tu usuario?</h2>
+    </div>
+    <div class="uk-modal-body uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>
+      <button class="uk-button uk-button-danger uk-margin-small-left" type="button" (click)="confirmDeleteUser()">
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>
+

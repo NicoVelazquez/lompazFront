@@ -17,6 +17,14 @@ import {HttpClientJsonpModule, HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./shared/services/auth.service";
 import { ManageBannersComponent } from './manage-banners/manage-banners.component';
 import { EditBannerComponent } from './manage-banners/edit-banner/edit-banner.component';
+import { ProductEditComponent } from './product-detail/product-edit/product-edit.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { MenuComponent } from './menu/menu.component';
+import { CartComponent } from './menu/cart/cart.component';
+import { FavoritesComponent } from './menu/favorites/favorites.component';
+import { OrdersComponent } from './menu/orders/orders.component';
+import { MenuProfileComponent } from './menu/menu-profile/menu-profile.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +39,15 @@ import { EditBannerComponent } from './manage-banners/edit-banner/edit-banner.co
     SignUpComponent,
     ProductDetailComponent,
     ManageBannersComponent,
-    EditBannerComponent
+    EditBannerComponent,
+    ProductEditComponent,
+    ProfileComponent,
+    EditProfileComponent,
+    MenuComponent,
+    CartComponent,
+    FavoritesComponent,
+    OrdersComponent,
+    MenuProfileComponent
   ],
   imports: [
     BrowserModule,

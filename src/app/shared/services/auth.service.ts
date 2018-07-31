@@ -47,7 +47,8 @@ export class AuthService {
   }
 
   public getId() {
-    return window.localStorage.getItem(this.idKey);
+    // return window.localStorage.getItem(this.idKey);
+    return 1;
   }
 
   public removeId() {

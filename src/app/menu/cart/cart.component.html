@@ -1,0 +1,48 @@
+<div class="profile-container" uk-grid>
+  <div class="uk-width-1-1">
+    <h3>Carrito</h3>
+  </div>
+
+
+  <div class="left-products uk-width-3-5@m">
+    <h3 *ngIf="products.length == 0">No tienes productos en el carrito!</h3>
+    <div class="products-list uk-child-width-1-1">
+      <div class="uk-margin-remove-top" *ngFor="let product of products">
+        <div class="uk-margin-small-bottom" uk-grid>
+          <div class="uk-width-1-2 product-image uk-card uk-card-default uk-card-body"
+               (click)="goToProduct(product.id)" uk-tooltip="Ir al producto">
+            <img src={{product.photoUrl[0]}} class="image" style="width:100%;">
+          </div>
+          <div class="uk-width-1-2 product-details">
+            <div class="remove-button uk-align-right">
+              <a uk-icon="icon: close" (click)="removeFromCart(product.id)" uk-tooltip="Sacar producto del carrito"></a>
+            </div>
+            <p>{{product.category}}</p>
+            <h3>{{product.name}}</h3>
+            <h4>$ {{product.price}}</h4>
+            <h6>{{product.description}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="right-details uk-width-2-5@m">
+    <div class="cart-details">
+      <h4 class="uk-text-center">Detalles de la compra</h4>
+      <h5>Cantidad de Productos:
+        <div class="uk-align-right uk-margin-remove">{{products.length}}</div>
+      </h5>
+      <h5 class="uk-margin-small-top">Precio Total:
+        <div class="uk-align-right uk-margin-remove">$ {{totalPrice}}</div>
+      </h5>
+      <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-top" (click)="checkout()"
+              [disabled]="products.length == 0">Continuar
+      </button>
+    </div>
+  </div>
+
+
+</div>

@@ -6,12 +6,28 @@
 <div class="product-body">
   <div class="uk-flex uk-flex-center" uk-grid>
 
-    <div class="left-thumbnav uk-width-1-5 uk-visible@m">
+    <div class="left-thumbnav width-10 uk-visible@m">
       <div class="uk-align-right uk-position-small">
         <ul class="uk-thumbnav uk-thumbnav-vertical" uk-margin>
-          <li *ngFor="let photos of product.photoUrl; let i = index" uk-slideshow-item="2">
-            <a (click)="changeImage(i)"><img src="{{photos}}" width="50" alt=""></a>
+
+
+          <li class="snip-image" *ngFor="let photo of product.photoUrl; let i = index" uk-slideshow-item="2">
+            <div (click)="removePhoto(photo)">
+              <img src="{{photo}}" width="50" alt="">
+              <div class="remove-photo uk-position-center uk-panel">
+                <a href="" uk-icon="icon: close; ratio: 1.5"></a>
+              </div>
+            </div>
           </li>
+
+
+          <li class="add-photo" uk-form-custom>
+            <input type="file" (change)="readUrl($event)">
+            <button class="uk-button uk-button-default" type="button" tabindex="-1">
+              <img src="../../../assets/images/addPhotoSnip.png" width="50" alt="">
+            </button>
+          </li>
+
         </ul>
       </div>
     </div>
@@ -37,12 +53,12 @@
     <div class="right-details uk-width-1-5@m">
       <div class="container-details">
         <form [formGroup]="editForm">
-          <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
-                  (click)="saveProduct(product.id)">Guardar
-          </button>
+          <div class="uk-flex uk-flex-center uk-margin-small-bottom" (click)="deleteProduct()">
+            <a class="deleteProduct">Eliminar Producto</a>
+          </div>
           <!--El input de category deberia ser una busqueda de categorias-->
           <input class="uk-input uk-margin-small-bottom" id="category" type="text"
-          formControlName="category" placeholder="{{product.category}}">
+                 formControlName="category" placeholder="{{product.category}}">
           <input class="uk-input uk-margin-small-bottom" id="name" type="text" formControlName="name"
                  placeholder="{{product.name}}">
           <input class="uk-input" id="price" type="number" formControlName="price" placeholder="$ {{product.price}}">
@@ -51,13 +67,13 @@
                     formControlName="description" placeholder="{{product.description}}"></textarea>
 
           <span>Talles Disponibles:</span>
-          <ul class="talles uk-list uk-list-large uk-list-striped uk-width-2-3">
+          <ul class="sizes uk-list uk-list-large uk-list-striped uk-width-2-3">
             <li *ngIf="sizes.length == 0">No hay talles disponibles</li>
             <li *ngFor="let size of sizes" (click)="selectSize(size.name)" id="{{size.name}}">{{size.name}}</li>
           </ul>
           <hr>
-          <button class="uk-button uk-button-primary uk-width-1-1" disabled uk-tooltip="Estas en modo edición">Agregar
-            al carrito
+          <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
+                  (click)="saveProduct(product.id)">Guardar Cambios
           </button>
         </form>
       </div>
@@ -65,3 +81,19 @@
 
   </div>
 </div>
+
+<div id="confirmDeleteProduct" uk-modal>
+  <div class="uk-modal-dialog">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <h2 class="uk-modal-title">Estas seguro que deseas eliminar el producto?</h2>
+    </div>
+    <div class="uk-modal-body uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button">Cancelar</button>
+      <button class="uk-button uk-button-danger uk-margin-small-left" type="button" (click)="confirmDeleteProduct()">
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>
+

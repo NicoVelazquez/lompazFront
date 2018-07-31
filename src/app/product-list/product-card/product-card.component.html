@@ -1,6 +1,10 @@
 <div class="product uk-card uk-card-default uk-card-body" id="prod" >
   <img src={{product.photoUrl[0]}} class="image" style="width:100%;">
-  <div class="icons"><a (click)="addToChart(123)"><i><span uk-icon="cart"></span></i></a></div>
+  <div class="icons">
+    <a id="a{{product.id}}" (click)="addToFavorites(product.id)">
+      <i id="i{{product.id}}"><span uk-icon="heart"></span></i>
+    </a>
+  </div>
 
   <div class="information" (click)="goToProduct(product.id)">
     <div class="name"><h3>{{product.name}}</h3></div>

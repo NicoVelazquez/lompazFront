@@ -5,62 +5,55 @@
       <img src="../../assets/images/logo.png">
     </a>
     <ul class="uk-navbar-nav">
-      <li class="uk-active"><a routerLink="">Home</a></li>
+      <li><a routerLink="">Home</a></li>
       <li><a>Hombres</a></li>
       <li><a>Mujeres</a></li>
       <li><a>Lo nuevo</a></li>
-      <!--<li>-->
-        <!--<a href="#">Parent</a>-->
-        <!--<div class="uk-navbar-dropdown">-->
-          <!--<ul class="uk-nav uk-navbar-dropdown-nav">-->
-            <!--<li class="uk-active"><a href="#">Active</a></li>-->
-            <!--<li><a href="#">Item</a></li>-->
-            <!--<li class="uk-nav-header">Header</li>-->
-            <!--<li><a href="#">Item</a></li>-->
-            <!--<li><a href="#">Item</a></li>-->
-            <!--<li class="uk-nav-divider"></li>-->
-            <!--<li><a href="#">Item</a></li>-->
-          <!--</ul>-->
-        <!--</div>-->
-      <!--</li>-->
     </ul>
   </div>
 
   <div class="uk-navbar-right">
     <ul class="uk-navbar-nav">
+
       <li *ngIf="!auth.isLoggedIn()">
         <a><span uk-icon="icon: user; ratio: 1.5"></span></a>
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
-            <li><a (click)="signIn()"><span uk-icon="sign-in"></span>  Entrar</a></li>
+            <li><a (click)="signIn()"><span uk-icon="sign-in"></span> Entrar</a></li>
             <hr>
-            <li><a (click)="signUp()"><span uk-icon="plus-circle"></span>  Crear Cuenta</a></li>
+            <li><a (click)="signUp()"><span uk-icon="plus-circle"></span> Crear Cuenta</a></li>
           </ul>
         </div>
       </li>
 
-      <li *ngIf="auth.isLoggedIn() && auth.isAdmin(); else normal_user">
-        <a><span uk-icon="icon: github; ratio: 1.5"></span></a>
+
+      <li *ngIf="auth.isLoggedIn() && !auth.isAdmin()">
+        <a><span uk-icon="icon: user; ratio: 1.5"></span></a>
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
-            <li><a routerLink="/manage/banners"><span uk-icon="folder"></span>  Productos</a></li>
+            <li class="uk-nav-header uk-margin-small-bottom">Nicolas Velazquez</li>
+            <li><a routerLink="/profile"><span uk-icon="user"></span> Perfil</a></li>
             <hr>
-            <li><a routerLink="/manage/banners"><span uk-icon="album"></span>  Banners</a></li>
+            <li><a routerLink="/cart"><span uk-icon="cart"></span> Carrito</a></li>
+            <hr>
+            <li><a routerLink="/favorites"><span uk-icon="heart"></span> Favoritos</a></li>
+            <hr>
+            <li><a routerLink="/orders"><span uk-icon="mail"></span> Ordenes</a></li>
           </ul>
         </div>
       </li>
-      <ng-template #normal_user>
-        <li>
-          <a><span uk-icon="icon: user; ratio: 1.5"></span></a>
-          <div class="uk-navbar-dropdown">
-            <ul class="uk-nav uk-navbar-dropdown-nav">
-              <li><a (click)="signIn()"><span uk-icon="sign-in"></span>  Usuario</a></li>
-              <hr>
-              <li><a (click)="signUp()"><span uk-icon="plus-circle"></span>  Crear Cuenta</a></li>
-            </ul>
-          </div>
-        </li>
-      </ng-template>
+
+
+      <li *ngIf="auth.isLoggedIn() && auth.isAdmin()">
+        <a><span uk-icon="icon: github; ratio: 1.5"></span></a>
+        <div class="uk-navbar-dropdown">
+          <ul class="uk-nav uk-navbar-dropdown-nav">
+            <li><a routerLink="/manage/banners"><span uk-icon="album"></span> Banners</a></li>
+            <hr>
+            <li><a routerLink="/manage/banners"><span uk-icon="cog"></span> Settings</a></li>
+          </ul>
+        </div>
+      </li>
 
     </ul>
   </div>

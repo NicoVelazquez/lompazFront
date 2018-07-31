@@ -1,0 +1,30 @@
+.profile-image {
+  margin: 0 auto;
+  position: relative;
+}
+
+img {
+  border-radius: 50%;
+  height: 125px;
+  width: 125px;
+}
+
+.profile-image:hover .edit-image {
+  opacity: 0.7;
+}
+
+.edit-image {
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0;
+  padding: 48px;
+}
+
+.edit-image > button {
+  padding: 0;
+  border: 0;
+}
+
+.deleteUser {
+  color: red;
+}

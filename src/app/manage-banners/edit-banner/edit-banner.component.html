@@ -3,28 +3,24 @@
   <h5 *ngIf="bannerIdToEdit == null">Selecciona un banner para modificar</h5>
   <h5 *ngIf="bannerIdToEdit != null">Estas editando el banner id: {{bannerIdToEdit}}</h5>
 
-  <!--<form [formGroup]="editBannerForm">-->
+  <form [formGroup]="editBannerForm">
 
     <div class="select-dates" *ngIf="bannerIdToEdit != null">
       <div class="uk-grid-small" uk-grid>
         <div class="uk-width-1-4@s">
-          <label class="uk-form-label" for="startE">Fecha de Inicio:</label>
-          <!--<input class="uk-input" id="startE" type="date" formControlName="startDateE">-->
-          <input class="uk-input" id="startE" type="date">
+          <label class="uk-form-label" for="start">Fecha de Inicio:</label>
+          <input class="uk-input" id="start" type="date" formControlName="startDate">
         </div>
         <div class="uk-width-1-4@s">
-          <label class="uk-form-label" for="finishE">Fecha de Finalizacion:</label>
-          <!--<input class="uk-input" id="finishE" type="date" formControlName="finishDateE">-->
-          <input class="uk-input" id="finishE" type="date">
-
+          <label class="uk-form-label" for="finish">Fecha de Finalizacion:</label>
+          <input class="uk-input" id="finish" type="date" formControlName="finishDate">
         </div>
       </div>
       <div class="save-banner uk-margin-small-top">
-        <!--<button class="uk-button uk-button-primary" (click)="confirmEditBanner()" [disabled]="editBannerForm.invalid">Guardar-->
-        <button class="uk-button uk-button-primary" (click)="confirmEditBanner()">Guardar
-        </button>
+        <button class="uk-button uk-button-default uk-margin-small-right" (click)="cancelEditBanner()">Cancelar</button>
+        <button class="uk-button uk-button-primary" (click)="confirmEditBanner()" [disabled]="editBannerForm.invalid">Guardar</button>
       </div>
     </div>
 
-  <!--</form>-->
+  </form>
 </div>

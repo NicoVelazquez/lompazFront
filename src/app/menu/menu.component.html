@@ -1,0 +1,32 @@
+<div class="uk-flex uk-flex-center">
+  <div class="main-container" uk-grid>
+
+    <div class="left-menu uk-width-1-4@m">
+      <div class="uk-card uk-card-default uk-card-body">
+        <ul class="uk-nav-default uk-nav-parent-icon" id="menu-nav" uk-nav>
+          <li class="uk-nav-header">MI CUENTA</li>
+          <li class="uk-nav-divider"></li>
+          <li id="profile"><a (click)="goToProfile()"><span class="uk-margin-small-right" uk-icon="icon: user"></span>
+            Perfil</a></li>
+          <li id="cart"><a (click)="goToCart()"><span class="uk-margin-small-right" uk-icon="icon: cart"></span>
+            Carrito<span class="uk-badge" *ngIf="cartProducts.length > 0">{{cartProducts.length}}</span></a></li>
+          <li id="favorites"><a (click)="goToFavorites()"><span class="uk-margin-small-right"
+                                                                uk-icon="icon: heart"></span>
+            Favoritos</a></li>
+          <li id="orders"><a (click)="goToOrders()"><span class="uk-margin-small-right" uk-icon="icon: mail"></span>
+            Ordenes</a></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="right-body uk-width-3-5@m">
+      <app-menu-profile *ngIf="tab == 'profile'"></app-menu-profile>
+      <app-cart [products]="cartProducts" *ngIf="tab == 'cart'"></app-cart>
+      <app-favorites *ngIf="tab == 'favorites'"></app-favorites>
+      <app-orders *ngIf="tab == 'orders'"></app-orders>
+    </div>
+
+
+  </div>
+</div>

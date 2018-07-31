@@ -15,12 +15,12 @@ export class EditBannerComponent implements OnInit {
   bannerIdToEdit;
 
   constructor(private fb: FormBuilder, private bannerService: BannerService) {
-    // this.editBannerForm = fb.group({
-    //   'startDateE': new FormControl(null, [Validators.required, isValidStartDate]),
-    //   'finishDateE': new FormControl(null, [Validators.required]),
-    // }, {
-    //   validator: DateValidation.GreaterThanDate
-    // });
+    this.editBannerForm = fb.group({
+      'startDate': new FormControl(null, [Validators.required, isValidStartDate]),
+      'finishDate': new FormControl(null, [Validators.required]),
+    }, {
+      validator: DateValidation.GreaterThanDate
+    });
   }
 
   ngOnInit() {
@@ -32,13 +32,16 @@ export class EditBannerComponent implements OnInit {
 
   confirmEditBanner() {
     // Hacer el update del banner TODO
-    // this.editBannerForm.value;
-    console.log('Queda editado');
+    console.log(this.editBannerForm.value);
     UIkit.notification({
       message: 'Banner modificado exitosamente',
       status: 'primary',
       pos: 'top-right'
     });
+  }
+
+  cancelEditBanner() {
+    this.bannerIdToEdit = null;
   }
 
 }

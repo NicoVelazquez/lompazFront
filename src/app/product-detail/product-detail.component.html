@@ -31,7 +31,7 @@
 
     <div class="right-details uk-width-1-5@m">
       <div class="container-details">
-        <button class="uk-button-small uk-button-default uk-align-right" (click)="editProduct(product.id)"
+        <button class="edit-button uk-button-small uk-button-default uk-align-right" (click)="editProduct(product.id)"
                 *ngIf="auth.isLoggedIn() && auth.isAdmin()">Editar
         </button>
         <p>{{product.category}}</p>
@@ -40,7 +40,7 @@
         <hr>
         <p class="description">{{product.description}}</p>
         <span>Talles Disponibles:</span>
-        <ul class="talles uk-list uk-list-large uk-list-striped uk-width-2-3">
+        <ul class="sizes uk-list uk-list-large uk-list-striped uk-width-2-3">
           <li *ngIf="sizes.length == 0">No hay talles disponibles</li>
           <li *ngFor="let size of sizes" (click)="selectSize(size.name)" id="{{size.name}}">{{size.name}}</li>
         </ul>

@@ -58,7 +58,31 @@ export class ProductEditComponent implements OnInit {
     document.getElementById(size).style.fontWeight = 'bold';
   }
 
+  readUrl(event: any) {
+    // Se podria agregar un spinner TODO
+    setTimeout(() => {
+      if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (event2: ProgressEvent) => {
+          // Agregar la imagen a la base TODO
+          this.product.photoUrl.push((<FileReader>event2.target).result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    }, 1000);
+  }
+
+  removePhoto(photo: any) {
+    // Hay que sacar la imagen de la base TODO
+    for (let i = 0; i < this.product.photoUrl.length; i++) {
+      if (photo === this.product.photoUrl[i]) {
+        this.product.photoUrl.splice(i, 1);
+      }
+    }
+  }
+
   saveProduct(id: number) {
+    // Hay que guardar el producto bien TODO
     console.log(this.editForm.value);
     UIkit.notification({
       message: 'Los cambios se han realizado exitosamente',
@@ -66,5 +90,21 @@ export class ProductEditComponent implements OnInit {
       pos: 'top-right'
     });
     this.router.navigate(['/product/' + id]);
+  }
+
+  deleteProduct() {
+    UIkit.modal('#confirmDeleteProduct').show();
+  }
+
+  confirmDeleteProduct() {
+    // Eliminar el usuario de la base TODO
+    UIkit.notification({
+      message: 'Producto eliminado exitosamente',
+      status: 'primary',
+      pos: 'top-right'
+    });
+    UIkit.modal('#confirmDeleteProduct').hide();
+    this.router.navigate(['']);
+    //  Tambien deberia hacer el logout TODO
   }
 }

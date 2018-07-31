@@ -39,12 +39,12 @@ span {
   margin-bottom: 0;
 }
 
-.talles > li {
+.sizes > li {
   padding: 10px 10px;
   cursor: pointer;
 }
 
-.talles {
+.sizes {
   margin-top: 2px;
 }
 
@@ -65,4 +65,8 @@ span {
 
 .slider-image > img {
   cursor: pointer;
+}
+
+.edit-button {
+  margin-bottom: 0;
 }
