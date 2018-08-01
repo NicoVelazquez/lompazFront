@@ -13,10 +13,9 @@ import { SignInUpComponent } from './nav/sign-in-up/sign-in-up.component';
 import { SignUpComponent } from './nav/sign-in-up/sign-up/sign-up.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import {HttpClientJsonpModule, HttpClientModule} from "@angular/common/http";
-import {AuthService} from "./shared/services/auth.service";
-import { ManageBannersComponent } from './manage-banners/manage-banners.component';
-import { EditBannerComponent } from './manage-banners/edit-banner/edit-banner.component';
+import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import {AuthService} from './shared/services/auth.service';
+import { EditBannerComponent } from './admin-settings/manage-banners/edit-banner/edit-banner.component';
 import { ProductEditComponent } from './product-detail/product-edit/product-edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
@@ -25,6 +24,10 @@ import { CartComponent } from './menu/cart/cart.component';
 import { FavoritesComponent } from './menu/favorites/favorites.component';
 import { OrdersComponent } from './menu/orders/orders.component';
 import { MenuProfileComponent } from './menu/menu-profile/menu-profile.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+import { ManageProductsComponent } from './admin-settings/manage-products/manage-products.component';
+import { ManageCategoriesComponent } from './admin-settings/manage-categories/manage-categories.component';
+import {ManageBannersComponent} from "./admin-settings/manage-banners/manage-banners.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { MenuProfileComponent } from './menu/menu-profile/menu-profile.component
     CartComponent,
     FavoritesComponent,
     OrdersComponent,
-    MenuProfileComponent
+    MenuProfileComponent,
+    AdminSettingsComponent,
+    ManageProductsComponent,
+    ManageCategoriesComponent
   ],
   imports: [
     BrowserModule,

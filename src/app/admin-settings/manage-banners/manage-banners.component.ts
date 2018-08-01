@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {DateValidation} from '../shared/validators/date-validation';
+import {DateValidation} from '../../shared/validators/date-validation';
 import * as UIkit from 'uikit';
-import {BannerService} from '../shared/services/banner.service';
+import {BannerService} from '../../shared/services/banner.service';
 import {EditBannerComponent} from './edit-banner/edit-banner.component';
+
 
 @Component({
   selector: 'app-manage-banners',

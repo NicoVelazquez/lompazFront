@@ -1,0 +1,28 @@
+<div class="uk-flex uk-flex-center">
+  <div class="main-container" uk-grid>
+
+    <div class="left-menu uk-width-1-4@m">
+      <div class="uk-card uk-card-default uk-card-body">
+        <ul class="uk-nav-default uk-nav-parent-icon" id="menu-nav" uk-nav>
+          <li class="uk-nav-header">CONFIGURACIONES</li>
+          <li class="uk-nav-divider"></li>
+          <li id="manage/products"><a (click)="goToProducts()"><span class="uk-margin-small-right" uk-icon="icon: image"></span>
+            Productos</a></li>
+          <li id="manage/categories"><a (click)="goToCategories()"><span class="uk-margin-small-right" uk-icon="icon: hashtag"></span>
+            Categorias</a></li>
+          <li id="manage/banners"><a (click)="goToBanners()"><span class="uk-margin-small-right" uk-icon="icon: album"></span>
+            Banners</a></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="right-body uk-width-3-5@m">
+      <app-manage-products *ngIf="tab == 'manage/products'"></app-manage-products>
+      <app-manage-categories *ngIf="tab == 'manage/categories'"></app-manage-categories>
+      <app-manage-banners *ngIf="tab == 'manage/banners'"></app-manage-banners>
+    </div>
+
+
+  </div>
+</div>

@@ -65,7 +65,7 @@
         <li *ngIf="banners.length == 0"><h4>No hay banners actualmente</h4></li>
         <li class="uk-width-3-4" *ngFor="let banner of banners">
           <div class="complete-banner uk-panel">
-            <img src="{{banner.photoUrl}}" style="height: 400px; width: 1500px">
+            <img src="{{banner.photoUrl}}" style="height: 200px">
             <div class="close-banner uk-position-top-right uk-position-small uk-text-center uk-light">
               <a (click)="editBanner(banner.id)"><span uk-icon="icon: pencil; ratio: 1.1"></span></a>
               <span class="divider">|</span>

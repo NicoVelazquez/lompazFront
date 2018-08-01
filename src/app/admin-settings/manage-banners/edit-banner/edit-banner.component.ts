@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {DateValidation} from '../../shared/validators/date-validation';
-import {BannerService} from '../../shared/services/banner.service';
+import {DateValidation} from '../../../shared/validators/date-validation';
+import {BannerService} from '../../../shared/services/banner.service';
 import * as UIkit from 'uikit';
 
 @Component({
@@ -32,6 +32,7 @@ export class EditBannerComponent implements OnInit {
 
   confirmEditBanner() {
     // Hacer el update del banner TODO
+    this.bannerIdToEdit = null;
     console.log(this.editBannerForm.value);
     UIkit.notification({
       message: 'Banner modificado exitosamente',
