@@ -1,0 +1,76 @@
+<div class="no-comments uk-margin-medium-top uk-margin-medium-bottom" *ngIf="comments.length == 0">
+  <h3 class="uk-text-center">Comentarios y Ratings</h3>
+  <h5 class="uk-text-center">No hay comentarios aun, se el primero</h5>
+  <div class="uk-flex uk-flex-center">
+    <button class="uk-button uk-button-default">Agregar Comentario</button>
+  </div>
+</div>
+
+<div class="comments uk-margin-medium-top uk-margin-medium-bottom" *ngIf="comments.length != 0">
+  <h3 class="uk-text-center">Comentarios y Ratings</h3>
+
+  <hr>
+
+  <div class="comments-header uk-margin-medium-bottom" uk-grid>
+    <div class="ratings uk-width-1-2">
+      <h5 class="uk-text-center">Rating general basado en {{comments.length}} comentario(s)</h5>
+      <star-rating-comp [starType]="'svg'" [rating]="rating" [readOnly]="true"
+                        [labelText]="comments.length" [labelPosition]="'right'">
+      </star-rating-comp>
+      <h5 class="uk-text-center">{{rating}} de 5</h5>
+      <star-rating-comp [starType]="'svg'" [rating]="5" [readOnly]="true"
+                        [labelText]="total5" [labelPosition]="'right'">
+      </star-rating-comp>
+      <star-rating-comp [starType]="'svg'" [rating]="4" [readOnly]="true"
+                        [labelText]="total4" [labelPosition]="'right'">
+      </star-rating-comp>
+      <star-rating-comp [starType]="'svg'" [rating]="3" [readOnly]="true"
+                        [labelText]="total3" [labelPosition]="'right'">
+      </star-rating-comp>
+      <star-rating-comp [starType]="'svg'" [rating]="2" [readOnly]="true"
+                        [labelText]="total2" [labelPosition]="'right'">
+      </star-rating-comp>
+      <star-rating-comp [starType]="'svg'" [rating]="1" [readOnly]="true"
+                        [labelText]="total1" [labelPosition]="'right'">
+      </star-rating-comp>
+    </div>
+    <div class="add-comment uk-width-1-2">
+      <h4 class="uk-text-center">Queremos escuchar de ti.</h4>
+      <div class="uk-flex uk-flex-center">
+        <p class="uk-width-2-3 uk-text-center">Cuéntanos lo que piensas sobre este artículo. Nos ayuda a mejorar en lo
+          que hacemos y, finalmente, a
+          proporcionarle mejores productos.</p>
+      </div>
+      <div class="uk-flex uk-flex-center">
+        <button class="uk-button uk-button-default">Agregar Comentario</button>
+      </div>
+    </div>
+  </div>
+
+  <!--<hr>-->
+
+  <div class="container uk-flex uk-flex-center">
+    <div class="uk-width-2-3">
+      <div class="comment-list" uk-grid *ngFor="let comment of comments"> <!-- Aca va el for -->
+
+        <hr class="uk-width-1-1">
+
+        <div class="details uk-width-1-4">
+          <h5>{{comment.username}}</h5>
+          <h5>{{comment.date}}</h5>
+        </div>
+        <div class="comment uk-width-3-4">
+          <div class="uk-width-1-1">
+            <star-rating-comp [starType]="'svg'" [rating]="comment.rating" [readOnly]="true" class="uk-align-left">
+            </star-rating-comp>
+          </div>
+          <div class="uk-width-1-1">
+            <h4 class="uk-width-1-1">{{comment.title}}</h4>
+            <h5 class="uk-width-1-1">{{comment.comment}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

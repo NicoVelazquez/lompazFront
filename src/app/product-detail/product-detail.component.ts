@@ -12,12 +12,13 @@ import {OnClickEvent} from "angular-star-rating";
 })
 export class ProductDetailComponent implements OnInit {
 
-  public rating = 5;
   product: any;
   categoryProducts: any;
   sizes = [{'id': 1, 'name': 'Extra Small'}, {'id': 2, 'name': 'Small'}, {'id': 3, 'name': 'Medium'},
     {'id': 3, 'name': 'Large'}, {'id': 4, 'name': 'Extra Large'}];
   selectedSize: string;
+  comments: any;
+  rating: number;
 
   constructor(public auth: AuthService, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
   }
@@ -28,6 +29,8 @@ export class ProductDetailComponent implements OnInit {
       this.product = this.productService.getProduct(params['id']);
       // Hacer el service de agarrar productos de una categoria TODO
       this.categoryProducts = this.productService.getCategoryProducts(this.product.category);
+      this.comments = this.productService.getProductComments(this.product.id);
+      this.calculateRating();
     });
   }
 
@@ -65,8 +68,13 @@ export class ProductDetailComponent implements OnInit {
     this.router.navigate(['/product/' + id + '/edit']);
   }
 
-  private addRating($event: OnClickEvent) {
-    console.log($event.rating);
+  calculateRating() {
+    let sum = 0;
+    for (const c of this.comments) {
+      sum += c.rating;
+    }
+    this.rating = sum / this.comments.length;
+    console.log(this.rating);
   }
 
 }
