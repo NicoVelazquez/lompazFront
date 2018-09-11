@@ -1,0 +1,107 @@
+.product {
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin: 8px;
+  min-width: 230px;
+  max-width: 315px;
+  width: 100%;
+  font-size: 16px;
+  background-color: white;
+  color: #111;
+  line-height: 1.2em;
+  text-align: left;
+}
+.product:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/*.product img {*/
+/*max-width: 100%;*/
+/*vertical-align: top;*/
+/*}*/
+
+.information {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  background: rgba(200, 200, 200, 0.75);
+  padding: 4px 15px 4px 30px;
+  color: white;
+  margin: 0;
+  font: 14px Sans-Serif;
+}
+.information:hover{
+  cursor: pointer;
+}
+
+.name h3 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 0 0 4px;
+}
+
+.price {
+  margin: 8px 0;
+  font-weight: 700;
+  color: #4da3e2;
+  font-size: 1.5rem;
+}
+
+.icons {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.product .icons a {
+  font-family: "Adobe Arabic", Times, serif;
+  margin: 2px;
+  opacity: 0;
+  -webkit-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.product .icons a i {
+  display: block;
+  font-size: 23.52941176px;
+  line-height: 40px;
+  width: 40px;
+  background-color: #4da3e2;
+  text-align: center;
+  color: #000000;
+}
+
+.product .icons a i:hover {
+  background-color: lightgray;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#prod:hover a,
+#prod.hover a {
+  opacity: 0.8;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.product *,
+.product *:before,
+.product *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+
+.no-products {
+  margin-top: 20px;
+  color: red;
+}

@@ -27,6 +27,20 @@ export class MenuComponent implements OnInit {
       'category': 'Pijama', 'price': 75
     }
   ];
+  favoriteProducts = [{
+    'id': 1, 'name': 'Lompaz', 'price': 75,
+    'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg']
+  },
+    {
+      'id': 2, 'name': 'Lompaz2', 'price': 75,
+      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg']
+    },
+    {
+      'id': 3, 'name': 'Lompaz3', 'price': 75,
+      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg']
+    }
+  ];
+
 
   constructor(private router: Router, private aRouter: ActivatedRoute) {
   }

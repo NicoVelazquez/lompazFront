@@ -3,6 +3,7 @@ import {ProductService} from '../shared/services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as UIkit from 'uikit';
 import {AuthService} from '../shared/services/auth.service';
+import {OnClickEvent} from "angular-star-rating";
 
 @Component({
   selector: 'app-product-detail',
@@ -11,6 +12,7 @@ import {AuthService} from '../shared/services/auth.service';
 })
 export class ProductDetailComponent implements OnInit {
 
+  public rating = 5;
   product: any;
   categoryProducts: any;
   sizes = [{'id': 1, 'name': 'Extra Small'}, {'id': 2, 'name': 'Small'}, {'id': 3, 'name': 'Medium'},
@@ -61,6 +63,10 @@ export class ProductDetailComponent implements OnInit {
 
   editProduct(id: number) {
     this.router.navigate(['/product/' + id + '/edit']);
+  }
+
+  private addRating($event: OnClickEvent) {
+    console.log($event.rating);
   }
 
 }

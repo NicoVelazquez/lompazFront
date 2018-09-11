@@ -12,21 +12,20 @@
             Carrito<span class="uk-badge" *ngIf="cartProducts.length > 0">{{cartProducts.length}}</span></a></li>
           <li id="favorites"><a (click)="goToFavorites()"><span class="uk-margin-small-right"
                                                                 uk-icon="icon: heart"></span>
-            Favoritos</a></li>
+            Favoritos<span class="uk-badge" *ngIf="favoriteProducts.length > 0">{{favoriteProducts.length}}</span></a>
+          </li>
           <li id="orders"><a (click)="goToOrders()"><span class="uk-margin-small-right" uk-icon="icon: mail"></span>
             Ordenes</a></li>
         </ul>
       </div>
     </div>
 
-
-    <div class="right-body uk-width-3-5@m">
+    <div class="right-body uk-width-3-4@m">
       <app-menu-profile *ngIf="tab == 'profile'"></app-menu-profile>
       <app-cart [products]="cartProducts" *ngIf="tab == 'cart'"></app-cart>
-      <app-favorites *ngIf="tab == 'favorites'"></app-favorites>
+      <app-favorites [products]="favoriteProducts" *ngIf="tab == 'favorites'"></app-favorites>
       <app-orders *ngIf="tab == 'orders'"></app-orders>
     </div>
-
 
   </div>
 </div>

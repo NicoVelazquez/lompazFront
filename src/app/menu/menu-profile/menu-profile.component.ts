@@ -37,6 +37,11 @@ export class MenuProfileComponent implements OnInit {
           // Agregar la imagen a la base TODO
           // No habria que tener esta variable, se deberia cambiar la image del user TODO
           this.imageUrl = (<FileReader>event2.target).result;
+          UIkit.notification({
+            message: 'Imagen guardados exitosamente',
+            status: 'primary',
+            pos: 'top-right'
+          });
         };
         reader.readAsDataURL(event.target.files[0]);
       }

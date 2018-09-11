@@ -27,7 +27,8 @@ import { MenuProfileComponent } from './menu/menu-profile/menu-profile.component
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { ManageProductsComponent } from './admin-settings/manage-products/manage-products.component';
 import { ManageCategoriesComponent } from './admin-settings/manage-categories/manage-categories.component';
-import {ManageBannersComponent} from "./admin-settings/manage-banners/manage-banners.component";
+import {ManageBannersComponent} from './admin-settings/manage-banners/manage-banners.component';
+import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import {ManageBannersComponent} from "./admin-settings/manage-banners/manage-ban
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    StarRatingModule.forRoot()
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

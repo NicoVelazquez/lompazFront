@@ -24,7 +24,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "./node_modules/uikit/dist/css/uikit.min.css"
+              "./node_modules/uikit/dist/css/uikit.min.css",
+              "./node_modules/angular-star-rating/assets/scss/star-rating.scss"
             ],
             "scripts": [
               "./node_modules/uikit/dist/js/uikit.min.js",

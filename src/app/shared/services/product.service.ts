@@ -51,6 +51,7 @@ export class ProductService {
   }
 
   public getCategoryProducts(category: string): any {
-    return this.products.filter(p => p.category === 'Pijama');
+    return this.products.filter(p => p.category === category);
   }
+
 }

@@ -1,11 +1,14 @@
-<div class="profile-container" uk-grid>
+<div class="cart-container" uk-grid>
+
   <div class="uk-width-1-1">
     <h3>Carrito</h3>
   </div>
 
 
   <div class="left-products uk-width-3-5@m">
-    <h3 *ngIf="products.length == 0">No tienes productos en el carrito!</h3>
+    <div class="uk-width-1-1 uk-flex uk-flex-center">
+      <h3 class="no-products" *ngIf="products.length == 0">No tienes productos en el carrito!</h3>
+    </div>
     <div class="products-list uk-child-width-1-1">
       <div class="uk-margin-remove-top" *ngFor="let product of products">
         <div class="uk-margin-small-bottom" uk-grid>
@@ -25,8 +28,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
 
   <div class="right-details uk-width-2-5@m">
@@ -38,11 +39,12 @@
       <h5 class="uk-margin-small-top">Precio Total:
         <div class="uk-align-right uk-margin-remove">$ {{totalPrice}}</div>
       </h5>
-      <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-top" (click)="checkout()"
-              [disabled]="products.length == 0">Continuar
-      </button>
+      <div class="uk-width-1-1 uk-flex uk-flex-center uk-margin-medium-top">
+        <button class="uk-button uk-button-primary uk-width-2-3" (click)="checkout()"
+                [disabled]="products.length == 0">Continuar
+        </button>
+      </div>
     </div>
   </div>
-
 
 </div>

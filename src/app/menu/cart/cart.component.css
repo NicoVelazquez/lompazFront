@@ -3,7 +3,7 @@
   margin-bottom: 10px;
 }
 
-.left-products > h3 {
+.no-products {
   margin-top: 20px;
   color: red;
 }
@@ -49,6 +49,10 @@
   margin: 0;
 }
 
+.cart-details > h4 {
+  margin-bottom: 20px;
+}
+
 .product-details > h6 {
   margin-top: 20px;
 }
@@ -59,7 +63,7 @@
 
 .cart-details {
   background-color: #F6F6F6;
-  padding: 10px;
+  padding: 20px;
   margin-bottom: 10px;
   max-height: fit-content;
 }

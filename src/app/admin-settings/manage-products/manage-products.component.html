@@ -1,3 +1,83 @@
-<p>
-  manage-products works!
-</p>
+<div class="uk-width-1-1">
+  <h3>Agregar Producto</h3>
+</div>
+
+<div class="product-photos" uk-grid>
+
+  <div class="left-thumbnav width-10">
+    <div class="uk-align-right uk-position-small">
+
+      <ul class="uk-thumbnav uk-thumbnav-vertical" uk-margin>
+        <li *ngFor="let photos of product.photoUrl; let i = index" uk-slideshow-item="2">
+          <a><img src="{{photos}}" width="50" alt=""></a>
+        </li>
+        <li class="add-photo" uk-form-custom>
+          <input type="file" (change)="readUrl($event)">
+          <button class="uk-button uk-button-default removeBorder" type="button" tabindex="-1">
+            <img src="../../../assets/images/addPhotoSnip.png" width="50" alt="">
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="center-photo width-45">
+    <div class="slideshow uk-width-1-1">
+      <h1 class="uk-text-center" *ngIf="product.photoUrl.length == 0">Agregue una imagen del producto</h1>
+      <div uk-slideshow="ratio: 2:3; autoplay: true; autoplay-interval: 4000" *ngIf="product.photoUrl.length != 0">
+        <div class="uk-position-relative uk-visible-toggle uk-dark">
+          <ul class="uk-slideshow-items">
+            <li *ngFor="let photos of product.photoUrl">
+              <img src="{{photos}}" alt="" uk-cover>
+            </li>
+          </ul>
+          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+             uk-slideshow-item="previous"></a>
+          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+             uk-slideshow-item="next"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="center-photo uk-width-expand">
+    <form [formGroup]="productForm">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="name">Nombre</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="name" type="text" formControlName="name">
+        </div>
+      </div>
+
+      <label class="uk-form-label" for="category">Categoria</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="category" type="text" formControlName="category">
+      </div>
+
+      <label class="uk-form-label" for="price">Precio</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="price" type="number" formControlName="price">
+      </div>
+
+      <label class="uk-form-label" for="description">Descripcion</label>
+      <div class="uk-form-controls">
+          <textarea class="uk-textarea uk-margin-small-bottom uk-width-1-1" name="description" rows="2"
+                    id="description" formControlName="description"></textarea>
+      </div>
+
+      <label class="uk-form-label" for="size">Talle Disponibles</label>
+      <div class="uk-grid-small uk-child-width-auto uk-grid" id="size">
+        <div *ngFor="let size of sizes">
+          <label><input class="uk-checkbox" type="checkbox" [checked]="size.checked"> {{size.name}}</label>
+        </div>
+      </div>
+
+      <button class="uk-button uk-button-primary uk-margin-small-top uk-width-1-1" (click)="addProduct()"
+              [disabled]="(productForm.invalid)  || (product.photoUrl.length == 0)"
+              uk-tooltip="Terminar de completar el formulario y agregar minimo una imagen">Agregar
+      </button>
+
+    </form>
+  </div>
+
+</div>
