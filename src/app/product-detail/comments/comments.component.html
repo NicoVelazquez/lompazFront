@@ -2,8 +2,11 @@
   <h3 class="uk-text-center">Comentarios y Ratings</h3>
   <h5 class="uk-text-center">No hay comentarios aun, se el primero</h5>
   <div class="uk-flex uk-flex-center">
-    <button class="uk-button uk-button-default">Agregar Comentario</button>
+    <button class="uk-button uk-button-default" (click)="addComment()">Agregar Comentario</button>
   </div>
+
+  <app-add-comment (cancelComment)="addComment()" (saveComment)="saveComment($event)" *ngIf="flag"></app-add-comment>
+
 </div>
 
 <div class="comments uk-margin-medium-top uk-margin-medium-bottom" *ngIf="comments.length != 0">
@@ -42,10 +45,12 @@
           proporcionarle mejores productos.</p>
       </div>
       <div class="uk-flex uk-flex-center">
-        <button class="uk-button uk-button-default">Agregar Comentario</button>
+        <button class="uk-button uk-button-default" (click)="addComment()">Agregar Comentario</button>
       </div>
     </div>
   </div>
+
+  <app-add-comment (cancelComment)="addComment()" (saveComment)="saveComment($event)" *ngIf="flag"></app-add-comment>
 
   <!--<hr>-->
 
@@ -61,7 +66,8 @@
         </div>
         <div class="comment uk-width-3-4">
           <div class="uk-width-1-1">
-            <star-rating-comp [starType]="'svg'" [rating]="comment.rating" [readOnly]="true" class="uk-align-left">
+            <star-rating-comp [starType]="'svg'" [rating]="comment.rating" [readOnly]="true"
+                              class="uk-align-left stars">
             </star-rating-comp>
           </div>
           <div class="uk-width-1-1">

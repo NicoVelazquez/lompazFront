@@ -14,6 +14,7 @@ export class CommentsComponent implements OnInit {
   total3 = 0;
   total2 = 0;
   total1 = 0;
+  flag = false;
 
   constructor() {
   }
@@ -24,6 +25,16 @@ export class CommentsComponent implements OnInit {
     this.total3 = this.comments.filter(c => c.rating === 3).length;
     this.total2 = this.comments.filter(c => c.rating === 2).length;
     this.total1 = this.comments.filter(c => c.rating === 1).length;
+  }
+
+  addComment() {
+    this.flag = !this.flag;
+  }
+
+  saveComment($event) {
+    console.log($event);
+    // El usuario con el que estoy logueado lo puede agarrar desde el back
+    // y la fecha tambien
   }
 
 }

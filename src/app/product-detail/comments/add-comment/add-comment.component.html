@@ -1,0 +1,43 @@
+<div class="uk-width-1-1 background">
+
+  <form [formGroup]="commentForm">
+
+    <div class="container uk-flex uk-flex-center">
+      <div class="uk-width-2-3">
+        <div class="add-comment" uk-grid>
+
+          <div class="details uk-width-1-4">
+            <h5>Nicolas Velazquez</h5>
+            <h5>{{today | date: 'dd/MM/yyyy'}}</h5>
+          </div>
+          <div class="comment uk-width-3-4">
+            <div class="uk-width-1-1 uk-margin-remove" uk-grid>
+              <star-rating-comp [starType]="'svg'" [rating]="rating" [readOnly]="false" (click)="updateRating($event)"
+                                class="uk-margin-small-top uk-margin-remove-bottom uk-padding-remove">
+              </star-rating-comp>
+              <input class="uk-input uk-margin-small-bottom uk-width-expand title" id="title"
+                     type="text"
+                     formControlName="title" placeholder="Titulo del comentario">
+            </div>
+            <div class="uk-width-1-1">
+              <textarea class="uk-textarea uk-width-1-1" name="comment" rows="3"
+                        formControlName="comment" placeholder="Comentario"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="uk-width-1-1 uk-margin-medium-top uk-flex uk-flex-right">
+          <button class="uk-button uk-button-danger uk-margin-small-right" (click)="cancel()">
+            Cancelar
+          </button>
+          <button class="uk-button uk-button-primary" [disabled]="!commentForm.valid" (click)="save()">
+            Guardar comentario
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+
+</div>

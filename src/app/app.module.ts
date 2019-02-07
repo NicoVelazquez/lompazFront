@@ -29,6 +29,8 @@ import { ManageProductsComponent } from './admin-settings/manage-products/manage
 import { ManageCategoriesComponent } from './admin-settings/manage-categories/manage-categories.component';
 import {ManageBannersComponent} from './admin-settings/manage-banners/manage-banners.component';
 import {StarRatingModule} from 'angular-star-rating';
+import { CommentsComponent } from './product-detail/comments/comments.component';
+import { AddCommentComponent } from './product-detail/comments/add-comment/add-comment.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import {StarRatingModule} from 'angular-star-rating';
     MenuProfileComponent,
     AdminSettingsComponent,
     ManageProductsComponent,
-    ManageCategoriesComponent
+    ManageCategoriesComponent,
+    CommentsComponent,
+    AddCommentComponent
   ],
   imports: [
     BrowserModule,
