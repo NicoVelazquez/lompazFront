@@ -33,6 +33,7 @@ import { CommentsComponent } from './product-detail/comments/comments.component'
 import { AddCommentComponent } from './product-detail/comments/add-comment/add-comment.component';
 import { SearchBarComponent } from './nav/search-bar/search-bar.component';
 import { SortPipe } from './shared/pipes/sort.pipe';
+import { ProductListFilteredComponent } from './product-list-filtered/product-list-filtered.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { SortPipe } from './shared/pipes/sort.pipe';
     CommentsComponent,
     AddCommentComponent,
     SearchBarComponent,
-    SortPipe
+    SortPipe,
+    ProductListFilteredComponent
   ],
   imports: [
     BrowserModule,

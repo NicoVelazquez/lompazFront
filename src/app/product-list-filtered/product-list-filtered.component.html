@@ -1,0 +1,52 @@
+<div class="uk-grid" uk-grid>
+
+  <div class="filters uk-width-1-5 uk-flex uk-flex-center">
+
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-1">
+
+      <h5 class="filter-title">Categorias</h5>
+      <div class="uk-form-controls uk-form-controls-text filter-radio-categories">
+        <div class="categories" *ngFor="let c of categories">
+          <label>
+            <input class="uk-checkbox" type="checkbox" name="radio2" (click)="onCategory(c.name)">
+            {{c.name}}
+          </label>
+          <br>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <h5 class="filter-title">Talles</h5>
+      <div class="uk-form-controls uk-form-controls-text filter-radio-size" uk-grid>
+        <div class="sizes uk-width-1-2" *ngFor="let s of sizes">
+          <label>
+            <input class="uk-checkbox" type="checkbox" name="radio2" (click)="onSize(s)">
+            {{s}}
+          </label>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <h5 class="filter-title">Rango de Precios</h5>
+      <div class="uk-form-controls uk-form-controls-text filter-radio-prices">
+        <div class="prices" *ngFor="let p of prices">
+          <label>
+            <input class="uk-checkbox" type="checkbox" name="radio2" (click)="onPrice(p.price)">
+            {{p.name}}
+          </label>
+          <br>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div class="uk-width-expand uk-padding-remove">
+    <app-product-list [products]="products"></app-product-list>
+  </div>
+
+</div>

@@ -1,0 +1,14 @@
+.filters {
+  margin-top: 20px;
+  margin-left: 80px;
+  height: fit-content;
+}
+
+.filter-title {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.sizes{
+  margin-top: 0;
+}

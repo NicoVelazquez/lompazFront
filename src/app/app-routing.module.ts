@@ -8,10 +8,12 @@ import {ProfileComponent} from './profile/profile.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
 import {MenuComponent} from './menu/menu.component';
 import {AdminSettingsComponent} from './admin-settings/admin-settings.component';
+import {ProductListFilteredComponent} from './product-list-filtered/product-list-filtered.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
   {path: 'home', component: LandingComponent},
+  {path: 'filtered', component: ProductListFilteredComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'product/:id/edit', component: ProductEditComponent},
   {path: 'profile/:id', component: ProfileComponent},
