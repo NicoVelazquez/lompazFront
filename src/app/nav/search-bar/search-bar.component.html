@@ -1,0 +1,25 @@
+<div class="uk-panel">
+  <form class="uk-search uk-search-default" [formGroup]="generalSearchForm">
+    <button class="icon-search uk-search-icon-flip" uk-search-icon (click)="onSearch()"></button>
+    <input class="search-input uk-search-input" type="search" formControlName="search" placeholder="Buscar..."
+           (keypress)="hideDropdown()">
+  </form>
+  <div class="search-dropdown" uk-dropdown="pos: bottom-left; mode:  click">
+    <ul class="uk-nav uk-dropdown-nav">
+      <div *ngFor="let item of searchList">
+        <li (click)="onResult(item)">
+          <div class="row uk-flex uk-flex-bottom uk-flex-between">
+            <div class="uk-flex uk-flex-middle">
+              <div class="photo"><img src="{{item?.photoUrl[0]}}"></div>
+              <div class="name">{{item.name}}</div>
+            </div>
+            <div class="type">{{item.category}}</div>
+          </div>
+        </li>
+      </div>
+      <li *ngIf="this.searchList.length === 0">
+        <div class="search-not-found">Ningún resultado para la búsqueda</div>
+      </li>
+    </ul>
+  </div>
+</div>

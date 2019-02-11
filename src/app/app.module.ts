@@ -31,6 +31,7 @@ import {ManageBannersComponent} from './admin-settings/manage-banners/manage-ban
 import {StarRatingModule} from 'angular-star-rating';
 import { CommentsComponent } from './product-detail/comments/comments.component';
 import { AddCommentComponent } from './product-detail/comments/add-comment/add-comment.component';
+import { SearchBarComponent } from './nav/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AddCommentComponent } from './product-detail/comments/add-comment/add-c
     ManageProductsComponent,
     ManageCategoriesComponent,
     CommentsComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,45 @@
+.search-dropdown {
+  padding: 0;
+  margin-bottom: 5px;
+}
+
+.photo {
+  height: 25px;
+  width: 25px;
+  background: transparent;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.name {
+  font-size: 16px;
+  color: #303030;
+}
+
+.type {
+  font-size: 12px;
+  color: #8C8B8F;
+  font-weight: lighter;
+}
+
+li {
+  padding: 15px 15px;
+}
+
+li:hover{
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+.search-dropdown > .uk-dropdown-nav {
+  min-width: 280px;
+}
+
+.icon-search {
+  cursor: pointer;
+}
+
+.search-not-found {
+  color: #666666;
+  font-weight: 400;
+}
