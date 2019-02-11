@@ -25,6 +25,7 @@ export class CommentsComponent implements OnInit {
     this.total3 = this.comments.filter(c => c.rating === 3).length;
     this.total2 = this.comments.filter(c => c.rating === 2).length;
     this.total1 = this.comments.filter(c => c.rating === 1).length;
+    console.log(this.total1);
   }
 
   addComment() {

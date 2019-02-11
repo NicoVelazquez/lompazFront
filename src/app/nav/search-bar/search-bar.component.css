@@ -43,3 +43,7 @@ li:hover{
   color: #666666;
   font-weight: 400;
 }
+
+.search-input {
+  background-color: white !important;
+}
