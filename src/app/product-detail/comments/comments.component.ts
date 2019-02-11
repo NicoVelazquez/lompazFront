@@ -32,9 +32,18 @@ export class CommentsComponent implements OnInit {
   }
 
   saveComment($event) {
-    console.log($event);
     // El usuario con el que estoy logueado lo puede agarrar desde el back
     // y la fecha tambien
+    // falta el rating desde el otro componente
+    console.log($event);
+    const comment = {
+      title: $event.title,
+      comment: $event.comment,
+      rating: 5,
+      username: 'Prueba',
+      date: '02/08/2019'
+    };
+    this.comments.unshift(comment);
   }
 
 }

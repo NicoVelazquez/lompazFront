@@ -42,16 +42,27 @@
 
   <div class="center-photo uk-width-expand">
     <form [formGroup]="productForm">
-      <div class="uk-margin">
-        <label class="uk-form-label" for="name">Nombre</label>
-        <div class="uk-form-controls">
-          <input class="uk-input" id="name" type="text" formControlName="name">
-        </div>
+
+      <label class="uk-form-label" for="name">Nombre</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="name" type="text" formControlName="name">
       </div>
 
       <label class="uk-form-label" for="category">Categoria</label>
       <div class="uk-form-controls">
         <input class="uk-input" id="category" type="text" formControlName="category">
+      </div>
+
+      <div class="uk-width-1-1">
+        <label class="uk-form-label" for="location">Categoria c/ Search</label>
+        <input class="input uk-input" id="location" formControlName="location" type="text" autocomplete="off">
+        <div class="locations">
+          <div class="dropdown">
+            <ul class="uk-list">
+              <li *ngFor="let c of categories" (click)="setCategory(c)"><a>{{c}}</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
 
       <label class="uk-form-label" for="price">Precio</label>

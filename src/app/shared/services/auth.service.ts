@@ -21,7 +21,7 @@ export class AuthService {
 
   public isAdmin() {
     // ni idea (?) TODO
-    return false;
+    return true;
   }
 
   public logOut() {

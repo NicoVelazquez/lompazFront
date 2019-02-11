@@ -19,6 +19,8 @@ export class ManageProductsComponent implements OnInit {
   };
   sizes = [{'name': 'S', 'checked': true}, {'name': 'M', 'checked': true},
     {'name': 'L', 'checked': true}, {'name': 'XL', 'checked': true}];
+  categoriesA = ['Pantalon', 'Pijama', 'Remeras', 'Remeras Mujeres', 'Remeras Varones', 'Remeras Nuevas'];
+  categories = [];
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
     this.productForm = fb.group({
@@ -26,10 +28,12 @@ export class ManageProductsComponent implements OnInit {
       'category': new FormControl(null, [Validators.required]),
       'description': new FormControl(null, [Validators.required]),
       'price': new FormControl(null, [Validators.required]),
+      'location': new FormControl(null, [Validators.required]),
     });
   }
 
   ngOnInit() {
+    this.displayCategories();
   }
 
   addProduct() {
@@ -54,6 +58,26 @@ export class ManageProductsComponent implements OnInit {
         reader.readAsDataURL(event.target.files[0]);
       }
     }, 1000);
+  }
+
+  displayCategories() {
+    this.productForm.get('location').valueChanges.subscribe(text => {
+      if (text !== null) {
+        // this.locationService.getLocation(text).then(res => {
+        //   this.locations = res['resourceSets'][0]['resources'].map(e => e['name']);
+        // });
+        this.categories = this.categoriesA.filter( c => {
+          return c.includes(text);
+        });
+      }
+    });
+
+  }
+
+  setCategory(location: string) {
+    this.productForm.value.location = location;
+    (<HTMLInputElement>document.getElementById('location')).value = location;
+    this.categories = [];
   }
 
 }
