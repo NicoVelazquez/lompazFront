@@ -39,7 +39,18 @@ export class ManageCategoriesComponent implements OnInit {
 
   addCategory() {
     const category = {'id': this.categories.length + 1, 'name': this.categoryForm.value.name};
-    this.categories.push(category);
+    // Aca deberia hacer el put de la categoria pasando unicamente el nombre y me deberia devolver una categoria y eso es lo que pusheo
+    if (category.name.toLowerCase() > this.categories[this.categories.length - 1].name.toLowerCase()) {
+      this.categories.push(category);
+    } else {
+      for (const c of this.categories) {
+        console.log(this.categories.indexOf(c));
+        if (c.name.toLowerCase() > category.name.toLowerCase()) {
+          this.categories.splice(this.categories.indexOf(c), 0, category);
+          break;
+        }
+      }
+    }
     this.categoryForm.reset();
   }
 

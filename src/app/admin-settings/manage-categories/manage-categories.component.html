@@ -1,26 +1,28 @@
-<div class="uk-width-1-1">
-  <h3>Agregar Categoria</h3>
-</div>
-<div class="addCategory uk-width-1-2">
-    <form [formGroup]="categoryForm">
-      <div class="uk-margin">
-        <div class="uk-form-controls">
-          <input class="uk-input" id="name" type="text" formControlName="name" placeholder="Nombre">
+<div class="uk-grid" uk-grid>
+  <div class="uk-width-1-2">
+    <div class="uk-width-1-1">
+      <h3>Agregar Categoria</h3>
+      <form [formGroup]="categoryForm">
+        <div class="uk-margin">
+          <div class="uk-form-controls">
+            <input class="uk-input" id="name" type="text" formControlName="name" placeholder="Nombre">
+          </div>
         </div>
+      </form>
+      <div class="uk-margin">
+        <button class="uk-button uk-button-primary" [disabled]="categoryForm.invalid" (click)="addCategory()">Agregar
+        </button>
       </div>
-    </form>
-  <div class="uk-width-1-2 uk-margin">
-    <button class="uk-button uk-button-primary" [disabled]="categoryForm.invalid" (click)="addCategory()">Agregar</button>
+    </div>
   </div>
-</div>
-
-<div class="uk-width-1-1">
-  <h3>Eliminar categoria</h3>
-</div>
-<div class="removeCategory uk-width-1-2">
-  <ul class="categories uk-list uk-list-large uk-list-striped">
-    <li *ngIf="categories.length == 0">No hay categorias actualmente</li>
-    <li *ngFor="let c of categories">{{c.name}} <a class="uk-align-right" uk-icon="icon: close"
-                                                   (click)="removeCategory(c.id)"></a></li>
-  </ul>
+  <div class="uk-width-1-2">
+    <div class="uk-width-1-1">
+      <h3>Eliminar categoria</h3>
+      <ul class="categories uk-list uk-list-large uk-list-striped">
+        <li *ngIf="categories.length == 0">No hay categorias actualmente</li>
+        <li *ngFor="let c of categories | sort">{{c.name}} <a class="uk-align-right" uk-icon="icon: close"
+                                                       (click)="removeCategory(c.id)"></a></li>
+      </ul>
+    </div>
+  </div>
 </div>

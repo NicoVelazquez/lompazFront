@@ -32,6 +32,7 @@ import {StarRatingModule} from 'angular-star-rating';
 import { CommentsComponent } from './product-detail/comments/comments.component';
 import { AddCommentComponent } from './product-detail/comments/add-comment/add-comment.component';
 import { SearchBarComponent } from './nav/search-bar/search-bar.component';
+import { SortPipe } from './shared/pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SearchBarComponent } from './nav/search-bar/search-bar.component';
     ManageCategoriesComponent,
     CommentsComponent,
     AddCommentComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,
