@@ -55,7 +55,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lompaz:build"
+            "browserTarget": "lompaz:build",
+            "port": 4201
           },
           "configurations": {
             "production": {

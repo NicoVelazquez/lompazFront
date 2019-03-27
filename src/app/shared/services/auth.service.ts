@@ -16,12 +16,12 @@ export class AuthService {
 
   public isLoggedIn() {
     // return window.localStorage.getItem(this.tokenKey) !== null; TODO
-    return true;
+    return false;
   }
 
   public isAdmin() {
     // ni idea (?) TODO
-    return true;
+    return false;
   }
 
   public logOut() {
