@@ -19,9 +19,12 @@
     <div class="uk-width-1-1">
       <h3>Eliminar categoria</h3>
       <ul class="categories uk-list uk-list-large uk-list-striped">
-        <li *ngIf="categories.length == 0">No hay categorias actualmente</li>
-        <li *ngFor="let c of categories | sort">{{c.name}} <a class="uk-align-right" uk-icon="icon: close"
-                                                       (click)="removeCategory(c.id)"></a></li>
+        <li *ngIf="categories?.length == 0">
+          No hay categorias actualmente
+        </li>
+        <li *ngFor="let c of categories">
+          {{c.name}} <a class="uk-align-right" uk-icon="icon: close" (click)="removeCategory(c.id)"></a>
+        </li>
       </ul>
     </div>
   </div>

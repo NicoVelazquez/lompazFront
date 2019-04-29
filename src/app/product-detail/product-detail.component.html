@@ -4,7 +4,7 @@
     <div class="left-thumbnav width-10 uk-visible@m">
       <div class="uk-align-right uk-position-small">
         <ul class="uk-thumbnav uk-thumbnav-vertical" uk-margin>
-          <li *ngFor="let photos of product.photoUrl; let i = index" uk-slideshow-item="2">
+          <li *ngFor="let photos of product?.photosUrl; let i = index" uk-slideshow-item="2">
             <a (click)="changeImage(i)"><img src="{{photos}}" width="50" alt=""></a>
           </li>
         </ul>
@@ -16,7 +16,7 @@
         <div uk-slideshow="ratio: 2:3; autoplay: true; autoplay-interval: 4000">
           <div class="uk-position-relative uk-visible-toggle uk-dark">
             <ul class="uk-slideshow-items">
-              <li *ngFor="let photos of product.photoUrl">
+              <li *ngFor="let photos of product?.photosUrl">
                 <img src="{{photos}}" alt="" uk-cover>
               </li>
             </ul>
@@ -31,20 +31,24 @@
 
     <div class="right-details uk-width-1-5@m">
       <div class="container-details">
-        <button class="edit-button uk-button-small uk-button-default uk-align-right" (click)="editProduct(product.id)"
+        <button class="edit-button uk-button-small uk-button-default uk-align-right" (click)="editProduct(product?.id)"
                 *ngIf="auth.isLoggedIn() && auth.isAdmin()">Editar
         </button>
-        <p>{{product.category}}</p>
-        <h3>{{product.name}}</h3>
-        <h5>$ {{product.price}}</h5>
+
+        <!--TODO arreglar formato de los comentatios-->
+        <p *ngFor="let c of product?.category">
+          {{c}}
+        </p>
+        <h3>{{product?.name}}</h3>
+        <h5>$ {{product?.price}}</h5>
         <star-rating-comp [starType]="'svg'" [rating]="rating" [readOnly]="true">
         </star-rating-comp>
         <hr>
-        <p class="description">{{product.description}}</p>
+        <p class="description">{{product?.description}}</p>
         <span>Talles Disponibles:</span>
         <ul class="sizes uk-list uk-list-large uk-list-striped uk-width-2-3">
-          <li *ngIf="sizes.length == 0">No hay talles disponibles</li>
-          <li *ngFor="let size of sizes" (click)="selectSize(size.name)" id="{{size.name}}">{{size.name}}</li>
+          <li *ngIf="sizes?.length == 0">No hay talles disponibles</li>
+          <li *ngFor="let size of sizes" (click)="selectSize(size)" id="{{size}}">{{size}}</li>
         </ul>
         <hr>
         <button class="uk-button uk-button-primary uk-width-1-1" (click)="addtoCart(product)"
@@ -57,28 +61,28 @@
 </div>
 
 
-<div class="relatedProducts-slider uk-flex uk-flex-center" uk-grid>
-  <div class="header uk-width-1-1">
-    <h4 class="uk-margin-medium-left">Hay mas para ver</h4>
-  </div>
-  <div class="slider uk-width-2-3">
-    <div class="uk-position-relative uk-visible-toggle uk-dark uk-width-1-1" uk-slider="sets: true; autoplay: true;">
-      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m">
-        <li *ngFor="let cProduct of categoryProducts">
-          <div class="slider-image uk-panel uk-flex-center" uk-grid>
-            <img src="{{cProduct.photoUrl[0]}}" alt="" style="height: 250px; width: 200px"
-                 (click)="goToProduct(cProduct.id)">
-            <!--Por si le quiero poner texto arriba a la imagen-->
-            <!--<div class="uk-position-center uk-panel"><p style="font-weight: bold">{{cProduct.name}}</p></div>-->
-          </div>
-        </li>
-      </ul>
-      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
-         uk-slider-item="previous"></a>
-      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
-         uk-slider-item="next"></a>
-    </div>
-  </div>
-</div>
+<!--<div class="relatedProducts-slider uk-flex uk-flex-center" uk-grid>-->
+<!--  <div class="header uk-width-1-1">-->
+<!--    <h4 class="uk-margin-medium-left">Hay mas para ver</h4>-->
+<!--  </div>-->
+<!--  <div class="slider uk-width-2-3">-->
+<!--    <div class="uk-position-relative uk-visible-toggle uk-dark uk-width-1-1" uk-slider="sets: true; autoplay: true;">-->
+<!--      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m">-->
+<!--        <li *ngFor="let cProduct of categoryProducts">-->
+<!--          <div class="slider-image uk-panel uk-flex-center" uk-grid>-->
+<!--            <img src="{{cProduct?.photosUrl[0]}}" alt="" style="height: 250px; width: 200px"-->
+<!--                 (click)="goToProduct(cProduct?.id)">-->
+<!--            &lt;!&ndash;Por si le quiero poner texto arriba a la imagen&ndash;&gt;-->
+<!--            &lt;!&ndash;<div class="uk-position-center uk-panel"><p style="font-weight: bold">{{cProduct.name}}</p></div>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous-->
+<!--         uk-slider-item="previous"></a>-->
+<!--      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next-->
+<!--         uk-slider-item="next"></a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
-<app-comments [comments]="comments" [rating]="rating"></app-comments>
+<!--<app-comments [comments]="comments" [rating]="rating"></app-comments>-->

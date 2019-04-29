@@ -18,10 +18,13 @@ export class LandingComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Hay que hacer el service que me traiga los productos con promise TODO
-    this.products = this.productService.getAllProducts();
-    // Hay que hacer el service que me traiga los banners con promise TODO
-    this.banners = this.bannerService.getBanners();
+    this.productService.getLatestProducts().subscribe(data => {
+      console.log(data);
+      this.products = data;
+    });
+    this.bannerService.getAllBanners().subscribe(data => {
+      this.banners = data;
+    });
   }
 
 }

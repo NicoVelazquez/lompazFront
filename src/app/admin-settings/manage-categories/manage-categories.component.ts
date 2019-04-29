@@ -20,38 +20,31 @@ export class ManageCategoriesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categories = this.categoryService.getAllCategories();
+    this.categoryService.getAllCategories().subscribe(data => {
+      this.categories = data;
+    });
   }
 
-  removeCategory(id: number) {
-    for (let i = 0; i <= this.categories.length; i++) {
-      if (this.categories[i].id === id) {
-        this.categories.splice(i, 1);
-        UIkit.notification({
-          message: 'Categoria eliminado exitosamente',
-          status: 'primary',
-          pos: 'top-right'
-        });
-        break;
-      }
-    }
+  removeCategory(id: string) {
+    this.categoryService.deleteCategory(id).then(() => {
+      UIkit.notification({
+        message: 'Categoria eliminado exitosamente',
+        status: 'primary',
+        pos: 'top-right'
+      });
+    });
   }
 
   addCategory() {
-    const category = {'id': this.categories.length + 1, 'name': this.categoryForm.value.name};
-    // Aca deberia hacer el put de la categoria pasando unicamente el nombre y me deberia devolver una categoria y eso es lo que pusheo
-    if (category.name.toLowerCase() > this.categories[this.categories.length - 1].name.toLowerCase()) {
-      this.categories.push(category);
-    } else {
-      for (const c of this.categories) {
-        console.log(this.categories.indexOf(c));
-        if (c.name.toLowerCase() > category.name.toLowerCase()) {
-          this.categories.splice(this.categories.indexOf(c), 0, category);
-          break;
-        }
-      }
-    }
-    this.categoryForm.reset();
+    const newCategory = {'name': this.categoryForm.value.name};
+    this.categoryService.addCategory(newCategory).then(() => {
+      UIkit.notification({
+        message: 'Categoria agregada exitosamente',
+        status: 'primary',
+        pos: 'top-right'
+      });
+      this.categoryForm.reset();
+    });
   }
 
 }

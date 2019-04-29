@@ -3,7 +3,7 @@ import {ProductService} from '../shared/services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as UIkit from 'uikit';
 import {AuthService} from '../shared/services/auth.service';
-import {OnClickEvent} from "angular-star-rating";
+import {OnClickEvent} from 'angular-star-rating';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,8 +14,7 @@ export class ProductDetailComponent implements OnInit {
 
   product: any;
   categoryProducts: any;
-  sizes = [{'id': 1, 'name': 'Extra Small'}, {'id': 2, 'name': 'Small'}, {'id': 3, 'name': 'Medium'},
-    {'id': 3, 'name': 'Large'}, {'id': 4, 'name': 'Extra Large'}];
+  sizes = [];
   selectedSize: string;
   comments: any;
   rating: number;
@@ -25,12 +24,20 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.aRouter.params.subscribe(params => {
-      // Hacer el service de agarrar un producto TODO
-      this.product = this.productService.getProduct(params['id']);
-      // Hacer el service de agarrar productos de una categoria TODO
-      this.categoryProducts = this.productService.getCategoryProducts(this.product.category);
-      this.comments = this.productService.getProductComments(this.product.id);
-      this.calculateRating();
+      this.productService.getProduct(params['id']).subscribe(data => {
+        this.product = data;
+        console.log(this.product);
+        this.product.id = params['id'];
+        this.sizes = this.product.sizes;
+        this.productService.getCategoryProducts(this.product.category).subscribe(data2 => {
+          this.categoryProducts = data2;
+        });
+
+        // this.comments = this.productService.getProductComments(this.product.id);
+        // this.calculateRating();
+
+      });
+
     });
   }
 
@@ -39,6 +46,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addtoCart(product: any) {
+    product.sizes = this.selectedSize;
     console.log(product);
     UIkit.notification({
       message: 'Producto añadido al carrito',

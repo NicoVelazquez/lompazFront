@@ -14,7 +14,7 @@ export class SearchBarComponent implements OnInit {
   public searchList;
   products = [];
 
-  constructor(private fb: FormBuilder, private router: Router, private producService: ProductService) {
+  constructor(private fb: FormBuilder, private router: Router, private productService: ProductService) {
     this.generalSearchForm = fb.group({
       search: new FormControl()
     });
@@ -23,7 +23,7 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {
     this.searchList = [];
     this.displaySearch();
-    this.products = this.producService.products;
+    // this.products = this.productService.products;
   }
 
   displaySearch() {

@@ -1,17 +1,20 @@
 <div class="edit-banners uk-margin-medium-bottom">
   <h3>Modificar Banner</h3>
-  <h5 *ngIf="bannerIdToEdit == null">Selecciona un banner para modificar</h5>
-  <h5 *ngIf="bannerIdToEdit != null">Estas editando el banner id: {{bannerIdToEdit}}</h5>
+  <h5 *ngIf="bannerToEdit == null">Selecciona un banner para modificar</h5>
 
   <form [formGroup]="editBannerForm">
 
-    <div class="select-dates" *ngIf="bannerIdToEdit != null">
+    <div class="select-dates uk-margin-small-top" *ngIf="bannerToEdit != null">
       <div class="uk-grid-small" uk-grid>
-        <div class="uk-width-1-4@s">
-          <label class="uk-form-label" for="start">Fecha de Inicio:</label>
-          <input class="uk-input" id="start" type="date" formControlName="startDate" value="2018-09-09">
+        <div class="uk-width-1-1">
+          <label class="uk-form-label" for="name">Nombre:</label>
+          <input class="uk-input" id="name" type="text" formControlName="name">
         </div>
-        <div class="uk-width-1-4@s">
+        <div class="uk-width-1-2@s">
+          <label class="uk-form-label" for="start">Fecha de Inicio:</label>
+          <input class="uk-input" id="start" type="date" formControlName="startDate">
+        </div>
+        <div class="uk-width-1-2@s">
           <label class="uk-form-label" for="finish">Fecha de Finalizacion:</label>
           <input class="uk-input" id="finish" type="date" formControlName="finishDate">
         </div>

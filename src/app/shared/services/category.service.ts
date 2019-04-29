@@ -1,4 +1,11 @@
 import {Injectable} from '@angular/core';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +26,29 @@ export class CategoryService {
     }
   ];
 
-  constructor() {
+  constructor(private afs: AngularFirestore) {
   }
 
-  public getAllCategories(): any {
-    return this.categories;
+  public getAllCategories(): Observable<any> {
+    return this.afs.collection('categories', ref => ref.orderBy('name'))
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            data['id'] = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
+  }
+
+  public addCategory(category: any): Promise<any> {
+    return this.afs.collection('categories')
+      .add(category);
+  }
+
+  public deleteCategory(id: string): Promise<any> {
+    return this.afs.doc('categories/' + id)
+      .delete();
   }
 }

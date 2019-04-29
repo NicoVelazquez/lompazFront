@@ -11,7 +11,7 @@
         <ul class="uk-thumbnav uk-thumbnav-vertical" uk-margin>
 
 
-          <li class="snip-image" *ngFor="let photo of product.photoUrl; let i = index" uk-slideshow-item="2">
+          <li class="snip-image" *ngFor="let photo of product?.photosUrl; let i = index" uk-slideshow-item="2">
             <div (click)="removePhoto(photo)">
               <img src="{{photo}}" width="50" alt="">
               <div class="remove-photo uk-position-center uk-panel">
@@ -37,7 +37,7 @@
         <div uk-slideshow="ratio: 2:3; autoplay: true; autoplay-interval: 4000">
           <div class="uk-position-relative uk-visible-toggle uk-dark">
             <ul class="uk-slideshow-items">
-              <li *ngFor="let photos of product.photoUrl">
+              <li *ngFor="let photos of product?.photosUrl">
                 <img src="{{photos}}" alt="" uk-cover>
               </li>
             </ul>
@@ -58,22 +58,26 @@
           </div>
           <!--El input de category deberia ser una busqueda de categorias-->
           <input class="uk-input uk-margin-small-bottom" id="category" type="text"
-                 formControlName="category" placeholder="{{product.category}}">
+                 formControlName="category" placeholder="{{product?.category}}">
           <input class="uk-input uk-margin-small-bottom" id="name" type="text" formControlName="name"
-                 placeholder="{{product.name}}">
-          <input class="uk-input" id="price" type="number" formControlName="price" placeholder="$ {{product.price}}">
+                 placeholder="{{product?.name}}">
+          <input class="uk-input" id="price" type="number" formControlName="price" placeholder="$ {{product?.price}}">
           <hr>
           <textarea class="uk-textarea uk-margin-small-bottom uk-width-1-1" name="description" rows="2"
-                    formControlName="description" placeholder="{{product.description}}"></textarea>
+                    formControlName="description" placeholder="{{product?.description}}"></textarea>
 
           <span>Talles Disponibles:</span>
-          <ul class="sizes uk-list uk-list-large uk-list-striped uk-width-2-3">
-            <li *ngIf="sizes.length == 0">No hay talles disponibles</li>
-            <li *ngFor="let size of sizes" (click)="selectSize(size.name)" id="{{size.name}}">{{size.name}}</li>
-          </ul>
+          <div class="uk-grid-small uk-child-width-auto uk-grid" id="size">
+            <div *ngFor="let size of sizes, let i = index">
+              <label><input class="uk-checkbox" type="checkbox" [checked]="size.checked" (change)="checkboxChanged(i)">
+                {{size.name}}
+              </label>
+            </div>
+          </div>
+
           <hr>
           <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
-                  (click)="saveProduct(product.id)">Guardar Cambios
+                  (click)="saveProduct(product?.id)">Guardar Cambios
           </button>
         </form>
       </div>

@@ -8,8 +8,8 @@
     <div class="uk-align-right uk-position-small">
 
       <ul class="uk-thumbnav uk-thumbnav-vertical" uk-margin>
-        <li *ngFor="let photos of product.photoUrl; let i = index" uk-slideshow-item="2">
-          <a><img src="{{photos}}" width="50" alt=""></a>
+        <li *ngFor="let photo of photos; let i = index" uk-slideshow-item="2">
+          <a><img src="{{photo}}" width="50" alt=""></a>
         </li>
         <li class="add-photo" uk-form-custom>
           <input type="file" (change)="readUrl($event)">
@@ -23,12 +23,12 @@
 
   <div class="center-photo width-45">
     <div class="slideshow uk-width-1-1">
-      <h1 class="uk-text-center" *ngIf="product.photoUrl.length == 0">Agregue una imagen del producto</h1>
-      <div uk-slideshow="ratio: 2:3; autoplay: true; autoplay-interval: 4000" *ngIf="product.photoUrl.length != 0">
+      <h1 class="uk-text-center" *ngIf="photos.length == 0">Agregue una imagen del producto</h1>
+      <div uk-slideshow="ratio: 2:3; autoplay: true; autoplay-interval: 4000" *ngIf="photos.length != 0">
         <div class="uk-position-relative uk-visible-toggle uk-dark">
           <ul class="uk-slideshow-items">
-            <li *ngFor="let photos of product.photoUrl">
-              <img src="{{photos}}" alt="" uk-cover>
+            <li *ngFor="let photo of photos">
+              <img src="{{photo}}" alt="" uk-cover>
             </li>
           </ul>
           <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
@@ -48,18 +48,18 @@
         <input class="uk-input" id="name" type="text" formControlName="name">
       </div>
 
-      <label class="uk-form-label" for="category">Categoria</label>
+      <label class="uk-form-label" for="categoryBinary">Categoria</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="category" type="text" formControlName="category">
+        <input class="uk-input" id="categoryBinary" type="text" formControlName="categoryBinary">
       </div>
 
       <div class="uk-width-1-1">
-        <label class="uk-form-label" for="location">Categoria c/ Search</label>
-        <input class="input uk-input" id="location" formControlName="location" type="text" autocomplete="off">
+        <label class="uk-form-label" for="category">Categoria c/ Search</label>
+        <input class="input uk-input" id="category" formControlName="category" type="text" autocomplete="off">
         <div class="locations">
           <div class="dropdown">
             <ul class="uk-list">
-              <li *ngFor="let c of categories" (click)="setCategory(c)"><a>{{c}}</a></li>
+              <li *ngFor="let c of categories" (click)="setCategory(c.name)"><a>{{c.name}}</a></li>
             </ul>
           </div>
         </div>
@@ -78,15 +78,20 @@
 
       <label class="uk-form-label" for="size">Talle Disponibles</label>
       <div class="uk-grid-small uk-child-width-auto uk-grid" id="size">
-        <div *ngFor="let size of sizes">
-          <label><input class="uk-checkbox" type="checkbox" [checked]="size.checked"> {{size.name}}</label>
+        <div *ngFor="let size of sizes, let i = index">
+          <label><input class="uk-checkbox" type="checkbox" [checked]="size.checked" (change)="checkboxChanged(i)">
+            {{size.name}}
+          </label>
         </div>
       </div>
 
-      <button class="uk-button uk-button-primary uk-margin-small-top uk-width-1-1" (click)="addProduct()"
-              [disabled]="(productForm.invalid)  || (product.photoUrl.length == 0)"
-              uk-tooltip="Terminar de completar el formulario y agregar minimo una imagen">Agregar
-      </button>
+      <div uk-tooltip="Terminar de completar el formulario y agregar minimo una imagen">
+        <button class="uk-button uk-button-primary uk-margin-small-top uk-width-1-1" id="addProductButton"
+                (click)="addProduct()"
+                [disabled]="(productForm.invalid)  || (photos.length == 0)">
+          {{addButtonText}}
+        </button>
+      </div>
 
     </form>
   </div>

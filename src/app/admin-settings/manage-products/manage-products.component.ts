@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../shared/services/product.service';
 import * as UIkit from 'uikit';
+import {CategoryService} from '../../shared/services/category.service';
 
 @Component({
   selector: 'app-manage-products',
@@ -11,49 +12,80 @@ import * as UIkit from 'uikit';
 export class ManageProductsComponent implements OnInit {
 
   public productForm: FormGroup;
-  product = {
-    'name': '',
-    'description': '',
-    'photoUrl': [],
-    'category': '', 'price': 0
-  };
+  photos = [];
+  photosFiles = [];
   sizes = [{'name': 'S', 'checked': true}, {'name': 'M', 'checked': true},
     {'name': 'L', 'checked': true}, {'name': 'XL', 'checked': true}];
-  categoriesA = ['Pantalon', 'Pijama', 'Remeras', 'Remeras Mujeres', 'Remeras Varones', 'Remeras Nuevas'];
+  allCategories = [];
   categories = [];
+  addButtonText = 'Agregar';
 
-  constructor(private fb: FormBuilder, private productService: ProductService) {
+  constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService) {
     this.productForm = fb.group({
       'name': new FormControl(null, [Validators.required]),
-      'category': new FormControl(null, [Validators.required]),
+      'categoryBinary': new FormControl(null, [Validators.required]),
       'description': new FormControl(null, [Validators.required]),
       'price': new FormControl(null, [Validators.required]),
-      'location': new FormControl(null, [Validators.required]),
+      'category': new FormControl(null, [Validators.required]),
     });
   }
 
   ngOnInit() {
-    this.displayCategories();
+    this.categoryService.getAllCategories().subscribe((data) => {
+      this.allCategories = data;
+      this.displayCategories();
+    });
   }
 
   addProduct() {
-    console.log(this.productForm.value);
-    console.log(this.sizes.filter(s => s.checked).map(s => s.name));
-    UIkit.notification({
-      message: 'Producto agregado exitosamente',
-      status: 'primary',
-      pos: 'top-right'
+    (<HTMLInputElement>document.getElementById('addProductButton')).disabled = true;
+    this.addButtonText = 'Procesando...';
+    const newProduct = {
+      name: this.productForm.value.name,
+      description: this.productForm.value.description,
+      price: this.productForm.value.price,
+      category: [this.productForm.value.categoryBinary, this.productForm.value.category],
+      sizes: this.sizes.filter(s => s.checked).map(s => s.name),
+      photosUrl: [],
+      rating: 0
+    };
+
+    // // TODO Poner los .catch devuelta bien
+    // Fijarme como hacer para pasar el id y arreglo de fotos
+    this.productService.addProductPhotos(newProduct.name, this.photosFiles[0]).then(data => {
+      data.subscribe(url => {
+        newProduct.photosUrl.push(url);
+        this.productService.addProduct(newProduct).then(() => {
+          UIkit.notification({
+            message: 'Producto agregado exitosamente',
+            status: 'primary',
+            pos: 'top-right'
+          });
+          this.productForm.reset();
+          this.photos = [];
+          this.photosFiles = [];
+          this.sizes.forEach(s => s.checked = true);
+          this.addButtonText = 'Agregar';
+        }).catch(productErr => {
+          UIkit.notification({
+            message: 'Producto no se ha agregado exitosamente',
+            status: 'danger',
+            pos: 'top-right'
+          });
+          console.log(productErr);
+        });
+      });
     });
   }
 
   readUrl(event: any) {
-    // Se podria agregar un spinner TODO
+    // TODO Se podria agregar un spinner
     setTimeout(() => {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (event2: ProgressEvent) => {
-          // Agregar la imagen a la base TODO
-          this.product.photoUrl.push((<FileReader>event2.target).result);
+          this.photosFiles.push(event.target.files[0]);
+          this.photos.push((<FileReader>event2.target).result);
         };
         reader.readAsDataURL(event.target.files[0]);
       }
@@ -61,23 +93,27 @@ export class ManageProductsComponent implements OnInit {
   }
 
   displayCategories() {
-    this.productForm.get('location').valueChanges.subscribe(text => {
+    this.productForm.get('category').valueChanges.subscribe(text => {
       if (text !== null) {
         // this.locationService.getLocation(text).then(res => {
         //   this.locations = res['resourceSets'][0]['resources'].map(e => e['name']);
         // });
-        this.categories = this.categoriesA.filter( c => {
-          return c.includes(text);
+        this.categories = this.allCategories.filter(c => {
+          return c.name.includes(text);
         });
       }
     });
 
   }
 
-  setCategory(location: string) {
-    this.productForm.value.location = location;
-    (<HTMLInputElement>document.getElementById('location')).value = location;
+  setCategory(c: string) {
+    this.productForm.patchValue({category: c});
+    (<HTMLInputElement>document.getElementById('category')).value = c;
     this.categories = [];
+  }
+
+  checkboxChanged(index: number) {
+    this.sizes[index].checked = !this.sizes[index].checked;
   }
 
 }

@@ -15,9 +15,8 @@ export class ProductEditComponent implements OnInit {
   public editForm: FormGroup;
   product: any;
   categoryProducts: any;
-  sizes = [{'id': 1, 'name': 'Extra Small'}, {'id': 2, 'name': 'Small'}, {'id': 3, 'name': 'Medium'},
-    {'id': 3, 'name': 'Large'}, {'id': 4, 'name': 'Extra Large'}];
-  selectedSize: string;
+  sizes = [{'name': 'S', 'checked': false}, {'name': 'M', 'checked': false},
+    {'name': 'L', 'checked': false}, {'name': 'XL', 'checked': false}];
 
   constructor(private fb: FormBuilder, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
     this.editForm = fb.group({
@@ -30,10 +29,29 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit() {
     this.aRouter.params.subscribe(params => {
-      // Hacer el service de agarrar un producto TODO
-      this.product = this.productService.getProduct(params['id']);
-      // Hacer el service de agarrar productos de una categoria TODO
-      this.categoryProducts = this.productService.getCategoryProducts(this.product.category);
+      this.productService.getProduct(params['id']).subscribe(data => {
+        this.product = data;
+        this.product.id = params['id'];
+        this.product.sizes.forEach(e => {
+          for (const s of this.sizes) {
+            if (s.name === e) {
+              s.checked = true;
+            }
+          }
+        });
+
+        this.editForm.setValue({
+          name: this.product.name,
+          price: this.product.price,
+          description: this.product.description,
+          // TODO ver de ponerlo bien
+          category: this.product.category[1]
+        });
+
+        this.productService.getCategoryProducts(this.product.category).subscribe(data2 => {
+          this.categoryProducts = data2;
+        });
+      });
     });
   }
 
@@ -41,22 +59,11 @@ export class ProductEditComponent implements OnInit {
     console.log(index);
   }
 
-  addtoCart(product: any) {
-    console.log(product);
-    UIkit.notification({
-      message: 'Producto añadido al carrito',
-      status: 'primary',
-      pos: 'top-right'
-    });
+
+  checkboxChanged(index: number) {
+    this.sizes[index].checked = !this.sizes[index].checked;
   }
 
-  selectSize(size: string) {
-    if (this.selectedSize != null) {
-      document.getElementById(this.selectedSize).style.fontWeight = '';
-    }
-    this.selectedSize = size;
-    document.getElementById(size).style.fontWeight = 'bold';
-  }
 
   readUrl(event: any) {
     // Se podria agregar un spinner TODO
@@ -81,15 +88,28 @@ export class ProductEditComponent implements OnInit {
     }
   }
 
-  saveProduct(id: number) {
+  saveProduct(id: string) {
     // Hay que guardar el producto bien TODO
-    console.log(this.editForm.value);
-    UIkit.notification({
-      message: 'Los cambios se han realizado exitosamente',
-      status: 'primary',
-      pos: 'top-right'
+    const saveProduct = this.editForm.value;
+    saveProduct.category = [this.product.category[0], saveProduct.category];
+    saveProduct.sizes = this.sizes.filter(s => s.checked).map(s => s.name);
+    console.log(saveProduct);
+    this.productService.updateProduct(id, saveProduct).then(() => {
+      UIkit.notification({
+        message: 'Los cambios se han realizado exitosamente',
+        status: 'primary',
+        pos: 'top-right'
+      });
+      this.router.navigate(['/product/' + id]);
+    }).catch(err => {
+      UIkit.notification({
+        message: 'Los cambios no se han realizado exitosamente',
+        status: 'danger',
+        pos: 'top-right'
+      });
+      console.log(err);
     });
-    this.router.navigate(['/product/' + id]);
+
   }
 
   deleteProduct() {
@@ -97,14 +117,21 @@ export class ProductEditComponent implements OnInit {
   }
 
   confirmDeleteProduct() {
-    // Eliminar el usuario de la base TODO
-    UIkit.notification({
-      message: 'Producto eliminado exitosamente',
-      status: 'primary',
-      pos: 'top-right'
+    this.productService.deleteProduct(this.product.id).then(() => {
+      this.router.navigate(['']);
+      UIkit.notification({
+        message: 'Producto eliminado exitosamente',
+        status: 'primary',
+        pos: 'top-right'
+      });
+      UIkit.modal('#confirmDeleteProduct').hide();
+    }).catch(err => {
+      UIkit.notification({
+        message: 'No se ha podido eliminar exitosamente',
+        status: 'primary',
+        pos: 'top-right'
+      });
+      console.log(err);
     });
-    UIkit.modal('#confirmDeleteProduct').hide();
-    this.router.navigate(['']);
-    //  Tambien deberia hacer el logout TODO
   }
 }

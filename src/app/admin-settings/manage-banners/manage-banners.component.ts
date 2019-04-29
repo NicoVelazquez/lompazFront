@@ -13,10 +13,11 @@ import {EditBannerComponent} from './edit-banner/edit-banner.component';
 })
 export class ManageBannersComponent implements OnInit {
 
-  url: any;
+  photos = [];
+  photosFiles = [];
   showSpinner = false;
   public bannerForm: FormGroup;
-  addBannerText = 'Agregar Banner';
+  saveBannerText = 'Guardar';
   banners = [];
   bannerIdToDelete;
 
@@ -24,6 +25,7 @@ export class ManageBannersComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private bannerService: BannerService) {
     this.bannerForm = fb.group({
+      'name': new FormControl(null, [Validators.required]),
       'startDate': new FormControl(null, [Validators.required, isValidStartDate]),
       'finishDate': new FormControl(null, [Validators.required]),
     }, {
@@ -32,73 +34,92 @@ export class ManageBannersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.banners = this.bannerService.getBanners();
+    this.bannerService.getAllBanners().subscribe(data => {
+      this.banners = data;
+      console.log(this.banners);
+    });
   }
 
   readUrl(event: any) {
     // Arreglar bien esto TODO
     this.showSpinner = true;
+
+
     setTimeout(() => {
       this.showSpinner = false;
-      this.addBannerText = 'Elige el periodo del banner:';
-
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (event2: ProgressEvent) => {
-          this.url = (<FileReader>event2.target).result;
+          this.photosFiles.push(event.target.files[0]);
+          this.photos.push((<FileReader>event2.target).result);
         };
         reader.readAsDataURL(event.target.files[0]);
       }
     }, 1000);
+
   }
 
   closeBanner() {
-    this.url = null;
-    this.addBannerText = 'Agregar Banner';
+    this.photos = [];
+    this.photosFiles = [];
   }
 
   addBanner() {
-    console.log(this.bannerForm.value);
-    this.closeBanner();
-    UIkit.notification({
-      message: 'Banner agregado exitosamente',
-      status: 'primary',
-      pos: 'top-right'
+    (<HTMLInputElement>document.getElementById('saveBannerButton')).disabled = true;
+    this.saveBannerText = 'Procesando...';
+    const newBanner = {
+      name: this.bannerForm.value.name,
+      startDate: this.bannerForm.value.startDate,
+      finishDate: this.bannerForm.value.finishDate,
+      photoUrl: [],
+    };
+
+    // TODO Poner los .catch devuelta bien
+    // Fijarme como hacer para pasar el id y arreglo de fotos
+    this.bannerService.addBannerPhotos(newBanner.name, this.photosFiles[0]).then(data => {
+      data.subscribe(url => {
+        newBanner.photoUrl.push(url);
+        this.bannerService.addBanner(newBanner).then(() => {
+          UIkit.notification({
+            message: 'Banner agregado exitosamente',
+            status: 'primary',
+            pos: 'top-right'
+          });
+          this.closeBanner();
+          this.bannerForm.reset();
+          this.photos = [];
+          this.photosFiles = [];
+          this.saveBannerText = 'Guardar';
+        }).catch(productErr => {
+          UIkit.notification({
+            message: 'Banner no se ha agregado exitosamente',
+            status: 'danger',
+            pos: 'top-right'
+          });
+          console.log(productErr);
+        });
+      });
     });
-    this.bannerForm.reset();
-  }
 
-  displaySpinner() {
-    // this.showSpinner = true;
-    // setTimeout(() => { this.showSpinner = false; }, 4000);
-  }
-
-  hideSpinner() {
-    // this.showSpinner = false;
   }
 
   confirmDeleteBanner() {
-    // Eliminar el banner de la base de datos tambien TODO
-    for (let i = 0; i <= this.banners.length; i++) {
-      if (this.banners[i].id === this.bannerIdToDelete) {
-        this.banners.splice(i, 1);
-        break;
-      }
-    }
-    UIkit.notification({
-      message: 'Banner eliminado exitosamente',
-      status: 'primary',
-      pos: 'top-right'
+    this.bannerService.deleteBanner(this.bannerIdToDelete).then(() => {
+      UIkit.modal('#confirmDeleteBanner').hide();
+      UIkit.notification({
+        message: 'Banner eliminado exitosamente',
+        status: 'primary',
+        pos: 'top-right'
+      });
     });
-    UIkit.modal('#confirmDeleteBanner').hide();
   }
 
   deleteBanner(id: number) {
     this.bannerIdToDelete = id;
   }
 
-  editBanner(id: number) {
-    this.child.editBanner(id);
+  editBanner(banner: any) {
+    this.child.editBanner(banner);
   }
 
 }

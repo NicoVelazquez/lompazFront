@@ -1,4 +1,4 @@
-<div class="no-comments uk-margin-medium-top uk-margin-medium-bottom" *ngIf="comments.length == 0">
+<div class="no-comments uk-margin-medium-top uk-margin-medium-bottom" *ngIf="comments?.length == 0">
   <h3 class="uk-text-center">Comentarios y Ratings</h3>
   <h5 class="uk-text-center">No hay comentarios aun, se el primero</h5>
   <div class="uk-flex uk-flex-center">
@@ -9,14 +9,14 @@
 
 </div>
 
-<div class="comments uk-margin-medium-top uk-margin-medium-bottom" *ngIf="comments.length != 0">
+<div class="comments uk-margin-medium-top uk-margin-medium-bottom" *ngIf="comments?.length != 0">
   <h3 class="uk-text-center">Comentarios y Ratings</h3>
 
   <hr>
 
   <div class="comments-header uk-margin-medium-bottom" uk-grid>
     <div class="ratings uk-width-1-2">
-      <h5 class="uk-text-center">Rating general basado en {{comments.length}} comentario(s)</h5>
+      <h5 class="uk-text-center">Rating general basado en {{comments?.length}} comentario(s)</h5>
       <star-rating-comp [starType]="'svg'" [rating]="rating" [readOnly]="true"
                         [labelPosition]="'right'">
       </star-rating-comp>
@@ -61,18 +61,18 @@
         <hr class="uk-width-1-1">
 
         <div class="details uk-width-1-4">
-          <h5>{{comment.username}}</h5>
-          <h5>{{comment.date}}</h5>
+          <h5>{{comment?.username}}</h5>
+          <h5>{{comment?.date}}</h5>
         </div>
         <div class="comment uk-width-3-4">
           <div class="uk-width-1-1">
-            <star-rating-comp [starType]="'svg'" [rating]="comment.rating" [readOnly]="true"
+            <star-rating-comp [starType]="'svg'" [rating]="comment?.rating" [readOnly]="true"
                               class="uk-align-left stars">
             </star-rating-comp>
           </div>
           <div class="uk-width-1-1">
-            <h4 class="uk-width-1-1">{{comment.title}}</h4>
-            <h5 class="uk-width-1-1">{{comment.comment}}</h5>
+            <h4 class="uk-width-1-1">{{comment?.title}}</h4>
+            <h5 class="uk-width-1-1">{{comment?.comment}}</h5>
           </div>
         </div>
       </div>

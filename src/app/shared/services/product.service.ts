@@ -1,43 +1,17 @@
 import {Injectable} from '@angular/core';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
+import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-
-  products = [{
-    'id': 1,
-    'name': 'Lompaz',
-    'description': 'El mejor de todos los lompaz. La mejor calidad del mercado. Gran diseño y mucha facha.',
-    'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg'],
-    'category': 'Pijama', 'price': 75, 'rating': 1
-  },
-    {
-      'id': 2, 'name': 'Lompaz2', 'description': 'El mejor de todos',
-      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg'],
-      'category': 'Pijama', 'price': 75, 'rating': 2
-    },
-    {
-      'id': 3, 'name': 'Lompaz3', 'description': 'El mejor de todos',
-      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg'],
-      'category': 'Pijama', 'price': 75, 'rating': 3
-    },
-    {
-      'id': 4, 'name': 'Lompaz4', 'description': 'El mejor de todos',
-      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg'],
-      'category': 'Pijama', 'price': 75, 'rating': 4
-    },
-    {
-      'id': 5, 'name': 'Lompaz5', 'description': 'El mejor de todos',
-      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg'],
-      'category': 'Pijama', 'price': 75, 'rating': 5
-    },
-    {
-      'id': 6, 'name': 'Lompaz6', 'description': 'El mejor de todos',
-      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg'],
-      'category': 'Pijama', 'price': 75, 'rating': 1
-    }
-  ];
 
   comments = [{
     'id': 1,
@@ -73,23 +47,78 @@ export class ProductService {
     }
   ];
 
-  constructor() {
+  constructor(private afs: AngularFirestore, private storage: AngularFireStorage) {
   }
 
   public getAllProducts(): any {
-    return this.products;
+    return this.afs.collection('books')
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            data['id'] = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
   }
 
-  public getProduct(id: number): any {
-    return this.products[id - 1];
+  public getLatestProducts(): Observable<any> {
+    return this.afs.collection('products', ref => ref.limit(4))
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            data['id'] = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
   }
 
+  public getProduct(id: number): Observable<any> {
+    return this.afs.doc('products/' + id)
+      .valueChanges();
+  }
+
+  // TODO poder hacer un .contain() en lugar del '=='
   public getCategoryProducts(category: string): any {
-    return this.products.filter(p => p.category === category);
+    return this.afs.collection('products', ref => ref.where('category', '==', category).limit(4))
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            data['id'] = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
   }
 
   public getProductComments(id: number): any {
     return this.comments;
+  }
+
+  public addProduct(product: any): Promise<any> {
+    return this.afs.collection('products')
+      .add(product);
+  }
+
+  public addProductPhotos(path: string, file: File): Promise<any> {
+    return this.storage.upload('products/' + path, file).then(data => {
+      return this.storage.ref(data.metadata.fullPath).getDownloadURL();
+    });
+  }
+
+  public updateProduct(id: string, product: any): Promise<any> {
+    return this.afs.doc('products/' + id)
+      .update(product);
+  }
+
+  public deleteProduct(id: string): Promise<any> {
+    // TODO delete photo when deleting product
+    return this.afs.doc('products/' + id)
+      .delete();
   }
 
 }

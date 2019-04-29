@@ -35,6 +35,19 @@ import { SearchBarComponent } from './nav/search-bar/search-bar.component';
 import { SortPipe } from './shared/pipes/sort.pipe';
 import { ProductListFilteredComponent } from './product-list-filtered/product-list-filtered.component';
 
+
+import { AngularFireModule } from '@angular/fire/';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
+
+
+import { environment } from '../environments/environment';
+export const firebaseConfig = environment.firebaseConfig;
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +86,13 @@ import { ProductListFilteredComponent } from './product-list-filtered/product-li
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

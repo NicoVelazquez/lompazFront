@@ -12,10 +12,11 @@ import * as UIkit from 'uikit';
 export class EditBannerComponent implements OnInit {
 
   public editBannerForm: FormGroup;
-  bannerIdToEdit;
+  public bannerToEdit: any;
 
   constructor(private fb: FormBuilder, private bannerService: BannerService) {
     this.editBannerForm = fb.group({
+      'name': new FormControl(null, [Validators.required]),
       'startDate': new FormControl(null, [Validators.required, isValidStartDate]),
       'finishDate': new FormControl(null, [Validators.required]),
     }, {
@@ -26,23 +27,31 @@ export class EditBannerComponent implements OnInit {
   ngOnInit() {
   }
 
-  editBanner(id: number) {
-    this.bannerIdToEdit = id;
+  editBanner(banner: any) {
+    this.bannerToEdit = banner;
+    this.editBannerForm.setValue({
+      name: this.bannerToEdit.name,
+      startDate: this.bannerToEdit.startDate,
+      finishDate: this.bannerToEdit.finishDate
+    });
   }
 
   confirmEditBanner() {
-    // Hacer el update del banner TODO
-    this.bannerIdToEdit = null;
-    console.log(this.editBannerForm.value);
-    UIkit.notification({
-      message: 'Banner modificado exitosamente',
-      status: 'primary',
-      pos: 'top-right'
+    this.bannerToEdit.name = this.editBannerForm.value.name;
+    this.bannerToEdit.startDate = this.editBannerForm.value.startDate;
+    this.bannerToEdit.finishDate = this.editBannerForm.value.finishDate;
+    this.bannerService.updateBanner(this.bannerToEdit).then(() => {
+      this.bannerToEdit = null;
+      UIkit.notification({
+        message: 'Banner modificado exitosamente',
+        status: 'primary',
+        pos: 'top-right'
+      });
     });
   }
 
   cancelEditBanner() {
-    this.bannerIdToEdit = null;
+    this.bannerToEdit = null;
   }
 
 }
