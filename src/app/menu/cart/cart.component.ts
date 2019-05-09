@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as UIkit from 'uikit';
 import {Router} from '@angular/router';
+import {ProductService} from '../../shared/services/product.service';
 
 
 @Component({
@@ -8,22 +9,27 @@ import {Router} from '@angular/router';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnChanges {
 
   @Input() products;
   totalPrice: number;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private productService: ProductService) {
   }
 
   ngOnInit() {
-    this.calculateTotalPrice();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.products.currentValue !== null) {
+      this.calculateTotalPrice();
+    }
   }
 
   calculateTotalPrice() {
     this.totalPrice = 0;
     for (const p of this.products) {
-      this.totalPrice = this.totalPrice + p.price;
+      this.totalPrice += p.price;
     }
   }
 
@@ -35,18 +41,26 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/product/' + id]);
   }
 
-  removeFromCart(id: number) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
-        this.products.splice(i, 1);
-        this.calculateTotalPrice();
-        UIkit.notification({
-          message: 'Quitado de carrito',
-          status: 'primary',
-          pos: 'top-right'
-        });
-      }
-    }
+  removeFromCart(id: string) {
+    // TODO probar que se este borrando bien de front
+    this.productService.deleteCartProduct(id).then(() => {
+      UIkit.notification({
+        message: 'Quitado de carrito',
+        status: 'danger',
+        pos: 'top-right'
+      });
+    });
+    // for (let i = 0; i < this.products.length; i++) {
+    //   if (this.products[i].id === id) {
+    //     this.products.splice(i, 1);
+    //     this.calculateTotalPrice();
+    //     UIkit.notification({
+    //       message: 'Quitado de carrito',
+    //       status: 'primary',
+    //       pos: 'top-right'
+    //     });
+    //   }
+    // }
   }
 
 }

@@ -3,6 +3,7 @@ import {ProductService} from '../../shared/services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as UIkit from 'uikit';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {CategoryService} from '../../shared/services/category.service';
 
 
 @Component({
@@ -17,8 +18,13 @@ export class ProductEditComponent implements OnInit {
   categoryProducts: any;
   sizes = [{'name': 'S', 'checked': false}, {'name': 'M', 'checked': false},
     {'name': 'L', 'checked': false}, {'name': 'XL', 'checked': false}];
+  allCategories = [];
+  categories = [];
+  sex: string;
 
-  constructor(private fb: FormBuilder, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
+
+  constructor(private fb: FormBuilder, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService,
+              private categoryService: CategoryService) {
     this.editForm = fb.group({
       'category': new FormControl(null, [Validators.required]),
       'name': new FormControl(null, [Validators.required]),
@@ -45,25 +51,32 @@ export class ProductEditComponent implements OnInit {
           price: this.product.price,
           description: this.product.description,
           // TODO ver de ponerlo bien
-          category: this.product.category[1]
+          category: this.product.category[0]
         });
+        this.sex = this.product.sex;
+        const radio = document.getElementById(this.sex) as HTMLInputElement;
+        radio.checked = true;
 
         this.productService.getCategoryProducts(this.product.category).subscribe(data2 => {
           this.categoryProducts = data2;
         });
       });
     });
-  }
 
-  changeImage(index: number) {
-    console.log(index);
+    this.categoryService.getAllCategories().subscribe((data) => {
+      this.allCategories = data;
+      this.displayCategories();
+    });
   }
-
 
   checkboxChanged(index: number) {
     this.sizes[index].checked = !this.sizes[index].checked;
   }
 
+
+  changeImage(index: number) {
+    console.log(index);
+  }
 
   readUrl(event: any) {
     // Se podria agregar un spinner TODO
@@ -90,9 +103,14 @@ export class ProductEditComponent implements OnInit {
 
   saveProduct(id: string) {
     // Hay que guardar el producto bien TODO
-    const saveProduct = this.editForm.value;
-    saveProduct.category = [this.product.category[0], saveProduct.category];
-    saveProduct.sizes = this.sizes.filter(s => s.checked).map(s => s.name);
+    const saveProduct = {
+      name: this.editForm.value.name,
+      price: this.editForm.value.price,
+      description: this.editForm.value.description,
+      sizes: this.sizes.filter(s => s.checked).map(s => s.name),
+      sex: this.sex,
+      category: [this.editForm.value.category]
+    };
     console.log(saveProduct);
     this.productService.updateProduct(id, saveProduct).then(() => {
       UIkit.notification({
@@ -133,5 +151,28 @@ export class ProductEditComponent implements OnInit {
       });
       console.log(err);
     });
+  }
+
+  displayCategories() {
+    this.editForm.get('category').valueChanges.subscribe(text => {
+      if (text !== null) {
+        // this.locationService.getLocation(text).then(res => {
+        //   this.locations = res['resourceSets'][0]['resources'].map(e => e['name']);
+        // });
+        this.categories = this.allCategories.filter(c => {
+          return c.name.includes(text);
+        });
+      }
+    });
+  }
+
+  setCategory(c: string) {
+    this.editForm.patchValue({category: c});
+    (<HTMLInputElement>document.getElementById('category')).value = c;
+    this.categories = [];
+  }
+
+  setSex(s: string) {
+    this.sex = s;
   }
 }

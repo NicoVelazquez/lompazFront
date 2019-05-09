@@ -48,9 +48,10 @@
         <input class="uk-input" id="name" type="text" formControlName="name">
       </div>
 
-      <label class="uk-form-label" for="categoryBinary">Categoria</label>
-      <div class="uk-form-controls">
-        <input class="uk-input" id="categoryBinary" type="text" formControlName="categoryBinary">
+      <label class="uk-form-label">Sexo</label>
+      <div class="uk-form-controls uk-child-width-1-2@s" uk-grid>
+        <label><input class="uk-radio" type="radio" name="radio1" (click)="setSex('Hombre')" checked="true"> Hombre</label>
+        <label><input class="uk-radio" type="radio" name="radio1" (click)="setSex('Mujer')"> Mujer</label>
       </div>
 
       <div class="uk-width-1-1">

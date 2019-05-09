@@ -27,4 +27,9 @@ export class NavComponent implements OnInit {
     UIkit.modal('#sign-modal').show();
     this.child.signUp();
   }
+
+  signOut() {
+    console.log('Click');
+    this.auth.signOut();
+  }
 }

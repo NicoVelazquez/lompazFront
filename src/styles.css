@@ -10,14 +10,16 @@ textarea.ng-invalid.ng-touched {
 
 .uk-notification-message-primary {
   background-color: white !important;
-  border: 2px solid gray !important;
+  border-left: 4px solid #46AF4A !important;
   border-radius: 5px !important;
+  color: #46AF4A !important;
 }
 
 .uk-notification-message-danger {
   background-color: white !important;
-  border: 2px solid gray !important;
+  border-left: 4px solid #F5402C !important;
   border-radius: 5px !important;
+  color: #F5402C;
 }
 
 .uk-badge {

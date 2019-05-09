@@ -11,7 +11,7 @@ import {ProductService} from '../../shared/services/product.service';
 })
 export class SearchBarComponent implements OnInit {
   public generalSearchForm: FormGroup;
-  public searchList;
+  searchList = [];
   products = [];
 
   constructor(private fb: FormBuilder, private router: Router, private productService: ProductService) {
@@ -21,22 +21,20 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.searchList = [];
     this.displaySearch();
-    // this.products = this.productService.products;
+    this.productService.getAllProducts().subscribe(data => {
+      this.products = data;
+    });
   }
 
   displaySearch() {
     this.generalSearchForm.get('search').valueChanges.subscribe(text => {
-      console.log(text);
-      if (text !== null) {
-        // this.searchService.generalSearch(text, 0, 5).then(res => {
-        //   console.log(res);
-        //   this.searchList = res.content;
-        // });
+      if (text !== null && text !== '') {
         this.searchList = this.products.filter(c => {
           return c.name.includes(text);
         });
+      } else {
+        this.searchList = [];
       }
     });
   }

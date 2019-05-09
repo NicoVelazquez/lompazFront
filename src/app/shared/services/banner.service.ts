@@ -52,6 +52,19 @@ export class BannerService {
       );
   }
 
+  public getActiveBanner(): Observable<any> {
+    return this.afs.collection('banners', ref => ref.where('finishDate', '>', Date.now()))
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            data['id'] = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
+  }
+
   public addBanner(banner: any): Promise<any> {
     return this.afs.collection('banners')
       .add(banner);

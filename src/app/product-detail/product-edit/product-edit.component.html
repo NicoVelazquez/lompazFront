@@ -56,13 +56,32 @@
           <div class="uk-flex uk-flex-center uk-margin-small-bottom" (click)="deleteProduct()">
             <a class="deleteProduct">Eliminar Producto</a>
           </div>
-          <!--El input de category deberia ser una busqueda de categorias-->
-          <input class="uk-input uk-margin-small-bottom" id="category" type="text"
-                 formControlName="category" placeholder="{{product?.category}}">
+
+          <label class="uk-form-label">Nombre</label>
           <input class="uk-input uk-margin-small-bottom" id="name" type="text" formControlName="name"
                  placeholder="{{product?.name}}">
+
+          <label class="uk-form-label">Sexo</label>
+          <div class="uk-form-controls uk-child-width-1-2@s" uk-grid>
+            <label><input class="uk-radio" type="radio" name="radio1" id="Hombre" (click)="setSex('Hombre')"> Hombre</label>
+            <label><input class="uk-radio" type="radio" name="radio1" id="Mujer" (click)="setSex('Mujer')"> Mujer</label>
+          </div>
+
+
+          <label class="uk-form-label" for="category">Categoria</label>
+          <input class="input uk-input" id="category" formControlName="category" type="text" autocomplete="off">
+          <div class="locations">
+            <div class="dropdown">
+              <ul class="uk-list">
+                <li *ngFor="let c of categories" (click)="setCategory(c.name)"><a>{{c.name}}</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <label class="uk-form-label">Precio</label>
           <input class="uk-input" id="price" type="number" formControlName="price" placeholder="$ {{product?.price}}">
-          <hr>
+
+          <label class="uk-form-label">Descripcion</label>
           <textarea class="uk-textarea uk-margin-small-bottom uk-width-1-1" name="description" rows="2"
                     formControlName="description" placeholder="{{product?.description}}"></textarea>
 

@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import * as UIkit from 'uikit';
+import {AuthService} from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +13,7 @@ export class SignInComponent implements OnInit {
   public signInForm: FormGroup;
   public showPass: boolean;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.signInForm = fb.group({
       'email': new FormControl(null, [Validators.required]),
       'password': new FormControl(null, [Validators.required]),
@@ -26,4 +28,10 @@ export class SignInComponent implements OnInit {
     this.showPass = !this.showPass;
   }
 
+  signIn() {
+    this.authService.signInWithEmailAndPassword(this.signInForm.value.email, this.signInForm.value.password).then(() => {
+      console.log('success login');
+      UIkit.modal('#sign-modal').hide();
+    });
+  }
 }

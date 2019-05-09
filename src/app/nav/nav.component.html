@@ -6,9 +6,9 @@
     </a>
     <ul class="uk-navbar-nav">
       <li><a routerLink="">Home</a></li>
-      <li><a [routerLink]="['/filtered']" [queryParams]="{category: 'men'}">Hombres</a></li>
-      <li><a [routerLink]="['/filtered']" [queryParams]="{category: 'women'}">Mujeres</a></li>
-      <li><a>Lo nuevo</a></li>
+      <li><a [routerLink]="['/filtered']" [queryParams]="{category: 'Hombre'}">Hombres</a></li>
+      <li><a [routerLink]="['/filtered']" [queryParams]="{category: 'Mujer'}">Mujeres</a></li>
+<!--      <li><a>Lo nuevo</a></li>-->
     </ul>
   </div>
 
@@ -24,7 +24,7 @@
         <a><span uk-icon="icon: user; ratio: 1.5"></span></a>
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
-            <li><a (click)="signIn()"><span uk-icon="sign-in"></span> Entrar</a></li>
+            <li><a (click)="signIn()"><span uk-icon="sign-in"></span> Iniciar Sessión</a></li>
             <hr>
             <li><a (click)="signUp()"><span uk-icon="plus-circle"></span> Crear Cuenta</a></li>
           </ul>
@@ -44,6 +44,8 @@
             <li><a routerLink="/favorites"><span uk-icon="heart"></span> Favoritos</a></li>
             <hr>
             <li><a routerLink="/orders"><span uk-icon="mail"></span> Ordenes</a></li>
+            <hr>
+            <li><a routerLink="" (click)="signOut()"><span uk-icon="sign-out"></span> Cerrar Sessión</a></li>
           </ul>
         </div>
       </li>
@@ -58,6 +60,8 @@
             <li><a routerLink="/manage/categories"><span uk-icon="hashtag"></span> Categorias</a></li>
             <hr>
             <li><a routerLink="/manage/banners"><span uk-icon="album"></span> Banners</a></li>
+            <hr>
+            <li><a routerLink="" (click)="signOut()"><span uk-icon="sign-out"></span> Cerrar Sessión</a></li>
           </ul>
         </div>
       </li>

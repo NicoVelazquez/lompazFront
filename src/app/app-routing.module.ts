@@ -25,6 +25,7 @@ const routes: Routes = [
   {path: 'manage/products', component: AdminSettingsComponent},
   {path: 'manage/categories', component: AdminSettingsComponent},
   {path: 'manage/banners', component: AdminSettingsComponent},
+  {path: '**', component: LandingComponent},
 ];
 
 @NgModule({

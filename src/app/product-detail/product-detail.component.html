@@ -61,28 +61,28 @@
 </div>
 
 
-<!--<div class="relatedProducts-slider uk-flex uk-flex-center" uk-grid>-->
-<!--  <div class="header uk-width-1-1">-->
-<!--    <h4 class="uk-margin-medium-left">Hay mas para ver</h4>-->
-<!--  </div>-->
-<!--  <div class="slider uk-width-2-3">-->
-<!--    <div class="uk-position-relative uk-visible-toggle uk-dark uk-width-1-1" uk-slider="sets: true; autoplay: true;">-->
-<!--      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m">-->
-<!--        <li *ngFor="let cProduct of categoryProducts">-->
-<!--          <div class="slider-image uk-panel uk-flex-center" uk-grid>-->
-<!--            <img src="{{cProduct?.photosUrl[0]}}" alt="" style="height: 250px; width: 200px"-->
-<!--                 (click)="goToProduct(cProduct?.id)">-->
-<!--            &lt;!&ndash;Por si le quiero poner texto arriba a la imagen&ndash;&gt;-->
-<!--            &lt;!&ndash;<div class="uk-position-center uk-panel"><p style="font-weight: bold">{{cProduct.name}}</p></div>&ndash;&gt;-->
-<!--          </div>-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous-->
-<!--         uk-slider-item="previous"></a>-->
-<!--      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next-->
-<!--         uk-slider-item="next"></a>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+<div class="relatedProducts-slider uk-flex uk-flex-center" uk-grid>
+  <div class="header uk-width-1-1">
+    <h4 class="uk-margin-medium-left">Hay mas para ver</h4>
+  </div>
+  <div class="slider uk-width-2-3">
+    <div class="uk-position-relative uk-visible-toggle uk-dark uk-width-1-1" uk-slider="sets: true; autoplay: true;">
+      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m">
+        <li *ngFor="let cProduct of categoryProducts">
+          <div class="slider-image uk-panel uk-flex-center" uk-grid>
+            <img src="{{cProduct?.photosUrl[0]}}" alt="" style="height: 250px; width: 200px"
+                 (click)="goToProduct(cProduct?.id)">
+            <!--Por si le quiero poner texto arriba a la imagen-->
+            <!--<div class="uk-position-center uk-panel"><p style="font-weight: bold">{{cProduct.name}}</p></div>-->
+          </div>
+        </li>
+      </ul>
+      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+         uk-slider-item="previous"></a>
+      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+         uk-slider-item="next"></a>
+    </div>
+  </div>
+</div>
 
-<!--<app-comments [comments]="comments" [rating]="rating"></app-comments>-->
+<app-comments [comments]="comments" [rating]="rating" [productId]="product?.id"></app-comments>

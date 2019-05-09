@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PasswordValidation} from '../../shared/validators/password-validation';
 import * as UIkit from 'uikit';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {UserService} from '../../shared/services/user.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-menu-profile',
@@ -13,15 +15,36 @@ export class MenuProfileComponent implements OnInit {
 
   // No habria que tener esta variable, se deberia cambiar la image del user TODO
   imageUrl: any;
-  sexes = [{'name': 'Femenino', 'checked': true}, {'name': 'Masculino', 'checked': false}];
+  sexes = [{'name': 'Femenino', 'checked': false}, {'name': 'Masculino', 'checked': false}];
+  user: any;
   public profileForm: FormGroup;
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private authService: AuthService) {
     this.profileForm = fb.group({
-      'password': new FormControl(null, [Validators.required]),
-      'confirmPassword': new FormControl(null, [Validators.required]),
+      'name': new FormControl(null, [Validators.required]),
+      'lastname': new FormControl(null, [Validators.required]),
+      'email': new FormControl(null, [Validators.required]),
+      'birthday': new FormControl(null, [Validators.required]),
+      // 'password': new FormControl(null, [Validators.required]),
+      // 'confirmPassword': new FormControl(null, [Validators.required]),
     }, {
-      validator: PasswordValidation.MatchPassword
+      // validator: PasswordValidation.MatchPassword
+    });
+    this.profileForm.get('email').disable();
+
+    this.userService.getUser().subscribe(data => {
+      this.user = data;
+      this.profileForm.patchValue({
+        name: this.user.name,
+        lastname: this.user.lastname,
+        email: this.user.email,
+        birthday: this.user.birthday,
+      });
+      this.sexes.forEach(s => {
+        if (s.name === this.user.sex) {
+          s.checked = true;
+        }
+      });
     });
   }
 
@@ -34,13 +57,17 @@ export class MenuProfileComponent implements OnInit {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (event2: ProgressEvent) => {
-          // Agregar la imagen a la base TODO
-          // No habria que tener esta variable, se deberia cambiar la image del user TODO
-          this.imageUrl = (<FileReader>event2.target).result;
-          UIkit.notification({
-            message: 'Imagen guardados exitosamente',
-            status: 'primary',
-            pos: 'top-right'
+          this.userService.addUserPhoto(this.user.id, event.target.files[0]).then(data => {
+            data.subscribe(url => {
+              this.user.photoUrl = url;
+              this.userService.updateUser(this.user).then(() => {
+                UIkit.notification({
+                  message: 'Imagen guardados exitosamente',
+                  status: 'primary',
+                  pos: 'top-right'
+                });
+              });
+            });
           });
         };
         reader.readAsDataURL(event.target.files[0]);
@@ -48,7 +75,7 @@ export class MenuProfileComponent implements OnInit {
     }, 1000);
   }
 
-  check(index: string) {
+  check(index: number) {
     for (const sex of this.sexes) {
       sex.checked = false;
     }
@@ -56,19 +83,16 @@ export class MenuProfileComponent implements OnInit {
   }
 
   saveProfile() {
-    console.log(this.profileForm.value);
-    console.log((<HTMLInputElement>document.getElementById('name')).value);
-    console.log((<HTMLInputElement>document.getElementById('lastname')).value);
-    console.log((<HTMLInputElement>document.getElementById('email')).value);
-    console.log((<HTMLInputElement>document.getElementById('new-password')).value);
-    console.log((<HTMLInputElement>document.getElementById('birthday')).value);
-    console.log(this.sexes.filter(s => s.checked).map(s => s.name));
-    UIkit.notification({
-      message: 'Cambios guardados exitosamente',
-      status: 'primary',
-      pos: 'top-right'
+    const newUser = this.profileForm.value;
+    newUser.sex = this.sexes.filter(s => s.checked).map(s => s.name)[0];
+    // this.userService.updateUser(newUser, this.user.email !== this.profileForm.value.email).then(() => {
+    this.userService.updateUser(newUser).then(() => {
+      UIkit.notification({
+        message: 'Cambios guardados exitosamente',
+        status: 'primary',
+        pos: 'top-right'
+      });
     });
-    this.profileForm.reset();
   }
 
   deleteUser() {
@@ -76,15 +100,16 @@ export class MenuProfileComponent implements OnInit {
   }
 
   confirmDeleteUser() {
-    // Eliminar el usuario de la base TODO
-    UIkit.notification({
-      message: 'Usuario eliminado exitosamente',
-      status: 'primary',
-      pos: 'top-right'
+    this.userService.deleteUser().then(() => {
+      this.router.navigate(['']);
+      this.authService.signOut();
+      UIkit.notification({
+        message: 'Usuario eliminado exitosamente',
+        status: 'primary',
+        pos: 'top-right'
+      });
+      UIkit.modal('#confirmDeleteUser').hide();
     });
-    UIkit.modal('#confirmDeleteUser').hide();
-    this.router.navigate(['']);
-    //  Tambien deberia hacer el logout TODO
   }
 
 }

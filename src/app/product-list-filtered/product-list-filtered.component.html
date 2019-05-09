@@ -1,6 +1,6 @@
 <div class="uk-grid" uk-grid>
 
-  <div class="filters uk-width-1-5 uk-flex uk-flex-center">
+  <div class="filters uk-width-1-5@s uk-flex uk-flex-right">
 
     <div class="uk-card uk-card-default uk-card-body uk-width-1-1">
 
@@ -8,7 +8,7 @@
       <div class="uk-form-controls uk-form-controls-text filter-radio-categories">
         <div class="categories" *ngFor="let c of categories">
           <label>
-            <input class="uk-checkbox" type="checkbox" name="radio2" (click)="onCategory(c.name)">
+            <input class="uk-radio" type="radio" name="category" (click)="onCategory(c.name)">
             {{c.name}}
           </label>
           <br>
@@ -21,7 +21,7 @@
       <div class="uk-form-controls uk-form-controls-text filter-radio-size" uk-grid>
         <div class="sizes uk-width-1-2" *ngFor="let s of sizes">
           <label>
-            <input class="uk-checkbox" type="checkbox" name="radio2" (click)="onSize(s)">
+            <input class="uk-radio" type="radio" name="size" (click)="onSize(s)">
             {{s}}
           </label>
         </div>
@@ -33,7 +33,7 @@
       <div class="uk-form-controls uk-form-controls-text filter-radio-prices">
         <div class="prices" *ngFor="let p of prices">
           <label>
-            <input class="uk-checkbox" type="checkbox" name="radio2" (click)="onPrice(p.price)">
+            <input class="uk-radio" type="radio" name="price" (click)="onPrice(p.price)">
             {{p.name}}
           </label>
           <br>
@@ -45,8 +45,8 @@
 
   </div>
 
-  <div class="uk-width-expand uk-padding-remove">
-    <app-product-list [products]="products"></app-product-list>
+  <div class="uk-width-expand@s uk-padding-remove">
+    <app-product-list [products]="filteredProducts"></app-product-list>
   </div>
 
 </div>

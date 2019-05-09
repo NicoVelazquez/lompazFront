@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import * as UIkit from 'uikit';
+import {ProductService} from '../../shared/services/product.service';
 
 @Component({
   selector: 'app-product-card',
@@ -11,7 +12,7 @@ export class ProductCardComponent implements OnInit {
 
   @Input() product;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private productService: ProductService) {
   }
 
   ngOnInit() {
@@ -19,20 +20,27 @@ export class ProductCardComponent implements OnInit {
 
   addToFavorites(id: string) {
     // Ver que pasa cuando salgo de la lista y lo veo devuelta... TODO
-    // Agregar el producto a favoritos TODO
     if (document.getElementById('i' + id).style.backgroundColor === '') {
-      document.getElementById('i' + id).style.backgroundColor = '#4DA3E2';
-      UIkit.notification({
-        message: 'Agregado a favoritos',
-        status: 'primary',
-        pos: 'top-right'
+      this.productService.addFavoriteProduct(this.product).then(() => {
+        document.getElementById('i' + id).style.backgroundColor = '#4DA3E2';
+        UIkit.notification({
+          message: 'Agregado a favoritos',
+          status: 'primary',
+          pos: 'top-right'
+        });
+      }).catch(err => {
+        console.log(err);
       });
     } else {
-      document.getElementById('i' + id).style.backgroundColor = '';
-      UIkit.notification({
-        message: 'Quitado de favoritos',
-        status: 'primary',
-        pos: 'top-right'
+      this.productService.deleteFavoriteProduct(this.product.id).then(() => {
+        document.getElementById('i' + id).style.backgroundColor = '';
+        UIkit.notification({
+          message: 'Quitado de favoritos',
+          status: 'danger',
+          pos: 'top-right'
+        });
+      }).catch(err => {
+        console.log(err);
       });
     }
   }

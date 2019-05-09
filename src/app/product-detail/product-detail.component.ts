@@ -1,9 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../shared/services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as UIkit from 'uikit';
 import {AuthService} from '../shared/services/auth.service';
-import {OnClickEvent} from 'angular-star-rating';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,23 +18,23 @@ export class ProductDetailComponent implements OnInit {
   comments: any;
   rating: number;
 
-  constructor(public auth: AuthService, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
+  constructor(private auth: AuthService, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
   }
 
   ngOnInit() {
     this.aRouter.params.subscribe(params => {
       this.productService.getProduct(params['id']).subscribe(data => {
         this.product = data;
-        console.log(this.product);
         this.product.id = params['id'];
         this.sizes = this.product.sizes;
         this.productService.getCategoryProducts(this.product.category).subscribe(data2 => {
           this.categoryProducts = data2;
         });
+      });
 
-        // this.comments = this.productService.getProductComments(this.product.id);
-        // this.calculateRating();
-
+      this.productService.getProductComments(params['id']).subscribe(data => {
+        this.comments = data;
+        this.calculateRating();
       });
 
     });
@@ -48,10 +47,14 @@ export class ProductDetailComponent implements OnInit {
   addtoCart(product: any) {
     product.sizes = this.selectedSize;
     console.log(product);
-    UIkit.notification({
-      message: 'Producto añadido al carrito',
-      status: 'primary',
-      pos: 'top-right'
+    this.productService.addCartProduct(product).then(() => {
+      UIkit.notification({
+        message: 'Producto añadido al carrito',
+        status: 'primary',
+        pos: 'top-right'
+      });
+    }).catch(err => {
+      console.log(err);
     });
   }
 
@@ -81,8 +84,7 @@ export class ProductDetailComponent implements OnInit {
     for (const c of this.comments) {
       sum += c.rating;
     }
-    this.rating = sum / this.comments.length;
-    console.log(this.rating);
+    this.rating = sum !== 0 ? Math.round(sum / this.comments.length) : 1;
   }
 
 }

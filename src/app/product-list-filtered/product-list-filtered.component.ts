@@ -11,8 +11,9 @@ import {CategoryService} from '../shared/services/category.service';
 export class ProductListFilteredComponent implements OnInit {
 
   products = [];
+  filteredProducts = [];
   categories = [];
-  sizes = ['XS', 'S', 'M', 'L', 'XL'];
+  sizes = ['S', 'M', 'L', 'XL'];
   prices = [{'name': 'menor $100', 'price': 100}, {'name': '$100 ~ $200', 'price': 200},
     {'name': '$200 ~ $300', 'price': 300}, {'name': '$300 ~ $400', 'price': 400}];
 
@@ -21,28 +22,28 @@ export class ProductListFilteredComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.route.queryParams.subscribe(params => {
-      console.log(params);
+      this.productService.getSexProducts(params.category).subscribe(data => {
+        this.products = data;
+        this.filteredProducts = data;
+      });
 
-      // Hay que hacer el service que me traiga los productos con promise TODO
-      this.products = this.productService.getAllProducts();
-      // Ademas me deberia traer los productos filtrados
-
-      this.categories = this.categoryService.categories;
+      this.categoryService.getAllCategories().subscribe(data => {
+        this.categories = data;
+      });
     });
   }
 
-  onCategory(category: any) {
-    console.log(category);
+  onCategory(category: string) {
+    this.filteredProducts = this.products.filter(p => p.category.includes(category));
   }
 
-  onSize(size: any) {
-    console.log(size);
+  onSize(size: string) {
+    this.filteredProducts = this.products.filter(p => p.sizes.includes(size));
   }
 
-  onPrice(price: any) {
-    console.log(price);
+  onPrice(price: number) {
+    this.filteredProducts = this.products.filter(p => (p.price > price - 100 && p.price < price));
   }
 
 }

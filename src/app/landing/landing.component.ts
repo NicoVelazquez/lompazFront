@@ -19,10 +19,9 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     this.productService.getLatestProducts().subscribe(data => {
-      console.log(data);
       this.products = data;
     });
-    this.bannerService.getAllBanners().subscribe(data => {
+    this.bannerService.getActiveBanner().subscribe(data => {
       this.banners = data;
     });
   }

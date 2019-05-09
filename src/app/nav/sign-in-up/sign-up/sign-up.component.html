@@ -26,8 +26,13 @@
                pattern=".{8,}">
       </div>
     </div>
+
+    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" [disabled]="signUpForm.invalid"
+    (click)="onCreateAccount()">
+      Continuar
+    </button>
+
   </form>
-  <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" [disabled]="signUpForm.invalid">Continuar</button>
 
 </div>
 

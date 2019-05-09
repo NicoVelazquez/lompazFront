@@ -36,7 +36,6 @@ export class ManageBannersComponent implements OnInit {
   ngOnInit() {
     this.bannerService.getAllBanners().subscribe(data => {
       this.banners = data;
-      console.log(this.banners);
     });
   }
 
@@ -69,9 +68,9 @@ export class ManageBannersComponent implements OnInit {
     this.saveBannerText = 'Procesando...';
     const newBanner = {
       name: this.bannerForm.value.name,
-      startDate: this.bannerForm.value.startDate,
-      finishDate: this.bannerForm.value.finishDate,
-      photoUrl: [],
+      startDate: Date.parse(this.bannerForm.value.startDate) + 86400000,
+      finishDate: Date.parse(this.bannerForm.value.finishDate) + 86400000,
+      photoUrl: []
     };
 
     // TODO Poner los .catch devuelta bien

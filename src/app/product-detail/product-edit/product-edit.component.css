@@ -107,3 +107,27 @@ span {
 .deleteProduct {
   color: red;
 }
+
+.dropdown {
+  margin-left: 10px;
+  margin-top: 5px;
+  background-color: white;
+  max-width: 250px;
+  -webkit-box-shadow: 2px 7px 53px -20px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 7px 53px -20px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 7px 53px -20px rgba(0, 0, 0, 0.75);
+}
+
+.dropdown ul {
+  margin: 0;
+}
+
+.dropdown li:hover {
+  background-color: whitesmoke;
+}
+
+.dropdown li {
+  padding: 10px;
+  cursor: pointer;
+}
+

@@ -19,11 +19,11 @@ export class ManageProductsComponent implements OnInit {
   allCategories = [];
   categories = [];
   addButtonText = 'Agregar';
+  sex = 'Hombre';
 
   constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService) {
     this.productForm = fb.group({
       'name': new FormControl(null, [Validators.required]),
-      'categoryBinary': new FormControl(null, [Validators.required]),
       'description': new FormControl(null, [Validators.required]),
       'price': new FormControl(null, [Validators.required]),
       'category': new FormControl(null, [Validators.required]),
@@ -44,10 +44,11 @@ export class ManageProductsComponent implements OnInit {
       name: this.productForm.value.name,
       description: this.productForm.value.description,
       price: this.productForm.value.price,
-      category: [this.productForm.value.categoryBinary, this.productForm.value.category],
+      category: [this.productForm.value.category],
       sizes: this.sizes.filter(s => s.checked).map(s => s.name),
       photosUrl: [],
-      rating: 0
+      rating: 0,
+      sex: this.sex
     };
 
     // // TODO Poner los .catch devuelta bien
@@ -114,6 +115,10 @@ export class ManageProductsComponent implements OnInit {
 
   checkboxChanged(index: number) {
     this.sizes[index].checked = !this.sizes[index].checked;
+  }
+
+  setSex(s: string) {
+    this.sex = s;
   }
 
 }

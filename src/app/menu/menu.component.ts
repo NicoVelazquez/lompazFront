@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ProductService} from '../shared/services/product.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,40 +10,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class MenuComponent implements OnInit {
 
   tab: string;
-  cartProducts = [{
-    'id': 1,
-    'name': 'Lompaz',
-    'description': 'El mejor de todos los lompaz. La mejor calidad del mercado. Gran diseño y mucha facha.',
-    'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg'],
-    'category': 'Pijama', 'price': 75
-  },
-    {
-      'id': 2, 'name': 'Lompaz2', 'description': 'El mejor de todos',
-      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg'],
-      'category': 'Pijama', 'price': 75
-    },
-    {
-      'id': 3, 'name': 'Lompaz3', 'description': 'El mejor de todos',
-      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg'],
-      'category': 'Pijama', 'price': 75
-    }
-  ];
-  favoriteProducts = [{
-    'id': 1, 'name': 'Lompaz', 'price': 75,
-    'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg']
-  },
-    {
-      'id': 2, 'name': 'Lompaz2', 'price': 75,
-      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg']
-    },
-    {
-      'id': 3, 'name': 'Lompaz3', 'price': 75,
-      'photoUrl': ['../../assets/images/lompa1.jpg', '../../assets/images/lompa2.jpg', '../../assets/images/lompa3.jpg']
-    }
-  ];
+  cartProducts = [];
+  favoriteProducts = [];
 
 
-  constructor(private router: Router, private aRouter: ActivatedRoute) {
+  constructor(private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
   }
 
   ngOnInit() {
@@ -50,6 +22,15 @@ export class MenuComponent implements OnInit {
       this.tab = this.router.url.substr(1);
       document.getElementById(this.tab).classList.add('uk-active');
     });
+
+    this.productService.getCartProducts().subscribe(data => {
+      this.cartProducts = data;
+    });
+
+    this.productService.getFavoriteProducts().subscribe(data => {
+      this.favoriteProducts = data;
+    });
+
   }
 
   goToProfile() {

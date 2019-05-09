@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DateValidation} from '../../../shared/validators/date-validation';
 import {BannerService} from '../../../shared/services/banner.service';
 import * as UIkit from 'uikit';
+import {toDate} from '@angular/common/src/i18n/format_date';
 
 @Component({
   selector: 'app-edit-banner',
@@ -31,15 +32,23 @@ export class EditBannerComponent implements OnInit {
     this.bannerToEdit = banner;
     this.editBannerForm.setValue({
       name: this.bannerToEdit.name,
-      startDate: this.bannerToEdit.startDate,
-      finishDate: this.bannerToEdit.finishDate
+      startDate: this.toMyDate(new Date(this.bannerToEdit.startDate)),
+      finishDate: this.toMyDate(new Date(this.bannerToEdit.finishDate))
     });
+  }
+
+  toMyDate(date: any): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+
+    return year + '-' + month + '-' + day;
   }
 
   confirmEditBanner() {
     this.bannerToEdit.name = this.editBannerForm.value.name;
-    this.bannerToEdit.startDate = this.editBannerForm.value.startDate;
-    this.bannerToEdit.finishDate = this.editBannerForm.value.finishDate;
+    this.bannerToEdit.startDate = Date.parse(this.editBannerForm.value.startDate) + 86400000;
+    this.bannerToEdit.finishDate = Date.parse(this.editBannerForm.value.finishDate) + 86400000;
     this.bannerService.updateBanner(this.bannerToEdit).then(() => {
       this.bannerToEdit = null;
       UIkit.notification({

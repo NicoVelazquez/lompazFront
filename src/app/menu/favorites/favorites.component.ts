@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as UIkit from 'uikit';
 import {Router} from '@angular/router';
+import {ProductService} from '../../shared/services/product.service';
 
 @Component({
   selector: 'app-favorites',
@@ -11,23 +12,23 @@ export class FavoritesComponent implements OnInit {
 
   @Input() products;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private productService: ProductService) {
   }
 
   ngOnInit() {
   }
 
   removeFromFavorites(id: string) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
-        this.products.splice(i, 1);
-        UIkit.notification({
-          message: 'Producto quitado de favoritos',
-          status: 'primary',
-          pos: 'top-right'
-        });
-      }
-    }
+    this.productService.deleteFavoriteProduct(id).then(() => {
+      document.getElementById('i' + id).style.backgroundColor = '';
+      UIkit.notification({
+        message: 'Quitado de favoritos',
+        status: 'danger',
+        pos: 'top-right'
+      });
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   goToProduct(id: number) {
