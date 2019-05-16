@@ -18,3 +18,24 @@
   font-family: "Helvetica", sans-serif;
   font-weight: lighter;
 }
+
+
+:root {
+  --avatar-size: 40px;
+  /* change this value anything, e.g., 100px, 10rem, etc. */
+}
+
+.circle {
+  background-color: #ccc;
+  border-radius: 50%;
+  height: 40px;
+  text-align: center;
+  width: 40px;
+}
+
+.initials {
+  font-size: 20px; /* 50% of parent */
+  line-height: 1;
+  position: relative;
+  top: 10px; /* 25% of parent */
+}

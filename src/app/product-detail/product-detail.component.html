@@ -45,14 +45,20 @@
         </star-rating-comp>
         <hr>
         <p class="description">{{product?.description}}</p>
-        <span>Talles Disponibles:</span>
-        <ul class="sizes uk-list uk-list-large uk-list-striped uk-width-2-3">
-          <li *ngIf="sizes?.length == 0">No hay talles disponibles</li>
-          <li *ngFor="let size of sizes" (click)="selectSize(size)" id="{{size}}">{{size}}</li>
-        </ul>
+        <span>Selecionar Talle:</span>
+        <p *ngIf="sizes?.length == 0" style="display: inline">No hay talles disponibles</p>
+<!--        <ul class="sizes uk-list uk-list-large uk-list-striped uk-width-2-3">-->
+<!--          <li *ngFor="let size of sizes" (click)="selectSize(size)" id="{{size}}">{{size}}</li>-->
+<!--        </ul>-->
+        <div class="sizes">
+          <select class="uk-select" (change)="selectSize($event)">
+            <option *ngFor="let size of sizes" (change)="selectSize(size)" id="{{size}}">{{size}}</option>
+          </select>
+        </div>
         <hr>
         <button class="uk-button uk-button-primary uk-width-1-1" (click)="addtoCart(product)"
-                [disabled]="selectedSize == null">Agregar al carrito
+                [disabled]="selectedSize == null" *ngIf="auth.isLoggedIn()">
+          Agregar al carrito
         </button>
       </div>
     </div>

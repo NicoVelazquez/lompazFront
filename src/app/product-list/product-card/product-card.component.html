@@ -1,6 +1,6 @@
 <div class="product uk-card uk-card-default uk-card-body" id="prod">
   <img src={{product.photosUrl[0]}} class="image" style="width:100%;">
-  <div class="icons">
+  <div class="icons" *ngIf="auth.isLoggedIn()">
     <a id="a{{product.id}}" (click)="addToFavorites(product.id)">
       <i id="i{{product.id}}"><span uk-icon="heart"></span></i>
     </a>

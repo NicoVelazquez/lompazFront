@@ -5,7 +5,8 @@
     <button class="uk-button uk-button-default" (click)="addComment()">Agregar Comentario</button>
   </div>
 
-  <app-add-comment (cancelComment)="addComment()" (saveComment)="saveComment($event)" [user]="user" *ngIf="flag"></app-add-comment>
+  <app-add-comment (cancelComment)="addComment()" (saveComment)="saveComment($event)" [user]="user"
+                   *ngIf="flag"></app-add-comment>
 
 </div>
 
@@ -45,12 +46,18 @@
           proporcionarle mejores productos.</p>
       </div>
       <div class="uk-flex uk-flex-center">
-        <button class="uk-button uk-button-default" (click)="addComment()">Agregar Comentario</button>
+        <button class="uk-button uk-button-default" (click)="addComment()" *ngIf="auth.isLoggedIn()">
+          Agregar Comentario
+        </button>
+        <button class="uk-button uk-button-default" (click)="addComment()" *ngIf="!auth.isLoggedIn()" disabled>
+          Inicia Sesión
+        </button>
       </div>
     </div>
   </div>
 
-  <app-add-comment (cancelComment)="addComment()" (saveComment)="saveComment($event)"  [user]="user" *ngIf="flag"></app-add-comment>
+  <app-add-comment (cancelComment)="addComment()" (saveComment)="saveComment($event)" [user]="user"
+                   *ngIf="flag"></app-add-comment>
 
   <!--<hr>-->
 

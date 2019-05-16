@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import * as UIkit from 'uikit';
 import {ProductService} from '../../shared/services/product.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-product-card',
@@ -12,7 +13,7 @@ export class ProductCardComponent implements OnInit {
 
   @Input() product;
 
-  constructor(private router: Router, private productService: ProductService) {
+  constructor(private router: Router, private productService: ProductService, private auth: AuthService) {
   }
 
   ngOnInit() {

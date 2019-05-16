@@ -27,6 +27,7 @@ export class ProductDetailComponent implements OnInit {
         this.product = data;
         this.product.id = params['id'];
         this.sizes = this.product.sizes;
+        this.selectedSize = this.sizes[0];
         this.productService.getCategoryProducts(this.product.category).subscribe(data2 => {
           this.categoryProducts = data2;
         });
@@ -58,12 +59,16 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  selectSize(size: string) {
-    if (this.selectedSize != null) {
-      document.getElementById(this.selectedSize).style.fontWeight = '';
-    }
-    this.selectedSize = size;
-    document.getElementById(size).style.fontWeight = 'bold';
+  // selectSize(size: string) {
+  //   if (this.selectedSize != null) {
+  //     document.getElementById(this.selectedSize).style.fontWeight = '';
+  //   }
+  //   this.selectedSize = size;
+  //   document.getElementById(size).style.fontWeight = 'bold';
+  // }
+  selectSize(size: any) {
+    this.selectedSize = size.target.value;
+    console.log(this.selectedSize);
   }
 
   goToProduct(id: number) {

@@ -30,7 +30,7 @@ export class AuthService {
 
   public isAdmin() {
     if (this.currentUser !== null) {
-      return this.currentUser.admin;
+      return this.currentUser.role === 'Admin';
     } else {
       return false;
     }

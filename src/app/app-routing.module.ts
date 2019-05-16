@@ -9,22 +9,23 @@ import {EditProfileComponent} from './profile/edit-profile/edit-profile.componen
 import {MenuComponent} from './menu/menu.component';
 import {AdminSettingsComponent} from './admin-settings/admin-settings.component';
 import {ProductListFilteredComponent} from './product-list-filtered/product-list-filtered.component';
+import {AuthGuard} from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
   {path: 'home', component: LandingComponent},
   {path: 'filtered', component: ProductListFilteredComponent},
   {path: 'product/:id', component: ProductDetailComponent},
-  {path: 'product/:id/edit', component: ProductEditComponent},
-  {path: 'profile/:id', component: ProfileComponent},
-  {path: 'profile/:id/edit', component: EditProfileComponent},
-  {path: 'profile', component: MenuComponent},
-  {path: 'cart', component: MenuComponent},
-  {path: 'favorites', component: MenuComponent},
-  {path: 'orders', component: MenuComponent},
-  {path: 'manage/products', component: AdminSettingsComponent},
-  {path: 'manage/categories', component: AdminSettingsComponent},
-  {path: 'manage/banners', component: AdminSettingsComponent},
+  {path: 'product/:id/edit', component: ProductEditComponent, canActivate: [AuthGuard], data: { roles: ['Admin']}},
+  {path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile/:id/edit', component: EditProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile', component: MenuComponent, canActivate: [AuthGuard]},
+  {path: 'cart', component: MenuComponent, canActivate: [AuthGuard]},
+  {path: 'favorites', component: MenuComponent, canActivate: [AuthGuard]},
+  {path: 'orders', component: MenuComponent, canActivate: [AuthGuard]},
+  {path: 'manage/products', component: AdminSettingsComponent, canActivate: [AuthGuard], data: { roles: ['Admin']}},
+  {path: 'manage/categories', component: AdminSettingsComponent, canActivate: [AuthGuard], data: { roles: ['Admin']}},
+  {path: 'manage/banners', component: AdminSettingsComponent, canActivate: [AuthGuard], data: { roles: ['Admin']}},
   {path: '**', component: LandingComponent},
 ];
 

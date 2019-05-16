@@ -33,7 +33,10 @@
 
 
       <li *ngIf="auth.isLoggedIn() && !auth.isAdmin()">
-        <a><span uk-icon="icon: user; ratio: 1.5"></span></a>
+<!--        <a><span uk-icon="icon: user; ratio: 1.5"></span></a>-->
+        <div class="circle">
+          <span class="initials">{{auth.currentUser?.name[0]}}{{auth.currentUser?.lastname[0]}}</span>
+        </div>
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
             <li class="uk-nav-header uk-margin-small-bottom">Nicolas Velazquez</li>
@@ -52,7 +55,8 @@
 
 
       <li *ngIf="auth.isLoggedIn() && auth.isAdmin()">
-        <a><span uk-icon="icon: github; ratio: 1.5"></span></a>
+<!--        <a><span uk-icon="icon: github; ratio: 1.5"></span></a>-->
+        <a><span>ADMIN</span></a>
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
             <li><a routerLink="/manage/products"><span uk-icon="image"></span> Products</a></li>
