@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../shared/services/product.service';
 import * as UIkit from 'uikit';
 import {CategoryService} from '../../shared/services/category.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-manage-products',
@@ -21,7 +22,8 @@ export class ManageProductsComponent implements OnInit {
   addButtonText = 'Agregar';
   sex = 'Hombre';
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService) {
+  constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService,
+              private route: Router) {
     this.productForm = fb.group({
       'name': new FormControl(null, [Validators.required]),
       'description': new FormControl(null, [Validators.required]),
@@ -56,17 +58,18 @@ export class ManageProductsComponent implements OnInit {
     this.productService.addProductPhotos(newProduct.name, this.photosFiles[0]).then(data => {
       data.subscribe(url => {
         newProduct.photosUrl.push(url);
-        this.productService.addProduct(newProduct).then(() => {
+        this.productService.addProduct(newProduct).then((added) => {
+          this.route.navigate(['product/' + added.id]);
           UIkit.notification({
             message: 'Producto agregado exitosamente',
             status: 'primary',
             pos: 'top-right'
           });
-          this.productForm.reset();
-          this.photos = [];
-          this.photosFiles = [];
-          this.sizes.forEach(s => s.checked = true);
-          this.addButtonText = 'Agregar';
+          // this.productForm.reset();
+          // this.photos = [];
+          // this.photosFiles = [];
+          // this.sizes.forEach(s => s.checked = true);
+          // this.addButtonText = 'Agregar';
         }).catch(productErr => {
           UIkit.notification({
             message: 'Producto no se ha agregado exitosamente',
@@ -96,9 +99,6 @@ export class ManageProductsComponent implements OnInit {
   displayCategories() {
     this.productForm.get('category').valueChanges.subscribe(text => {
       if (text !== null) {
-        // this.locationService.getLocation(text).then(res => {
-        //   this.locations = res['resourceSets'][0]['resources'].map(e => e['name']);
-        // });
         this.categories = this.allCategories.filter(c => {
           return c.name.includes(text);
         });

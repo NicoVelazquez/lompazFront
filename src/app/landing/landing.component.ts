@@ -22,7 +22,7 @@ export class LandingComponent implements OnInit {
       this.products = data;
     });
     this.bannerService.getActiveBanner().subscribe(data => {
-      this.banners = data;
+      this.banners = data.filter(e => e.startDate < Date.now());
     });
   }
 

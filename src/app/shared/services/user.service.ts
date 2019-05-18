@@ -26,9 +26,7 @@ export class UserService {
   updateUser(user: any): Promise<any> {
     const id = window.localStorage.getItem(this.idKey);
     // if (emailChanged) {
-    //   console.log('entro');
     //   this.afAuth.auth.currentUser.updateEmail(user.email).then(() => {
-    //     console.log('email cambiado');
     //   });
     // }
     return this.afs.doc('users/' + id)

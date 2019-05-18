@@ -4,8 +4,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {LandingComponent} from './landing/landing.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {ProductEditComponent} from './product-detail/product-edit/product-edit.component';
-import {ProfileComponent} from './profile/profile.component';
-import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
 import {MenuComponent} from './menu/menu.component';
 import {AdminSettingsComponent} from './admin-settings/admin-settings.component';
 import {ProductListFilteredComponent} from './product-list-filtered/product-list-filtered.component';
@@ -17,8 +15,6 @@ const routes: Routes = [
   {path: 'filtered', component: ProductListFilteredComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'product/:id/edit', component: ProductEditComponent, canActivate: [AuthGuard], data: { roles: ['Admin']}},
-  {path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
-  {path: 'profile/:id/edit', component: EditProfileComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: MenuComponent, canActivate: [AuthGuard]},
   {path: 'cart', component: MenuComponent, canActivate: [AuthGuard]},
   {path: 'favorites', component: MenuComponent, canActivate: [AuthGuard]},

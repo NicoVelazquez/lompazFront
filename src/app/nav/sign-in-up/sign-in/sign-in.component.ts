@@ -30,7 +30,6 @@ export class SignInComponent implements OnInit {
 
   signIn() {
     this.authService.signInWithEmailAndPassword(this.signInForm.value.email, this.signInForm.value.password).then(() => {
-      console.log('success login');
       UIkit.modal('#sign-modal').hide();
     });
   }

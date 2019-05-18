@@ -58,7 +58,6 @@ export class CommentsComponent implements OnInit, OnChanges {
       userId: this.auth.getId(),
       date: Date.now()
     };
-    console.log(newComment);
     this.productService.addProductComment(this.productId, newComment).then(() => {
       UIkit.notification({
         message: 'Comentario agregado exitosamente',

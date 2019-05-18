@@ -111,7 +111,6 @@ export class ProductEditComponent implements OnInit {
       sex: this.sex,
       category: [this.editForm.value.category]
     };
-    console.log(saveProduct);
     this.productService.updateProduct(id, saveProduct).then(() => {
       UIkit.notification({
         message: 'Los cambios se han realizado exitosamente',
@@ -156,9 +155,6 @@ export class ProductEditComponent implements OnInit {
   displayCategories() {
     this.editForm.get('category').valueChanges.subscribe(text => {
       if (text !== null) {
-        // this.locationService.getLocation(text).then(res => {
-        //   this.locations = res['resourceSets'][0]['resources'].map(e => e['name']);
-        // });
         this.categories = this.allCategories.filter(c => {
           return c.name.includes(text);
         });

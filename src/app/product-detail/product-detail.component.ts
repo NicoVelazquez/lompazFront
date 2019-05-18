@@ -47,7 +47,6 @@ export class ProductDetailComponent implements OnInit {
 
   addtoCart(product: any) {
     product.sizes = this.selectedSize;
-    console.log(product);
     this.productService.addCartProduct(product).then(() => {
       UIkit.notification({
         message: 'Producto añadido al carrito',
@@ -68,7 +67,6 @@ export class ProductDetailComponent implements OnInit {
   // }
   selectSize(size: any) {
     this.selectedSize = size.target.value;
-    console.log(this.selectedSize);
   }
 
   goToProduct(id: number) {

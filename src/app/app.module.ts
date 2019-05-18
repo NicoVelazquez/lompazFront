@@ -17,8 +17,6 @@ import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './shared/services/auth.service';
 import {EditBannerComponent} from './admin-settings/manage-banners/edit-banner/edit-banner.component';
 import {ProductEditComponent} from './product-detail/product-edit/product-edit.component';
-import {ProfileComponent} from './profile/profile.component';
-import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
 import {MenuComponent} from './menu/menu.component';
 import {CartComponent} from './menu/cart/cart.component';
 import {FavoritesComponent} from './menu/favorites/favorites.component';
@@ -63,8 +61,6 @@ export const firebaseConfig = environment.firebaseConfig;
     ManageBannersComponent,
     EditBannerComponent,
     ProductEditComponent,
-    ProfileComponent,
-    EditProfileComponent,
     MenuComponent,
     CartComponent,
     FavoritesComponent,

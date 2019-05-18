@@ -40,7 +40,6 @@ export class SignUpComponent implements OnInit {
 
   onCreateAccount() {
     this.authService.createUserWithEmailAndPassword(this.signUpForm.value.email, this.signUpForm.value.password).then(() => {
-      console.log('success signUp');
       this.signInWithEmailAndPassword(this.signUpForm.value.email, this.signUpForm.value.password);
       this.signUpForm.reset();
       UIkit.modal('#sign-modal').hide();
@@ -55,7 +54,6 @@ export class SignUpComponent implements OnInit {
 
   signInWithEmailAndPassword(email: string, password: string) {
     this.authService.signInWithEmailAndPassword(email, password).then(() => {
-      console.log('success login');
     });
   }
 }

@@ -13,29 +13,6 @@ import {Observable} from 'rxjs';
 })
 export class BannerService {
 
-  banners = [{
-    'id': 1,
-    'name': 'Banner1',
-    'photoUrl': '../../assets/images/banner1.png',
-    'startDate': '26-07-2018',
-    'finishDate': '30-07-2018'
-  },
-    {
-      'id': 2,
-      'name': 'Banner2',
-      'photoUrl': '../../assets/images/banner2.jpg',
-      'startDate': '26-07-2018',
-      'finishDate': '30-07-2018'
-    },
-    {
-      'id': 3,
-      'name': 'Banner3',
-      'photoUrl': '../../assets/images/banner3.jpg',
-      'startDate': '26-07-2018',
-      'finishDate': '30-07-2018'
-    }
-  ];
-
   constructor(private afs: AngularFirestore, private storage: AngularFireStorage) {
   }
 
@@ -53,7 +30,8 @@ export class BannerService {
   }
 
   public getActiveBanner(): Observable<any> {
-    return this.afs.collection('banners', ref => ref.where('finishDate', '>', Date.now()))
+    return this.afs.collection('banners', ref =>
+      ref.where('finishDate', '>', Date.now()))
       .snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {

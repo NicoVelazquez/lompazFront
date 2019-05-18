@@ -29,7 +29,6 @@ export class NavComponent implements OnInit {
   }
 
   signOut() {
-    console.log('Click');
     this.auth.signOut();
   }
 }
