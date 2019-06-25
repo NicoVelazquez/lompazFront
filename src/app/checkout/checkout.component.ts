@@ -18,6 +18,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   postPreference(request: PreferenceRequest): Promise<PreferenceResponse> {
-    return this.http.post<PreferenceResponse>(`${environment.mercadoPagoProxyBaseUrl}/preferences`).toPromise();
+    return this.http.post(`${environment.mercadoPagoProxyBaseUrl}/preferences`).toPromise();
   }
 }
