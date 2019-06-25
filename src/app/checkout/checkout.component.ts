@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-checkout',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor() { }
+  postPreference
 
   ngOnInit() {
+  }
+
+  constructor(private http: HttpClient) {
   }
 
 }
