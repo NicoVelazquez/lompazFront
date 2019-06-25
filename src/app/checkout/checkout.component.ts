@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {PreferenceRequest} from '../shared/models/mercado-pago/preference/PreferenceRequest';
 import {PreferenceResponse} from '../shared/models/mercado-pago/preference/PreferenceResponse';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-checkout',

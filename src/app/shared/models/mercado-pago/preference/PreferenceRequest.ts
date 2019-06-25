@@ -1,11 +1,12 @@
+import {Item} from './Item';
 import {Payer} from './Payer';
 import {ShipmentAddress} from './ShipmentAddress';
-import {Item} from './Item';
 
 export class PreferenceRequest {
   items: Item[];
   payer: Payer;
   address: ShipmentAddress;
+  externalReference: string;
 
   // deserialize(input: any): this {
   //   // Object.assign(this, input);

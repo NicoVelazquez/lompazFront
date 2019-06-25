@@ -1,5 +1,5 @@
 import {ShippingMethod} from './ShippingMethod';
-import {Address} from 'cluster';
+import {ShipmentAddress} from './ShipmentAddress';
 
 export class Shipments {
   mode: string;
@@ -9,5 +9,5 @@ export class Shipments {
   freeMethods: ShippingMethod[];
   currencyId: string;
   freeShipping: boolean;
-  receiverAddress: Address;
+  receiverAddress: ShipmentAddress;
 }
