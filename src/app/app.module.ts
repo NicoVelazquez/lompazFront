@@ -42,7 +42,9 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 
 
 import {environment} from '../environments/environment';
-import { CheckoutComponent } from './checkout/checkout.component';
+import {CheckoutComponent} from './checkout/checkout.component';
+import {CheckoutSuccessComponent} from './checkout-success/checkout-success.component';
+import {CheckoutFailureComponent} from './checkout-failure/checkout-failure.component';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -75,7 +77,9 @@ export const firebaseConfig = environment.firebaseConfig;
     SearchBarComponent,
     SortPipe,
     ProductListFilteredComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    CheckoutSuccessComponent,
+    CheckoutFailureComponent
   ],
   imports: [
     BrowserModule,
