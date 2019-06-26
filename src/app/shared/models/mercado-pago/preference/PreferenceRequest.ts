@@ -7,6 +7,7 @@ export class PreferenceRequest {
   payer: Payer;
   address: ShipmentAddress;
   externalReference: string;
+  freeShipping: boolean;
 
   // deserialize(input: any): this {
   //   // Object.assign(this, input);
