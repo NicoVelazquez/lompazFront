@@ -41,16 +41,9 @@ export class CheckoutComponent implements OnInit {
         }
       ],
       'payer': {
-        'email': 'spc.madeo.patricio@gmail.com',
+        'email': 'spc.madeo.patricio10@gmail.com',
         'name': 'Pato',
         'surname': 'Madeo'
-      },
-      'address': {
-        'streetName': 'Handel',
-        'streetNumber': 1894,
-        'zipCode': '1686',
-        'apartment': 'D',
-        'floor': '123'
       },
       'externalReference': 'nico',
       'freeShipping': true

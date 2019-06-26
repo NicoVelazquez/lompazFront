@@ -1,11 +1,9 @@
 import {Item} from './Item';
 import {Payer} from './Payer';
-import {ShipmentAddress} from './ShipmentAddress';
 
 export class PreferenceRequest {
   items: Item[];
   payer: Payer;
-  address: ShipmentAddress;
   externalReference: string;
   freeShipping: boolean;
 
