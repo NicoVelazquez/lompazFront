@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductService} from '../shared/services/product.service';
+import {MercadoLibreService} from '../shared/services/mercado-libre.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,9 +13,11 @@ export class MenuComponent implements OnInit {
   tab: string;
   cartProducts = [];
   favoriteProducts = [];
+  orders = [];
 
 
-  constructor(private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
+  constructor(private router: Router, private aRouter: ActivatedRoute, private productService: ProductService,
+              private meLiService: MercadoLibreService) {
   }
 
   ngOnInit() {
@@ -29,6 +32,10 @@ export class MenuComponent implements OnInit {
 
     this.productService.getFavoriteProducts().subscribe(data => {
       this.favoriteProducts = data;
+    });
+
+    this.meLiService.getAllOrders().subscribe(data => {
+      this.orders = data;
     });
 
   }

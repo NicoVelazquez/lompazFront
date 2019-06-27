@@ -2,6 +2,10 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import * as UIkit from 'uikit';
 import {Router} from '@angular/router';
 import {ProductService} from '../../shared/services/product.service';
+import {PreferenceRequest} from '../../shared/models/mercado-pago/preference/PreferenceRequest';
+import {HttpClient} from '@angular/common/http';
+import {MercadoLibreService} from '../../shared/services/mercado-libre.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 
 @Component({
@@ -14,7 +18,12 @@ export class CartComponent implements OnInit, OnChanges {
   @Input() products;
   totalPrice: number;
 
-  constructor(private router: Router, private productService: ProductService) {
+  onCheckout = false;
+
+  request: PreferenceRequest = new PreferenceRequest();
+
+  constructor(private router: Router, private productService: ProductService, private auth: AuthService,
+              private meLiService: MercadoLibreService) {
   }
 
   ngOnInit() {
@@ -31,10 +40,6 @@ export class CartComponent implements OnInit, OnChanges {
     for (const p of this.products) {
       this.totalPrice += p.price;
     }
-  }
-
-  checkout() {
-
   }
 
   goToProduct(id: number) {
@@ -61,6 +66,47 @@ export class CartComponent implements OnInit, OnChanges {
     //     });
     //   }
     // }
+  }
+
+  checkout() {
+    this.onCheckout = true;
+    const items = [];
+    this.products.forEach(p => {
+      items.push({
+        id: p.id,
+        title: p.name,
+        description: p.description,
+        pictureUrl: p.photosUrl[0],
+        quantity: 1,
+        unitPrice: p.price,
+        currencyId: 'ARS'
+      });
+    });
+
+    this.request = {
+      'items': items,
+      'payer': {
+        'email': this.auth.currentUser.email,
+        'name': this.auth.currentUser.name,
+        'surname': this.auth.currentUser.lastname
+      },
+      'externalReference': 'nada',
+      'freeShipping': true
+
+    };
+
+    this.meLiService.setCurrentCart(this.products).then((e) => {
+      this.meLiService.postPreference(this.request).then(r => {
+        console.log(r);
+        // lo hace en la misma pestaña
+        window.location.href = r.sandboxInitPoint;
+        // lo hace en una pestaña nueva
+        // window.open(r.sandboxInitPoint, undefined, undefined, true);
+      }).catch(err => {
+        // TODO: q hacemos? redireccionamos a una pagina de error geenrica ?
+        console.log(err);
+      });
+    });
   }
 
 }

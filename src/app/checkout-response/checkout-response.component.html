@@ -1,0 +1,24 @@
+<div class="uk-width-1-1 uk-flex uk-flex-center">
+
+  <div class="message-container uk-width-1-2" *ngIf="response === 'success'">
+    <h2 class="uk-text-center">¡GRACIAS POR ELEJIRNOS!</h2>
+    <h4 class="uk-text-center">Su orden esta en camino</h4>
+
+    <div class="uk-flex uk-flex-center">
+      <img src="assets/images/success.svg" style="width: 100px; height: 100px">
+    </div>
+    <div class="uk-flex uk-flex-center">
+      <progress id="js-progressbar" class="uk-progress" value="0" max="100"></progress>
+    </div>
+  </div>
+
+  <div class="message-container uk-width-1-2" *ngIf="response === 'failure'">
+    <h2 class="uk-text-center">Hubo un error!</h2>
+    <h4 class="uk-text-center">Por favor, vuelva a intentar</h4>
+
+    <div class="uk-flex uk-flex-center">
+      <img src="assets/images/failure.svg" style="width: 100px; height: 100px">
+    </div>
+  </div>
+
+</div>

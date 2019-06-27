@@ -21,10 +21,10 @@
     </div>
 
     <div class="right-body uk-width-3-4@m">
-      <app-menu-profile *ngIf="tab == 'profile'"></app-menu-profile>
-      <app-cart [products]="cartProducts" *ngIf="tab == 'cart'"></app-cart>
-      <app-favorites [products]="favoriteProducts" *ngIf="tab == 'favorites'"></app-favorites>
-      <app-orders *ngIf="tab == 'orders'"></app-orders>
+      <app-menu-profile                             *ngIf="tab == 'profile'"></app-menu-profile>
+      <app-cart [products]="cartProducts"           *ngIf="tab == 'cart'"></app-cart>
+      <app-favorites [products]="favoriteProducts"  *ngIf="tab == 'favorites'"></app-favorites>
+      <app-orders [orders]="orders"                 *ngIf="tab == 'orders'"></app-orders>
     </div>
 
   </div>

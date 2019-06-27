@@ -18,7 +18,8 @@
           </div>
           <div class="uk-width-1-2 product-details">
             <div class="remove-button uk-align-right">
-              <a uk-icon="icon: close" (click)="removeFromCart(product?.id)" uk-tooltip="Sacar producto del carrito"></a>
+              <a uk-icon="icon: close" (click)="removeFromCart(product?.id)"
+                 uk-tooltip="Sacar producto del carrito"></a>
             </div>
             <p>{{product?.category}}</p>
             <h3>{{product?.name}}</h3>
@@ -41,7 +42,14 @@
       </h5>
       <div class="uk-width-1-1 uk-flex uk-flex-center uk-margin-medium-top">
         <button class="uk-button uk-button-primary uk-width-2-3" (click)="checkout()"
-                [disabled]="products.length == 0">Continuar
+                [disabled]="products.length == 0" *ngIf="!onCheckout">
+          Continuar
+        </button>
+        <button class="uk-button uk-button-primary uk-width-2-3" (click)="checkout()"
+                disabled *ngIf="onCheckout">
+          <div class="loading uk-flex uk-flex-center">
+            <img src="assets/images/loading.svg" style="width: 40px; height: 40px">
+          </div>
         </button>
       </div>
     </div>

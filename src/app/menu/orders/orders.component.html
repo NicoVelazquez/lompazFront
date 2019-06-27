@@ -4,4 +4,32 @@
     <h3>Ordenes</h3>
   </div>
 
+  <div class="orders uk-width-1-1 uk-margin-remove">
+
+    <div class="uk-width-1-1 uk-flex uk-flex-center">
+      <h3 class="no-orders" *ngIf="orders?.length == 0">No tienes ordenes actualmente!</h3>
+    </div>
+
+    <div class="uk-width-1-1 uk-flex uk-flex-center uk-margin-remove" *ngIf="orders?.length > 0">
+      <table class="uk-table uk-table-striped mod--table">
+        <thead>
+        <tr>
+          <th *ngFor="let header of headers">{{header}}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let order of orders; let i = index">
+          <td>{{i}}</td>
+          <td>{{order?.id}}</td>
+          <td>{{order?.status | titlecase}}</td>
+          <td>{{order?.date | date}}</td>
+          <td>{{order?.products.length}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
 </div>

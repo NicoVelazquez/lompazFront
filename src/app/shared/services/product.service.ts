@@ -7,6 +7,7 @@ import {
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {ProviderMeta} from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -116,11 +117,13 @@ export class ProductService {
       .delete();
   }
 
-  // TODO
-  // public deleteAllCartProducts(userId: string): Promise<any> {
-    // return this.afs.doc('carts/' + userId).collection('cart-products')
-    //   .delete();
-  // }
+  // TODO - meter un Promise.all y que la funcion entera devuelva un promise
+  public deleteAllCartProducts() {
+    const cartProducts = JSON.parse(window.localStorage.getItem('currentCart'));
+    cartProducts.forEach(p => {
+      this.deleteCartProduct(p.id).then(() => console.log('borro'));
+    });
+  }
 
   // TODO - probar que se este agregando el producto con el id del product
   public addFavoriteProduct(product: any): Promise<any> {
