@@ -34,17 +34,19 @@ export class MenuProfileComponent implements OnInit {
 
     this.userService.getUser().subscribe(data => {
       this.user = data;
-      this.profileForm.patchValue({
-        name: this.user.name,
-        lastname: this.user.lastname,
-        email: this.user.email,
-        birthday: this.user.birthday,
-      });
-      this.sexes.forEach(s => {
-        if (s.name === this.user.sex) {
-          s.checked = true;
-        }
-      });
+      if (this.user !== undefined) {
+        this.profileForm.patchValue({
+          name: this.user.name,
+          lastname: this.user.lastname,
+          email: this.user.email,
+          birthday: this.user.birthday,
+        });
+        this.sexes.forEach(s => {
+          if (s.name === this.user.sex) {
+            s.checked = true;
+          }
+        });
+      }
     });
   }
 
@@ -101,13 +103,13 @@ export class MenuProfileComponent implements OnInit {
 
   confirmDeleteUser() {
     this.userService.deleteUser().then(() => {
-      this.router.navigate(['']);
-      this.authService.signOut();
+      this.authService.deleteUser();
       UIkit.notification({
         message: 'Usuario eliminado exitosamente',
         status: 'primary',
         pos: 'top-right'
       });
+      this.router.navigate(['']);
       UIkit.modal('#confirmDeleteUser').hide();
     });
   }

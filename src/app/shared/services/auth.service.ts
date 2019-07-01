@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   public isAdmin() {
-    if (this.currentUser !== null) {
+    if (this.currentUser !== null && this.currentUser !== undefined) {
       return this.currentUser.role === 'Admin';
     } else {
       return false;
@@ -40,9 +40,13 @@ export class AuthService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(data => {
       this.afs.collection('users').doc(data.user.uid).set({
         email: data.user.email,
-        admin: false
+        admin: false,
+        birthday: '2000-01-01',
+        name: 'John',
+        lastname: 'Doe',
+        sex: 'Masculino',
+        photoUrl: 'https://firebasestorage.googleapis.com/v0/b/lompaz-d4bb8.appspot.com/o/users%2Fundefined?alt=media&token=fae8cbc6-757b-46a7-bf31-42470ebb396e'
       }).then(() => {
-        console.log('se guardo el usuario en la base');
       });
     });
   }
@@ -56,8 +60,14 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
+  deleteUser() {
+    this.afAuth.auth.currentUser.delete().then(() => {
+      this.removeId();
+    });
+  }
+
   public setId(id) {
-    return window.localStorage.setItem(this.idKey, id);
+    window.localStorage.setItem(this.idKey, id);
   }
 
   public getId() {
@@ -65,7 +75,7 @@ export class AuthService {
   }
 
   public removeId() {
-    return window.localStorage.removeItem(this.idKey);
+    window.localStorage.removeItem(this.idKey);
   }
 
   // public login(credentials: any): Promise<any> {

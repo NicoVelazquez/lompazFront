@@ -36,7 +36,6 @@ export class UserService {
   deleteUser(): Promise<any> {
     // TODO borrar imagen del user (esta con el id del user)
     const id = window.localStorage.getItem(this.idKey);
-    this.afAuth.auth.currentUser.delete();
     return this.afs.doc('users/' + id)
       .delete();
   }

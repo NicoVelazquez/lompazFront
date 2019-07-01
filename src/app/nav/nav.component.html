@@ -39,7 +39,9 @@
         </div>
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
-            <li class="uk-nav-header uk-margin-small-bottom">Nicolas Velazquez</li>
+            <li class="uk-nav-header uk-margin-small-bottom">
+              {{auth.currentUser?.name}} {{auth.currentUser?.lastname}}
+            </li>
             <li><a routerLink="/profile"><span uk-icon="user"></span> Perfil</a></li>
             <hr>
             <li><a routerLink="/cart"><span uk-icon="cart"></span> Carrito</a></li>
