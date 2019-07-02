@@ -68,7 +68,8 @@ export class ProductService {
   }
 
   public getLatestProducts(): Observable<any> {
-    return this.afs.collection('products', ref => ref.limit(4))
+    return this.afs.collection('products', ref =>
+      ref.orderBy('date', 'desc').limit(4))
       .snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {

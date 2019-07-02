@@ -50,7 +50,8 @@ export class ManageProductsComponent implements OnInit {
       sizes: this.sizes.filter(s => s.checked).map(s => s.name),
       photosUrl: [],
       rating: 0,
-      sex: this.sex
+      sex: this.sex,
+      date: Date.now()
     };
 
     // // TODO Poner los .catch devuelta bien
