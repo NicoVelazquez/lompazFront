@@ -28,10 +28,10 @@ export class SearchBarComponent implements OnInit {
   }
 
   displaySearch() {
-    this.generalSearchForm.get('search').valueChanges.subscribe(text => {
+    this.generalSearchForm.get('search').valueChanges.subscribe((text: string) => {
       if (text !== null && text !== '') {
         this.searchList = this.products.filter(c => {
-          return c.name.includes(text);
+          return c.name.toLowerCase().includes(text.toLowerCase());
         });
       } else {
         this.searchList = [];

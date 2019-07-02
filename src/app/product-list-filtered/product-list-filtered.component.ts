@@ -62,11 +62,11 @@ export class ProductListFilteredComponent implements OnInit {
   }
 
   displaySearch() {
-    this.generalSearchForm.get('search').valueChanges.subscribe(text => {
+    this.generalSearchForm.get('search').valueChanges.subscribe((text: string) => {
       console.log(text);
       if (text !== null && text !== '') {
         console.log('entro al posta');
-        this.filteredProducts = this.products.filter(c => c.name.includes(text));
+        this.filteredProducts = this.products.filter(c => c.name.toLowerCase().includes(text.toLowerCase()));
       }
       if (text === '') {
         console.log('entro al vacio');
@@ -84,7 +84,7 @@ export class ProductListFilteredComponent implements OnInit {
   }
 
   onPrice(min: number, max: number) {
-    this.filteredProducts = this.products.filter(p => (p.price > min && p.price < max));
+    this.filteredProducts = this.products.filter(p => (p.price >= min && p.price < max));
   }
 
 }

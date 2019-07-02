@@ -9,10 +9,14 @@ import {AdminSettingsComponent} from './admin-settings/admin-settings.component'
 import {ProductListFilteredComponent} from './product-list-filtered/product-list-filtered.component';
 import {AuthGuard} from './shared/guards/auth.guard';
 import {CheckoutResponseComponent} from './checkout-response/checkout-response.component';
+import {WhoComponent} from './landing/who/who.component';
+import {ContactComponent} from './landing/contact/contact.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
   {path: 'home', component: LandingComponent},
+  {path: 'who', component: WhoComponent},
+  {path: 'contact', component: ContactComponent},
   {path: 'filtered', component: ProductListFilteredComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'product/:id/edit', component: ProductEditComponent, canActivate: [AuthGuard], data: { roles: ['Admin']}},
