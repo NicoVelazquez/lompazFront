@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from '../../shared/services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as UIkit from 'uikit';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../shared/services/category.service';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -11,7 +12,7 @@ import {CategoryService} from '../../shared/services/category.service';
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.css']
 })
-export class ProductEditComponent implements OnInit {
+export class ProductEditComponent implements OnInit, OnDestroy {
 
   public editForm: FormGroup;
   product: any;
@@ -21,6 +22,8 @@ export class ProductEditComponent implements OnInit {
   allCategories = [];
   categories = [];
   sex: string;
+
+  private subscription: Subscription;
 
 
   constructor(private fb: FormBuilder, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService,
@@ -35,7 +38,7 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit() {
     this.aRouter.params.subscribe(params => {
-      this.productService.getProduct(params['id']).subscribe(data => {
+      this.subscription = this.productService.getProduct(params['id']).subscribe(data => {
         this.product = data;
         this.product.id = params['id'];
         this.product.sizes.forEach(e => {
@@ -67,6 +70,10 @@ export class ProductEditComponent implements OnInit {
       this.allCategories = data;
       this.displayCategories();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   checkboxChanged(index: number) {
@@ -134,8 +141,9 @@ export class ProductEditComponent implements OnInit {
   }
 
   confirmDeleteProduct() {
+    this.router.navigate(['']);
+
     this.productService.deleteProduct(this.product.id).then(() => {
-      this.router.navigate(['']);
       UIkit.notification({
         message: 'Producto eliminado exitosamente',
         status: 'primary',

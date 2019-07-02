@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from '../shared/services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as UIkit from 'uikit';
 import {AuthService} from '../shared/services/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
 
   product: any;
   categoryProducts: any;
@@ -18,12 +19,14 @@ export class ProductDetailComponent implements OnInit {
   comments: any;
   rating: number;
 
+  private subscription: Subscription;
+
   constructor(private auth: AuthService, private router: Router, private aRouter: ActivatedRoute, private productService: ProductService) {
   }
 
   ngOnInit() {
     this.aRouter.params.subscribe(params => {
-      this.productService.getProduct(params['id']).subscribe(data => {
+      this.subscription = this.productService.getProduct(params['id']).subscribe(data => {
         this.product = data;
         this.product.id = params['id'];
         this.sizes = this.product.sizes;
@@ -39,6 +42,10 @@ export class ProductDetailComponent implements OnInit {
       });
 
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   changeImage(index: number) {
