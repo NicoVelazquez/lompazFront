@@ -5,6 +5,9 @@
       <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text" id="email"
              formControlName="email" placeholder="Email"
              pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+      <div *ngIf="(email.invalid && (email.dirty || email.touched) || invalidEmail)" class="warning">
+        Email invalido o ya en uso.
+      </div>
     </div>
 
     <div class="uk-margin">
@@ -28,7 +31,7 @@
     </div>
 
     <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" [disabled]="signUpForm.invalid"
-    (click)="onCreateAccount()">
+            (click)="onCreateAccount()">
       Continuar
     </button>
 

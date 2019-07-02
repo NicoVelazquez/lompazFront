@@ -15,6 +15,8 @@ export class SignUpComponent implements OnInit {
   public showPass: boolean;
   public showCPass: boolean;
 
+  invalidEmail = false;
+
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.signUpForm = fb.group({
       'email': new FormControl(null, [Validators.required]),
@@ -28,6 +30,10 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
     this.showPass = false;
     this.showCPass = false;
+
+    this.signUpForm.get('email').valueChanges.subscribe(() => {
+      this.invalidEmail = false;
+    });
   }
 
   showPassword() {
@@ -38,6 +44,8 @@ export class SignUpComponent implements OnInit {
     this.showCPass = !this.showCPass;
   }
 
+  get email() { return this.signUpForm.get('email'); }
+
   onCreateAccount() {
     this.authService.createUserWithEmailAndPassword(this.signUpForm.value.email, this.signUpForm.value.password).then(() => {
       this.signInWithEmailAndPassword(this.signUpForm.value.email, this.signUpForm.value.password);
@@ -46,6 +54,9 @@ export class SignUpComponent implements OnInit {
     }).catch(err => {
       if (err.code === 'auth/email-already-in-use') {
         console.log('Email Already in Use');
+        document.getElementById('email').classList.remove('ng-valid');
+        document.getElementById('email').classList.add('ng-invalid');
+        this.invalidEmail = true;
       } else {
         console.log(err);
       }
