@@ -19,6 +19,8 @@ export class MenuProfileComponent implements OnInit {
   user: any;
   public profileForm: FormGroup;
 
+  loading = false;
+
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private authService: AuthService) {
     this.profileForm = fb.group({
       'name': new FormControl(null, [Validators.required]),
@@ -54,6 +56,7 @@ export class MenuProfileComponent implements OnInit {
   }
 
   readUrl(event: any) {
+    this.loading = true;
     // Se podria agregar un spinner TODO
     setTimeout(() => {
       if (event.target.files && event.target.files[0]) {
@@ -62,6 +65,7 @@ export class MenuProfileComponent implements OnInit {
           this.userService.addUserPhoto(this.user.id, event.target.files[0]).then(data => {
             data.subscribe(url => {
               this.user.photoUrl = url;
+              this.loading = false;
               this.userService.updateUser(this.user).then(() => {
                 UIkit.notification({
                   message: 'Imagen guardados exitosamente',

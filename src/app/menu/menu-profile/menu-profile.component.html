@@ -5,9 +5,7 @@
 
 
   <div class="left-image uk-width-1-3@s">
-    <div class="profile-image uk-text-center">
-      <!--Aca no habria que tener el *ngIf, sino que se deberia cambiar la url del user photo y refreshar auto TODO-->
-      <img *ngIf="user?.photoUrl == null" src="../../assets/images/user-default4.png">
+    <div class="profile-image uk-text-center" *ngIf="!loading">
       <img *ngIf="user?.photoUrl != null" src="{{user?.photoUrl}}">
       <div class="edit-image uk-position-center" uk-tooltip="Cambiar imagen" uk-form-custom>
         <input type="file" (change)="readUrl($event)">
@@ -15,6 +13,10 @@
           <a uk-icon="icon: pencil; ratio: 1.5"></a>
         </button>
       </div>
+    </div>
+
+    <div class="uk-flex uk-flex-center" *ngIf="loading">
+      <img src="assets/images/loading.svg" style="width: 80px; height: 80px">
     </div>
 
     <div class="uk-flex uk-flex-center uk-margin-medium-top" (click)="deleteUser()">
