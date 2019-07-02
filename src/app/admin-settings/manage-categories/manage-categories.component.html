@@ -2,10 +2,10 @@
   <div class="uk-width-1-2">
     <div class="uk-width-1-1">
       <h3>Agregar Categoria</h3>
-      <form [formGroup]="categoryForm">
+      <form [formGroup]="categoryForm" autocomplete="off">
         <div class="uk-margin">
           <div class="uk-form-controls">
-            <input class="uk-input" id="name" type="text" formControlName="name" placeholder="Nombre">
+            <input autocomplete="off" class="uk-input" id="name" type="text" formControlName="name" placeholder="Nombre">
           </div>
         </div>
       </form>

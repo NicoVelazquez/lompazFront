@@ -41,11 +41,11 @@
   </div>
 
   <div class="center-photo uk-width-expand">
-    <form [formGroup]="productForm">
+    <form [formGroup]="productForm" autocomplete="off">
 
       <label class="uk-form-label" for="name">Nombre</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="name" type="text" formControlName="name">
+        <input autocomplete="off" class="uk-input" id="name" type="text" formControlName="name">
       </div>
 
       <label class="uk-form-label">Sexo</label>
