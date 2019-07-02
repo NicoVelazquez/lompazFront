@@ -97,10 +97,10 @@ export class ManageProductsComponent implements OnInit {
   }
 
   displayCategories() {
-    this.productForm.get('category').valueChanges.subscribe(text => {
+    this.productForm.get('category').valueChanges.subscribe((text: string) => {
       if (text !== null) {
         this.categories = this.allCategories.filter(c => {
-          return c.name.includes(text);
+          return c.name.toLowerCase().includes(text.toLowerCase());
         });
       }
     });

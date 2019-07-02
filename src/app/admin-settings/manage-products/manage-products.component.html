@@ -11,7 +11,7 @@
         <li *ngFor="let photo of photos; let i = index" uk-slideshow-item="2">
           <a><img src="{{photo}}" width="50" alt=""></a>
         </li>
-        <li class="add-photo" uk-form-custom>
+        <li class="add-photo" uk-form-custom *ngIf="photos.length == 0">
           <input type="file" (change)="readUrl($event)">
           <button class="uk-button uk-button-default removeBorder" type="button" tabindex="-1">
             <img src="../../../assets/images/addPhotoSnip.png" width="50" alt="">

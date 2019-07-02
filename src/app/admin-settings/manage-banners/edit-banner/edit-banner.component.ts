@@ -18,7 +18,8 @@ export class EditBannerComponent implements OnInit {
   constructor(private fb: FormBuilder, private bannerService: BannerService) {
     this.editBannerForm = fb.group({
       'name': new FormControl(null, [Validators.required]),
-      'startDate': new FormControl(null, [Validators.required, isValidStartDate]),
+      'startDate': new FormControl(null, [Validators.required]),
+      // 'startDate': new FormControl(null, [Validators.required, isValidStartDate]),
       'finishDate': new FormControl(null, [Validators.required]),
     }, {
       validator: DateValidation.GreaterThanDate
