@@ -57,7 +57,7 @@ export class SearchBarComponent implements OnInit {
     UIkit.dropdown('.search-dropdown').hide();
     console.log('entro')
     if (this.generalSearchForm.get('search').value === null) {
-      this.router.navigate(['/search']);
+      this.router.navigate(['/filtered'], {queryParams: {search: 'all'}});
       this.generalSearchForm.reset();
     } else {
       this.router.navigate(['/filtered'], {queryParams: {search: (this.generalSearchForm.get('search').value).toString().toLowerCase()}});

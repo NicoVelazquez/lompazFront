@@ -46,6 +46,14 @@
   </div>
 
   <div class="uk-width-expand@s uk-padding-remove">
+
+    <div class="uk-panel uk-flex uk-flex-center uk-padding" *ngIf="searching">
+      <form class="uk-search uk-search-default uk-width-1-2" [formGroup]="generalSearchForm">
+        <input class="search-input uk-search-input" type="search" formControlName="search" placeholder="Buscar...">
+      </form>
+    </div>
+
+
     <app-product-list [products]="filteredProducts"></app-product-list>
   </div>
 
