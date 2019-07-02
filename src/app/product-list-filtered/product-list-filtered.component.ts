@@ -14,8 +14,9 @@ export class ProductListFilteredComponent implements OnInit {
   filteredProducts = [];
   categories = [];
   sizes = ['S', 'M', 'L', 'XL'];
-  prices = [{'name': 'menor $100', 'price': 100}, {'name': '$100 ~ $200', 'price': 200},
-    {'name': '$200 ~ $300', 'price': 300}, {'name': '$300 ~ $400', 'price': 400}];
+  prices = [{'name': 'menor $100', 'pMin': 0, 'pMax': 100 }, {'name': '$100 ~ $200', 'pMin': 100, 'pMax': 200 },
+    {'name': '$200 ~ $300', 'pMin': 200, 'pMax': 300 }, {'name': '$300 ~ $400', 'pMin': 300, 'pMax': 400 },
+    {'name': 'mayor $400', 'pMin': 400, 'pMax': Number.POSITIVE_INFINITY}];
 
   constructor(private productService: ProductService, private categoryService: CategoryService,
               private router: Router, private route: ActivatedRoute) {
@@ -42,8 +43,8 @@ export class ProductListFilteredComponent implements OnInit {
     this.filteredProducts = this.products.filter(p => p.sizes.includes(size));
   }
 
-  onPrice(price: number) {
-    this.filteredProducts = this.products.filter(p => (p.price > price - 100 && p.price < price));
+  onPrice(min: number, max: number) {
+    this.filteredProducts = this.products.filter(p => (p.price > min && p.price < max));
   }
 
 }

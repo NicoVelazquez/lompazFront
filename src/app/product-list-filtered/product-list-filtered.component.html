@@ -33,7 +33,7 @@
       <div class="uk-form-controls uk-form-controls-text filter-radio-prices">
         <div class="prices" *ngFor="let p of prices">
           <label>
-            <input class="uk-radio" type="radio" name="price" (click)="onPrice(p.price)">
+            <input class="uk-radio" type="radio" name="price" (click)="onPrice(p.pMin, p.pMax)">
             {{p.name}}
           </label>
           <br>
