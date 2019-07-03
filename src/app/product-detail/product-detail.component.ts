@@ -52,17 +52,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     console.log(index);
   }
 
-  addtoCart(product: any) {
+  addToCart(product: any) {
     product.sizes = this.selectedSize;
-    this.productService.addCartProduct(product).then(() => {
-      UIkit.notification({
-        message: 'Producto añadido al carrito',
-        status: 'primary',
-        pos: 'top-right'
-      });
-    }).catch(err => {
-      console.log(err);
+    product.cuantity = 1;
+    this.productService.addCartProduct(product);
+    UIkit.notification({
+      message: 'Producto añadido al carrito',
+      status: 'primary',
+      pos: 'top-right'
     });
+    // this.productService.addCartProduct(product).then(() => {
+    //   UIkit.notification({
+    //     message: 'Producto añadido al carrito',
+    //     status: 'primary',
+    //     pos: 'top-right'
+    //   });
+    // }).catch(err => {
+    //   console.log(err);
+    // });
   }
 
   // selectSize(size: string) {

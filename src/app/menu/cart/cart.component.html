@@ -23,7 +23,7 @@
             </div>
             <p>{{product?.category}}</p>
             <h3>{{product?.name}}</h3>
-            <h4>$ {{product?.price}}</h4>
+            <h4>$ {{product?.price}} x {{product?.cuantity}}</h4>
             <h6>{{product?.description}}</h6>
           </div>
         </div>
@@ -35,7 +35,7 @@
     <div class="cart-details">
       <h4 class="uk-text-center">Detalles de la compra</h4>
       <h5>Cantidad de Productos:
-        <div class="uk-align-right uk-margin-remove">{{products.length}}</div>
+        <div class="uk-align-right uk-margin-remove">{{totalProducts}}</div>
       </h5>
       <h5 class="uk-margin-small-top">Precio Total:
         <div class="uk-align-right uk-margin-remove">$ {{totalPrice}}</div>

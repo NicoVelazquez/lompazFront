@@ -155,10 +155,18 @@ export class ProductService {
 
   // MENU
 
-  public addCartProduct(product: any): Promise<any> {
+  public addCartProduct(product: any) {
     const userId = window.localStorage.getItem('id');
     return this.afs.doc('carts/' + userId).collection('cart-products')
-      .doc(product.id).set(product);
+      .doc(product.id).get().subscribe(data => {
+        if (data.exists) {
+          return this.afs.doc('carts/' + userId).collection('cart-products')
+            .doc(product.id).update({cuantity: data.data().cuantity = data.data().cuantity + 1});
+        } else {
+          return this.afs.doc('carts/' + userId).collection('cart-products')
+            .doc(product.id).set(product);
+        }
+      });
   }
 
   public getCartProducts(): Observable<any> {

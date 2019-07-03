@@ -19,11 +19,14 @@ export class OrdersComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.orders.firstChange) {
       this.orders.map(o => {
-        let total = 0;
+        let totalP = 0;
+        let totalQ = 0;
         o.products.forEach(p => {
-          total += p.price;
+          totalP += p.price * p.cuantity;
+          totalQ += p.cuantity;
         });
-        o.total = total;
+        o.total = totalP;
+        o.cuantity = totalQ;
       });
   }
 }

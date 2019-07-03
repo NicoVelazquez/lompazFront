@@ -22,6 +22,8 @@ export class CartComponent implements OnInit, OnChanges {
 
   request: PreferenceRequest = new PreferenceRequest();
 
+  totalProducts = 0;
+
   constructor(private router: Router, private productService: ProductService, private auth: AuthService,
               private meLiService: MercadoLibreService) {
   }
@@ -38,7 +40,9 @@ export class CartComponent implements OnInit, OnChanges {
   calculateTotalPrice() {
     this.totalPrice = 0;
     for (const p of this.products) {
-      this.totalPrice += p.price;
+      this.totalPrice += (p.price * p.cuantity);
+
+      this.totalProducts += p.cuantity;
     }
   }
 

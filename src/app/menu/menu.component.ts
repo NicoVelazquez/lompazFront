@@ -28,6 +28,7 @@ export class MenuComponent implements OnInit {
 
     this.productService.getCartProducts().subscribe(data => {
       this.cartProducts = data;
+      console.log(this.cartProducts);
     });
 
     this.productService.getFavoriteProducts().subscribe(data => {
