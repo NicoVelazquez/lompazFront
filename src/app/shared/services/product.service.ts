@@ -35,16 +35,13 @@ export class ProductService {
       .delete();
   }
 
-  public deleteProductFromCarts(productid: string): any {
+  public deleteProductFromCarts(productId: string): any {
     this.afs.collection('users').get().subscribe(querySnapshot => {
       const that = this;
       querySnapshot.forEach(function (doc) {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id);
-        that.deleteCartProduct2(productid, doc.id).then(() => {
-          console.log('borro');
+        that.deleteCartProduct2(productId, doc.id).then(() => {
         }).catch((err) => {
-          console.log('no borro xq: ' + err);
+          console.log('Error en borrado de producto de carritos: ' + err);
         });
       });
     });
@@ -55,9 +52,22 @@ export class ProductService {
       .delete();
   }
 
-  // public deleteProductFromFavorites(id: string): Promise<any> {
-  //   return undefined;
-  // }
+  public deleteProductFromFavorites(productId: string): any {
+    this.afs.collection('users').get().subscribe(querySnapshot => {
+      const that = this;
+      querySnapshot.forEach(function (doc) {
+        that.deleteFavoriteProduct2(productId, doc.id).then(() => {
+        }).catch((err) => {
+          console.log('Error en borrado de producto de carritos: ' + err);
+        });
+      });
+    });
+  }
+
+  public deleteFavoriteProduct2(cartProductId: string, userId: string): Promise<any> {
+    return this.afs.doc('favorites/' + userId).collection('favorites-products').doc(cartProductId)
+      .delete();
+  }
 
   public getAllProducts(): Observable<any> {
     return this.afs.collection('products')
@@ -119,7 +129,7 @@ export class ProductService {
   public addCartProduct(product: any): Promise<any> {
     const userId = window.localStorage.getItem('id');
     return this.afs.doc('carts/' + userId).collection('cart-products')
-      .add(product);
+      .doc(product.id).set(product);
   }
 
   public getCartProducts(): Observable<any> {
