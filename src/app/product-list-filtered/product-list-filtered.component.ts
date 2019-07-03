@@ -28,6 +28,10 @@ export class ProductListFilteredComponent implements OnInit {
 
   category = '';
 
+  currentCategory = '';
+  currentSize = '';
+  currentPrice = {};
+
   constructor(private productService: ProductService, private categoryService: CategoryService,
               private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
     this.generalSearchForm = fb.group({
@@ -36,8 +40,6 @@ export class ProductListFilteredComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displaySearch();
-
     this.route.queryParams.subscribe(params => {
       if (params.category) {
         this.searching = false;
@@ -50,6 +52,7 @@ export class ProductListFilteredComponent implements OnInit {
       }
       if (params.search) {
         this.searching = true;
+        this.displaySearch();
 
         this.subs = this.productService.getAllProductsPaginated().subscribe(data => {
           this.products = data;
@@ -79,7 +82,14 @@ export class ProductListFilteredComponent implements OnInit {
     if (!this.searching) {
       this.subs = this.productService.getSexProductsPaginated(this.category).subscribe(data => {
         this.products = data;
-        this.filteredProducts = data;
+
+        if (this.currentCategory !== '') {
+          console.log('category not null');
+          this.onCategory(this.currentCategory);
+        } else {
+          console.log('category null');
+          this.filteredProducts = data;
+        }
       });
     }
   }
@@ -99,6 +109,7 @@ export class ProductListFilteredComponent implements OnInit {
   }
 
   onCategory(category: string) {
+    this.currentCategory = category;
     this.filteredProducts = this.products.filter(p => p.category.includes(category));
   }
 

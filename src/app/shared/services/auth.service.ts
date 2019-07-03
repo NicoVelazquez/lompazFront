@@ -45,7 +45,7 @@ export class AuthService {
         name: 'John',
         lastname: 'Doe',
         sex: 'Masculino',
-        photoUrl: 'https://firebasestorage.googleapis.com/v0/b/lompaz-d4bb8.appspot.com/o/users%2Fundefined?alt=media&token=fae8cbc6-757b-46a7-bf31-42470ebb396e'
+        photoUrl: ''
       }).then(() => {
       });
     });

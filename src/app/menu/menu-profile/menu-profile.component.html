@@ -6,7 +6,8 @@
 
   <div class="left-image uk-width-1-3@s">
     <div class="profile-image uk-text-center" *ngIf="!loading">
-      <img *ngIf="user?.photoUrl != null" src="{{user?.photoUrl}}">
+      <img *ngIf="user?.photoUrl != ''" src="{{user?.photoUrl}}">
+      <img *ngIf="user?.photoUrl === ''" src="assets/images/user-default4.png">
       <div class="edit-image uk-position-center" uk-tooltip="Cambiar imagen" uk-form-custom>
         <input type="file" (change)="readUrl($event)">
         <button class="uk-button uk-button-default" type="button" tabindex="-1">

@@ -33,6 +33,7 @@ export class CartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.products.currentValue !== null) {
+      console.log(this.products);
       this.calculateTotalPrice();
     }
   }
