@@ -62,7 +62,7 @@ export class MenuProfileComponent implements OnInit {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (event2: ProgressEvent) => {
-          this.userService.addUserPhoto(this.user.id, event.target.files[0]).then(data => {
+          this.userService.addUserPhoto(this.authService.currentUser.id, event.target.files[0]).then(data => {
             data.subscribe(url => {
               this.user.photoUrl = url;
               this.loading = false;

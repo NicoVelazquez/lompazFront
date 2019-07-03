@@ -114,10 +114,12 @@ export class ProductListFilteredComponent implements OnInit {
   }
 
   onSize(size: string) {
+    this.currentSize = size;
     this.filteredProducts = this.products.filter(p => p.sizes.includes(size));
   }
 
   onPrice(min: number, max: number) {
+    this.currentPrice = {min: min, max: max};
     this.filteredProducts = this.products.filter(p => (p.price >= min && p.price < max));
   }
 
