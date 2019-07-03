@@ -36,6 +36,7 @@ export class MenuProfileComponent implements OnInit {
 
     this.userService.getUser().subscribe(data => {
       this.user = data;
+      console.log(this.user);
       if (this.user !== undefined) {
         this.profileForm.patchValue({
           name: this.user.name,

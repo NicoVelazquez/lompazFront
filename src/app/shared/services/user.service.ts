@@ -5,6 +5,7 @@ import {
 import {AngularFireAuth} from 'angularfire2/auth';
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
 import {Observable} from 'rxjs';
+import {noUndefined} from '@angular/compiler/src/util';
 
 
 @Injectable({
@@ -41,7 +42,8 @@ export class UserService {
   }
 
   addUserPhoto(path: string, file: File): Promise<any> {
-    return this.storage.upload('users/' + path, file).then(data => {
+    const id = window.localStorage.getItem(this.idKey);
+    return this.storage.upload('users/' + id, file).then(data => {
       return this.storage.ref(data.metadata.fullPath).getDownloadURL();
     });
   }
