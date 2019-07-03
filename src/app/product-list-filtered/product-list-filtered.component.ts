@@ -30,7 +30,8 @@ export class ProductListFilteredComponent implements OnInit {
 
   currentCategory = '';
   currentSize = '';
-  currentPrice = {};
+  currentPrice = {min: 0, max: 0};
+  currentText = '';
 
   constructor(private productService: ProductService, private categoryService: CategoryService,
               private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
@@ -75,52 +76,60 @@ export class ProductListFilteredComponent implements OnInit {
     if (this.searching) {
       this.subs = this.productService.getAllProductsPaginated().subscribe(data => {
         this.products = data;
-        this.filteredProducts = data;
+        this.filter();
       });
     }
 
     if (!this.searching) {
       this.subs = this.productService.getSexProductsPaginated(this.category).subscribe(data => {
         this.products = data;
-
-        if (this.currentCategory !== '') {
-          console.log('category not null');
-          this.onCategory(this.currentCategory);
-        } else {
-          console.log('category null');
-          this.filteredProducts = data;
-        }
+        this.filter();
       });
     }
+  }
+
+  onCategory(category: string) {
+    this.currentCategory = category;
+    this.filter();
+  }
+
+  onSize(size: string) {
+    this.currentSize = size;
+    this.filter();
+  }
+
+  onPrice(min: number, max: number) {
+    this.currentPrice = {min: min, max: max};
+    this.filter();
   }
 
   displaySearch() {
     this.generalSearchForm.get('search').valueChanges.subscribe((text: string) => {
       console.log(text);
       if (text !== null && text !== '') {
-        console.log('entro al posta');
-        this.filteredProducts = this.products.filter(c => c.name.toLowerCase().includes(text.toLowerCase()));
-      }
-      if (text === '') {
-        console.log('entro al vacio');
-        this.filteredProducts = this.products;
+        this.currentText = text;
+        this.filter();
       }
     });
   }
 
-  onCategory(category: string) {
-    this.currentCategory = category;
-    this.filteredProducts = this.products.filter(p => p.category.includes(category));
-  }
+  filter() {
+    let a = this.products;
 
-  onSize(size: string) {
-    this.currentSize = size;
-    this.filteredProducts = this.products.filter(p => p.sizes.includes(size));
-  }
+    if (this.currentCategory !== '') {
+      a = a.filter(p => p.category.includes(this.currentCategory));
+    }
+    if (this.currentSize !== '') {
+      a = a.filter(p => p.category.includes(this.currentSize));
+    }
+    if (this.currentPrice.min !== 0) {
+      a = a.filter(p => (p.price >= this.currentPrice.min && p.price < this.currentPrice.max));
+    }
+    if (this.currentText !== '') {
+      a = a.filter(c => c.name.toLowerCase().includes(this.currentText.toLowerCase()));
+    }
 
-  onPrice(min: number, max: number) {
-    this.currentPrice = {min: min, max: max};
-    this.filteredProducts = this.products.filter(p => (p.price >= min && p.price < max));
+    this.filteredProducts = a;
   }
 
 }
