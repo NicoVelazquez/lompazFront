@@ -32,7 +32,7 @@ export class SearchBarComponent implements OnInit {
       if (text !== null && text !== '') {
         this.searchList = this.products.filter(c => {
           return c.name.toLowerCase().includes(text.toLowerCase());
-        });
+        }).slice(0, 5);
       } else {
         this.searchList = [];
       }
@@ -55,7 +55,7 @@ export class SearchBarComponent implements OnInit {
 
   onSearch() {
     UIkit.dropdown('.search-dropdown').hide();
-    console.log('entro')
+    console.log('entro');
     if (this.generalSearchForm.get('search').value === null) {
       this.router.navigate(['/filtered'], {queryParams: {search: 'all'}});
       this.generalSearchForm.reset();
