@@ -12,7 +12,8 @@ export const environment = {
     storageBucket: 'lompaz-d4bb8.appspot.com',
     messagingSenderId: '498232659501'
   },
-  mercadoPagoProxyBaseUrl: 'http://localhost:8080'
+  // mercadoPagoProxyBaseUrl: 'http://localhost:8080'
+  mercadoPagoProxyBaseUrl: 'http://lompaz-2.us-west-2.elasticbeanstalk.com'
 };
 
 /*

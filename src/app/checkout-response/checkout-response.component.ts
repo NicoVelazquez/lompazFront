@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MercadoLibreService} from '../shared/services/mercado-libre.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductService} from '../shared/services/product.service';

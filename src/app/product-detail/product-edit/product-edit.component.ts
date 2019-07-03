@@ -142,22 +142,29 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 
   confirmDeleteProduct() {
     this.router.navigate(['']);
+    this.productService.deleteProductFromCarts(this.product.id);
 
-    this.productService.deleteProduct(this.product.id).then(() => {
-      UIkit.notification({
-        message: 'Producto eliminado exitosamente',
-        status: 'primary',
-        pos: 'top-right'
-      });
-      UIkit.modal('#confirmDeleteProduct').hide();
-    }).catch(err => {
-      UIkit.notification({
-        message: 'No se ha podido eliminar exitosamente',
-        status: 'primary',
-        pos: 'top-right'
-      });
-      console.log(err);
-    });
+    //   .subscribe((carts) => {
+    //   // console.log('se borro de todos los carts');
+    //   console.log(carts);
+    // });
+
+
+    // this.productService.deleteProduct(this.product.id).then(() => {
+    //   UIkit.notification({
+    //     message: 'Producto eliminado exitosamente',
+    //     status: 'primary',
+    //     pos: 'top-right'
+    //   });
+    //   UIkit.modal('#confirmDeleteProduct').hide();
+    // }).catch(err => {
+    //   UIkit.notification({
+    //     message: 'No se ha podido eliminar exitosamente',
+    //     status: 'primary',
+    //     pos: 'top-right'
+    //   });
+    //   console.log(err);
+    // });
   }
 
   displayCategories() {

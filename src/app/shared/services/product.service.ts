@@ -35,6 +35,30 @@ export class ProductService {
       .delete();
   }
 
+  public deleteProductFromCarts(productid: string): any {
+    this.afs.collection('users').get().subscribe(querySnapshot => {
+      const that = this;
+      querySnapshot.forEach(function (doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id);
+        that.deleteCartProduct2(productid, doc.id).then(() => {
+          console.log('borro');
+        }).catch((err) => {
+          console.log('no borro xq: ' + err);
+        });
+      });
+    });
+  }
+
+  public deleteCartProduct2(cartProductId: string, userId: string): Promise<any> {
+    return this.afs.doc('carts/' + userId).collection('cart-products').doc(cartProductId)
+      .delete();
+  }
+
+  // public deleteProductFromFavorites(id: string): Promise<any> {
+  //   return undefined;
+  // }
+
   public getAllProducts(): Observable<any> {
     return this.afs.collection('products')
       .snapshotChanges().pipe(
