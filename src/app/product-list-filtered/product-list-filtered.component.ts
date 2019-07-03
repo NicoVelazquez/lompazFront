@@ -3,6 +3,7 @@ import {ProductService} from '../shared/services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../shared/services/category.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-product-list-filtered',
@@ -23,6 +24,10 @@ export class ProductListFilteredComponent implements OnInit {
 
   public generalSearchForm: FormGroup;
 
+  subs: Subscription;
+
+  category = '';
+
   constructor(private productService: ProductService, private categoryService: CategoryService,
               private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
     this.generalSearchForm = fb.group({
@@ -36,8 +41,9 @@ export class ProductListFilteredComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params.category) {
         this.searching = false;
+        this.category = params.category;
 
-        this.productService.getSexProducts(params.category).subscribe(data => {
+        this.subs = this.productService.getSexProductsPaginated(params.category).subscribe(data => {
           this.products = data;
           this.filteredProducts = data;
         });
@@ -45,7 +51,7 @@ export class ProductListFilteredComponent implements OnInit {
       if (params.search) {
         this.searching = true;
 
-        this.productService.getAllProducts().subscribe(data => {
+        this.subs = this.productService.getAllProductsPaginated().subscribe(data => {
           this.products = data;
           this.filteredProducts = data;
 
@@ -59,6 +65,23 @@ export class ProductListFilteredComponent implements OnInit {
         this.categories = data;
       });
     });
+  }
+
+  more() {
+    this.subs.unsubscribe();
+    if (this.searching) {
+      this.subs = this.productService.getAllProductsPaginated().subscribe(data => {
+        this.products = data;
+        this.filteredProducts = data;
+      });
+    }
+
+    if (!this.searching) {
+      this.subs = this.productService.getSexProductsPaginated(this.category).subscribe(data => {
+        this.products = data;
+        this.filteredProducts = data;
+      });
+    }
   }
 
   displaySearch() {

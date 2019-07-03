@@ -14,6 +14,9 @@ import {ProviderMeta} from '@angular/compiler';
 })
 export class ProductService {
 
+  sLimit = 0;
+  cLimit = 0;
+
   constructor(private afs: AngularFirestore, private storage: AngularFireStorage) {
   }
 
@@ -82,6 +85,19 @@ export class ProductService {
       );
   }
 
+  public getAllProductsPaginated(): Observable<any> {
+    return this.afs.collection('products', ref => ref.orderBy('name', 'asc').limit(this.sLimit += 8))
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            data['id'] = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
+  }
+
   public getProduct(id: number): Observable<any> {
     return this.afs.doc('products/' + id)
       .valueChanges();
@@ -90,6 +106,19 @@ export class ProductService {
 
   public getSexProducts(sex: string): Observable<any> {
     return this.afs.collection('products', ref => ref.where('sex', '==', sex))
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            data['id'] = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
+  }
+
+  public getSexProductsPaginated(sex: string): Observable<any> {
+    return this.afs.collection('products', ref => ref.where('sex', '==', sex).limit(this.cLimit += 8))
       .snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
