@@ -15,10 +15,8 @@ export class ProductListFilteredComponent implements OnInit {
   products = [];
   filteredProducts = [];
   categories = [];
-  sizes = ['S', 'M', 'L', 'XL'];
-  prices = [{'name': 'menor $100', 'pMin': 0, 'pMax': 100}, {'name': '$100 ~ $200', 'pMin': 100, 'pMax': 200},
-    {'name': '$200 ~ $300', 'pMin': 200, 'pMax': 300}, {'name': '$300 ~ $400', 'pMin': 300, 'pMax': 400},
-    {'name': 'mayor $400', 'pMin': 400, 'pMax': Number.POSITIVE_INFINITY}];
+  sizes = [];
+  prices = [];
 
   searching = false;
 
@@ -68,6 +66,8 @@ export class ProductListFilteredComponent implements OnInit {
       this.categoryService.getAllCategories().subscribe(data => {
         this.categories = data;
       });
+
+      this.reset();
     });
   }
 
@@ -120,7 +120,7 @@ export class ProductListFilteredComponent implements OnInit {
       a = a.filter(p => p.category.includes(this.currentCategory));
     }
     if (this.currentSize !== '') {
-      a = a.filter(p => p.category.includes(this.currentSize));
+      a = a.filter(p => p.sizes.includes(this.currentSize));
     }
     if (this.currentPrice.min !== -1) {
       a = a.filter(p => (p.price >= this.currentPrice.min && p.price < this.currentPrice.max));
@@ -130,6 +130,18 @@ export class ProductListFilteredComponent implements OnInit {
     }
 
     this.filteredProducts = a;
+  }
+
+  reset() {
+    this.currentCategory = '';
+    // this.currentSize = '';
+    this.currentPrice = {min: -1, max: 0};
+    this.currentText = '';
+
+    this.sizes = ['S', 'M', 'L', 'XL'];
+    this.prices = [{'name': 'menor $100', 'pMin': 0, 'pMax': 100}, {'name': '$100 ~ $200', 'pMin': 100, 'pMax': 200},
+      {'name': '$200 ~ $300', 'pMin': 200, 'pMax': 300}, {'name': '$300 ~ $400', 'pMin': 300, 'pMax': 400},
+      {'name': 'mayor $400', 'pMin': 400, 'pMax': Number.POSITIVE_INFINITY}];
   }
 
 }

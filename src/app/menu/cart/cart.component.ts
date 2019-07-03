@@ -82,7 +82,7 @@ export class CartComponent implements OnInit, OnChanges {
         title: p.name,
         description: p.description,
         pictureUrl: p.photosUrl[0],
-        quantity: 1,
+        quantity: p.cuantity,
         unitPrice: p.price,
         currencyId: 'ARS'
       });
