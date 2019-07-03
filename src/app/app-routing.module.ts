@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'profile', component: MenuComponent, canActivate: [AuthGuard]},
   {path: 'cart', component: MenuComponent, canActivate: [AuthGuard]},
   {path: 'favorites', component: MenuComponent, canActivate: [AuthGuard]},
-  {path: 'orders', component: MenuComponent, canActivate: [AuthGuard]},
+  {path: 'orders', component: MenuComponent},
   {path: 'manage/products', component: AdminSettingsComponent, canActivate: [AuthGuard], data: { roles: ['Admin']}},
   {path: 'manage/categories', component: AdminSettingsComponent, canActivate: [AuthGuard], data: { roles: ['Admin']}},
   {path: 'manage/banners', component: AdminSettingsComponent, canActivate: [AuthGuard], data: { roles: ['Admin']}},
