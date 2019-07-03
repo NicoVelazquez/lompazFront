@@ -30,7 +30,7 @@ export class ProductListFilteredComponent implements OnInit {
 
   currentCategory = '';
   currentSize = '';
-  currentPrice = {min: 0, max: 0};
+  currentPrice = {min: -1, max: 0};
   currentText = '';
 
   constructor(private productService: ProductService, private categoryService: CategoryService,
@@ -122,7 +122,7 @@ export class ProductListFilteredComponent implements OnInit {
     if (this.currentSize !== '') {
       a = a.filter(p => p.category.includes(this.currentSize));
     }
-    if (this.currentPrice.min !== 0) {
+    if (this.currentPrice.min !== -1) {
       a = a.filter(p => (p.price >= this.currentPrice.min && p.price < this.currentPrice.max));
     }
     if (this.currentText !== '') {
