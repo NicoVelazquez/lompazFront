@@ -53,7 +53,6 @@ export class ProductEditComponent implements OnInit, OnDestroy {
           name: this.product.name,
           price: this.product.price,
           description: this.product.description,
-          // TODO ver de ponerlo bien
           category: this.product.category[0]
         });
         this.sex = this.product.sex;
@@ -86,12 +85,10 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   }
 
   readUrl(event: any) {
-    // Se podria agregar un spinner TODO
     setTimeout(() => {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (event2: ProgressEvent) => {
-          // Agregar la imagen a la base TODO
           this.product.photoUrl.push((<FileReader>event2.target).result);
         };
         reader.readAsDataURL(event.target.files[0]);
@@ -109,7 +106,6 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   }
 
   saveProduct(id: string) {
-    // Hay que guardar el producto bien TODO
     const saveProduct = {
       name: this.editForm.value.name,
       price: this.editForm.value.price,

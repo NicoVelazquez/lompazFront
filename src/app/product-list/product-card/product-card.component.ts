@@ -20,7 +20,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToFavorites(id: string) {
-    // Ver que pasa cuando salgo de la lista y lo veo devuelta... TODO
+    // TODO - Cuando salgo de la lista y entro devuelta, no me aparece como marcado favorito
     if (document.getElementById('i' + id).style.backgroundColor === '') {
       this.productService.addFavoriteProduct(this.product).then(() => {
         document.getElementById('i' + id).style.backgroundColor = '#4DA3E2';

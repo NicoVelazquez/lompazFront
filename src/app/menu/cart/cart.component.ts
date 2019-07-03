@@ -52,7 +52,6 @@ export class CartComponent implements OnInit, OnChanges {
   }
 
   removeFromCart(id: string) {
-    // TODO probar que se este borrando bien de front
     this.productService.deleteCartProduct(id).then(() => {
       UIkit.notification({
         message: 'Quitado de carrito',
@@ -60,17 +59,6 @@ export class CartComponent implements OnInit, OnChanges {
         pos: 'top-right'
       });
     });
-    // for (let i = 0; i < this.products.length; i++) {
-    //   if (this.products[i].id === id) {
-    //     this.products.splice(i, 1);
-    //     this.calculateTotalPrice();
-    //     UIkit.notification({
-    //       message: 'Quitado de carrito',
-    //       status: 'primary',
-    //       pos: 'top-right'
-    //     });
-    //   }
-    // }
   }
 
   checkout() {
@@ -100,18 +88,26 @@ export class CartComponent implements OnInit, OnChanges {
 
     };
 
-    this.meLiService.setCurrentCart(this.products).then((e) => {
-      this.meLiService.postPreference(this.request).then(r => {
-        console.log(r);
-        // lo hace en la misma pestaña
-        window.location.href = r.sandboxInitPoint;
-        // lo hace en una pestaña nueva
-        // window.open(r.sandboxInitPoint, undefined, undefined, true);
-      }).catch(err => {
-        // TODO: q hacemos? redireccionamos a una pagina de error geenrica ?
-        console.log(err);
-      });
+    // TODO - DESCOMENTAR PARA QUE FUNCUIONE MERCADO PAGO - (TENER LEVANTADO EL BACK)
+    // this.meLiService.setCurrentCart(this.products).then((e) => {
+    //   this.meLiService.postPreference(this.request).then(r => {
+    //     console.log(r);
+    //     // lo hace en la misma pestaña
+    //     window.location.href = r.sandboxInitPoint;
+    //     // lo hace en una pestaña nueva
+    //     // window.open(r.sandboxInitPoint, undefined, undefined, true);
+    //   }).catch(err => {
+    //     console.log(err);
+    //   });
+    // });
+
+    // TODO - BORRAR
+    UIkit.notification({
+      message: 'COMENTADO EL METODO DE MERCADO PAGO',
+      status: 'danger',
+      pos: 'top-right'
     });
+
   }
 
 }

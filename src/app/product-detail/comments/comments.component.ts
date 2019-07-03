@@ -49,7 +49,6 @@ export class CommentsComponent implements OnInit, OnChanges {
   }
 
   saveComment($event) {
-    // TODO falta agarrar el usuario logueado
     const newComment = {
       title: $event.comment.title,
       comment: $event.comment.comment,

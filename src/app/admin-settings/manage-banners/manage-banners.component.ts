@@ -40,9 +40,7 @@ export class ManageBannersComponent implements OnInit {
   }
 
   readUrl(event: any) {
-    // Arreglar bien esto TODO
     this.showSpinner = true;
-
 
     setTimeout(() => {
       this.showSpinner = false;
@@ -73,8 +71,6 @@ export class ManageBannersComponent implements OnInit {
       photoUrl: []
     };
 
-    // TODO Poner los .catch devuelta bien
-    // Fijarme como hacer para pasar el id y arreglo de fotos
     this.bannerService.addBannerPhotos(newBanner.name, this.photosFiles[0]).then(data => {
       data.subscribe(url => {
         newBanner.photoUrl.push(url);

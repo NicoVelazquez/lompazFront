@@ -54,8 +54,6 @@ export class ManageProductsComponent implements OnInit {
       date: Date.now()
     };
 
-    // // TODO Poner los .catch devuelta bien
-    // Fijarme como hacer para pasar el id y arreglo de fotos
     this.productService.addProductPhotos(newProduct.name, this.photosFiles[0]).then(data => {
       data.subscribe(url => {
         newProduct.photosUrl.push(url);
@@ -84,7 +82,6 @@ export class ManageProductsComponent implements OnInit {
   }
 
   readUrl(event: any) {
-    // TODO Se podria agregar un spinner
     setTimeout(() => {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();

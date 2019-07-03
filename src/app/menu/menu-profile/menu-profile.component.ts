@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {PasswordValidation} from '../../shared/validators/password-validation';
 import * as UIkit from 'uikit';
 import {Router} from '@angular/router';
 import {UserService} from '../../shared/services/user.service';
@@ -13,8 +12,6 @@ import {AuthService} from '../../shared/services/auth.service';
 })
 export class MenuProfileComponent implements OnInit {
 
-  // No habria que tener esta variable, se deberia cambiar la image del user TODO
-  imageUrl: any;
   sexes = [{'name': 'Femenino', 'checked': false}, {'name': 'Masculino', 'checked': false}];
   user: any;
   public profileForm: FormGroup;
@@ -58,7 +55,6 @@ export class MenuProfileComponent implements OnInit {
 
   readUrl(event: any) {
     this.loading = true;
-    // Se podria agregar un spinner TODO
     setTimeout(() => {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();

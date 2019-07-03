@@ -197,7 +197,6 @@ export class ProductService {
     });
   }
 
-  // TODO - probar que se este agregando el producto con el id del product
   public addFavoriteProduct(product: any): Promise<any> {
     const userId = window.localStorage.getItem('id');
     return this.afs.doc('favorites/' + userId).collection('favorites-products').doc(product.id)
@@ -218,7 +217,6 @@ export class ProductService {
       );
   }
 
-  // TODO - probar que se este borrando bien (depende de que se haya agreagdo bien)
   public deleteFavoriteProduct(cartProductId: string): Promise<any> {
     const userId = window.localStorage.getItem('id');
     return this.afs.doc('favorites/' + userId).collection('favorites-products').doc(cartProductId)
@@ -228,7 +226,7 @@ export class ProductService {
 
   // CATEGORIES
 
-  // TODO poder hacer un .contain() en lugar del '=='
+  // TODO poder hacer un .contain() en lugar del '==' (SI TENEMOS MAS DE UNA CATEGORIA POR PRODUCTO)
   public getCategoryProducts(category: string): any {
     return this.afs.collection('products', ref => ref.where('category', '==', category).limit(4))
       .snapshotChanges().pipe(
