@@ -47,6 +47,10 @@ export class MercadoLibreService {
       .add(order);
   }
 
+  public sendMail(request: any): Promise<any> {
+    return this.http.get<any>(`${environment.mercadoPagoProxyBaseUrl}/emails`, request).toPromise();
+  }
+
   public getAllOrders(): Observable<any> {
     const userId = window.localStorage.getItem('id');
     return this.afs.doc('user-orders/' + userId).collection('orders', ref =>

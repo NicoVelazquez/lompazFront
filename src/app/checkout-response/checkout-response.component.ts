@@ -3,6 +3,7 @@ import {MercadoLibreService} from '../shared/services/mercado-libre.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProductService} from '../shared/services/product.service';
 import * as UIkit from 'uikit';
+import {AuthService} from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-checkout-response',
@@ -18,7 +19,7 @@ export class CheckoutResponseComponent implements OnInit {
   response = 'success';
 
   constructor(private meLiService: MercadoLibreService, private aRouter: ActivatedRoute, private router: Router,
-              private productService: ProductService) {
+              private productService: ProductService, private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -66,9 +67,21 @@ export class CheckoutResponseComponent implements OnInit {
               products: this.cart
             }
           ).then(() => {
-            setTimeout(() => {
-              this.router.navigate(['/orders']);
-            }, 2000);
+
+            const request = {
+              email: this.auth.currentUser.email,
+              url: 'http://localhost:4201/orders',
+              merchant_order_id: this.merchant_order_id
+            };
+
+            console.log(request);
+
+            this.meLiService.sendMail(request).then(() => {
+              setTimeout(() => {
+                this.router.navigate(['/orders']);
+              }, 2000);
+            });
+
           });
 
         });
